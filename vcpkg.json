@@ -1,0 +1,20 @@
+{
+    "dependencies": [
+        {
+            "name": "imgui",
+            "features": [
+                "win32-binding",
+                "dx11-binding"
+            ],
+            "platform": "(windows & x86 & static)"
+        },
+        {
+            "name": "minhook",
+            "platform": "(windows & x86 & static)"
+        },
+        {
+            "name": "spdlog",
+            "platform": "(windows & x86 & static)"
+        }
+    ]
+}
