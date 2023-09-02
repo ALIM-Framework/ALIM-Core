@@ -35,7 +35,7 @@ DWORD WINAPI Entry(LPVOID Parameter) {
         hWnd = FindWindowW(nullptr, WindowTitle);
     }
 
-    ALIM_CORE_DEBUG("HWND: {:x}", reinterpret_cast<uintptr_t>(hWnd));
+    ALIM_CORE_DEBUG("HWND: {:#x}", reinterpret_cast<uintptr_t>(hWnd));
 
     ALIM::Menu::GetInstance().Initialize(hWnd);
     ALIM::Present::Hook(hWnd);

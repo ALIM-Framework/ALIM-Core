@@ -43,8 +43,6 @@ using tResizeBuffers = std::add_pointer_t<HRESULT WINAPI(IDXGISwapChain* pSwapCh
     DXGI_FORMAT NewFormat,
     UINT SwapChainFlags)>;
 
-using tSetCursorPos  = std::add_pointer_t<BOOL WINAPI(int x, int y)>;
-
 // Globals
 //------------------------------------------------------------------------
 static tD3D11CreateDeviceAndSwapChain oD3D11CreateDeviceAndSwapChain = nullptr;
@@ -163,7 +161,7 @@ HRESULT WINAPI hD3D11CreateDeviceAndSwapChain(
             return DeviceCreateResult;
         }
 
-        ALIM_CORE_DEBUG("Got D3D11 Present: {:x}", reinterpret_cast<uintptr_t>(pD3D11Present));
+        ALIM_CORE_DEBUG("Got D3D11 Present: {:#x}", reinterpret_cast<uintptr_t>(pD3D11Present));
 
         Result = Memory::InstallHook(pResizeBuffers, &hResizeBuffers, reinterpret_cast<LPVOID*>(&oResizeBuffers));
         if (Result.Error != MH_OK) {
@@ -171,65 +169,64 @@ HRESULT WINAPI hD3D11CreateDeviceAndSwapChain(
             return DeviceCreateResult;
         }
 
-        ALIM_CORE_DEBUG("Got DXGI Resize Buffers: {:x}", reinterpret_cast<uintptr_t>(pResizeBuffers));
+        ALIM_CORE_DEBUG("Got DXGI Resize Buffers: {:#x}", reinterpret_cast<uintptr_t>(pResizeBuffers));
     }
 
     return DeviceCreateResult;
 }
 
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 LRESULT CALLBACK hWindowProcedure(HWND hWnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {
     ALIM::Menu* MenuInstance = &ALIM::Menu::GetInstance();
     bool ShouldDraw = MenuInstance->GetShouldDraw();
 
+    RECT WindowRect;
+
     if (Message == WM_KEYUP) {
         if (wParam == VK_F1) {
             ShouldDraw = !ShouldDraw;
             MenuInstance->SetShouldDraw(ShouldDraw);
+
+            if (ShouldDraw) {
+                ClipCursor(NULL);
+                ShowCursor(true);
+            } else {
+                GetClientRect(hWnd, &WindowRect);
+                MapWindowPoints(hWnd, NULL, reinterpret_cast<LPPOINT>(&WindowRect), 2);
+                ClipCursor(&WindowRect);
+                ShowCursor(false);
+            }
         }
     }
+
+    ImGuiIO& io = ImGui::GetIO();
 
     if (!ShouldDraw)
         return CallWindowProc(oWindowProcedure, hWnd, Message, wParam, lParam);
 
-    ImGuiIO& io = ImGui::GetIO();
-    POINT cursorPos;
-    GetCursorPos(&cursorPos);
-    ScreenToClient(hWnd, &cursorPos);
-    io.MousePos.x = static_cast<float>(cursorPos.x);
-    io.MousePos.y = static_cast<float>(cursorPos.y);
+    if (ImGui_ImplWin32_WndProcHandler(hWnd, Message, wParam, lParam))
+        return true;
 
     if (Message == WM_KEYDOWN || Message == WM_KEYUP) {
         const bool IsKeyDown = (Message == WM_KEYDOWN || Message == WM_SYSKEYDOWN);
         std::size_t VirtualKey = static_cast<std::size_t>(wParam);
 
-        if (VirtualKey == VK_F4 && (GetAsyncKeyState(VK_MENU) & 0x8000))
-            return CallWindowProc(oWindowProcedure, hWnd, Message, wParam, lParam);
-
         const ImGuiKey KeyPressed = ImGuiUtil::VirtualKeyToImGuiKey(VirtualKey);
         const std::size_t Scancode = static_cast<std::size_t>LOBYTE(HIWORD(lParam));
         if (KeyPressed != ImGuiKey_None)
             io.AddKeyEvent(KeyPressed, IsKeyDown);
-        return true;
-    } else if (Message == WM_LBUTTONDOWN || Message == WM_LBUTTONUP ||
-            Message == WM_RBUTTONDOWN || Message == WM_RBUTTONUP ||
-            Message == WM_MBUTTONDOWN || Message == WM_MBUTTONUP ||
-            Message == WM_XBUTTONDOWN || Message == WM_XBUTTONUP) {
-        int Button = 0;
-        if (Message == WM_LBUTTONDOWN || Message == WM_LBUTTONUP) Button = 0;
-        if (Message == WM_RBUTTONDOWN || Message == WM_RBUTTONUP) Button = 1;
-        if (Message == WM_MBUTTONDOWN || Message == WM_MBUTTONUP) Button = 2;
-        if (Message == WM_XBUTTONDOWN || Message == WM_XBUTTONUP) Button = (GET_XBUTTON_WPARAM(wParam) == XBUTTON1) ? 3 : 4;
-    
-        io.AddMouseButtonEvent(Button, Message == WM_LBUTTONDOWN || Message == WM_RBUTTONDOWN || Message == WM_MBUTTONDOWN || Message == WM_XBUTTONDOWN);
-        return true;
-    } else if (Message == WM_MOUSEMOVE || Message == WM_NCMOUSEMOVE) {
-        return true;
-    }
 
-    extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-    if (ShouldDraw && ImGui_ImplWin32_WndProcHandler(hWnd, Message, wParam, lParam))
         return true;
+    } else if (Message >= WM_LBUTTONDOWN && Message <= WM_XBUTTONUP) {
+        int MButton = -1;
+        if (Message == WM_LBUTTONDOWN || Message == WM_LBUTTONUP) MButton = 0;
+        if (Message == WM_RBUTTONDOWN || Message == WM_RBUTTONUP) MButton = 1;
+        if (Message == WM_MBUTTONDOWN || Message == WM_MBUTTONUP) MButton = 2;
+        if (Message == WM_XBUTTONDOWN || Message == WM_XBUTTONUP) MButton = (GET_XBUTTON_WPARAM(wParam) == XBUTTON1) ? 3 : 4;
+
+        io.AddMouseButtonEvent(MButton, Message == WM_LBUTTONDOWN || Message == WM_RBUTTONDOWN || Message == WM_MBUTTONDOWN || Message == WM_XBUTTONDOWN);
+    }
 
     return true;
 }
