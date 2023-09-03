@@ -14,76 +14,92 @@ import <span>;
 
 using namespace ALIM;
 
+// https://github.com/BeamMP/BeamMP-Server/blob/2c29a195f9f58f5512cd74469082e542aff49a29/src/LuaAPI.cpp#L12
 std::string LuaToString(const sol::object Value, size_t Indent = 1, bool QuoteStrings = false) {
-    if (Indent > 80) {
-        return "[[possible recursion, refusing to keep printing]]";
-    }
+    if (Indent > 80)
+        return "[[Possible Recursion, refusing to keep printing]]";
+
     switch (Value.get_type()) {
-    case sol::type::userdata: {
-        std::stringstream ss;
-        ss << "[[userdata: " << Value.as<sol::userdata>().pointer() << "]]";
-        return ss.str();
-    }
-    case sol::type::thread: {
-        std::stringstream ss;
-        ss << "[[thread: " << Value.as<sol::thread>().pointer() << "]] {"
-           << "\n";
-        for (size_t i = 0; i < Indent; ++i) {
-            ss << "\t";
+        case sol::type::userdata: {
+            std::stringstream ss;
+            ss << "[[UserData: " << Value.as<sol::userdata>().pointer() << "]]";
+            return ss.str();
         }
-        ss << "status: " << std::to_string(int(Value.as<sol::thread>().status())) << "\n}";
-        return ss.str();
-    }
-    case sol::type::lightuserdata: {
-        std::stringstream ss;
-        ss << "[[lightuserdata: " << Value.as<sol::lightuserdata>().pointer() << "]]";
-        return ss.str();
-    }
-    case sol::type::string:
-        if (QuoteStrings) {
-            return "\"" + Value.as<std::string>() + "\"";
-        } else {
-            return Value.as<std::string>();
-        }
-    case sol::type::number: {
-        std::stringstream ss;
-        ss << Value.as<float>();
-        return ss.str();
-    }
-    case sol::type::lua_nil:
-    case sol::type::none:
-        return "<nil>";
-    case sol::type::boolean:
-        return Value.as<bool>() ? "true" : "false";
-    case sol::type::table: {
-        std::stringstream Result;
-        auto Table = Value.as<sol::table>();
-        Result << "[[table: " << Table.pointer() << "]]: {";
-        if (!Table.empty()) {
-            for (const auto& Entry : Table) {
-                Result << "\n";
-                for (size_t i = 0; i < Indent; ++i) {
-                    Result << "\t";
-                }
-                Result << LuaToString(Entry.first, Indent + 1) << ": " << LuaToString(Entry.second, Indent + 1, true) << ",";
+
+        case sol::type::thread: {
+            std::stringstream ss;
+            ss << "[[Thread: " << Value.as<sol::thread>().pointer() << "]] {"
+            << "\n";
+            for (size_t i = 0; i < Indent; ++i) {
+                ss << "\t";
             }
-            Result << "\n";
+            ss << "status: " << std::to_string(int(Value.as<sol::thread>().status())) << "\n}";
+            return ss.str();
         }
-        for (size_t i = 0; i < Indent - 1; ++i) {
-            Result << "\t";
+
+        case sol::type::lightuserdata: {
+            std::stringstream ss;
+            ss << "[[LightUserData: " << Value.as<sol::lightuserdata>().pointer() << "]]";
+            return ss.str();
         }
-        Result << "}";
-        return Result.str();
-    }
-    case sol::type::function: {
-        std::stringstream ss;
-        ss << "[[function: " << Value.as<sol::function>().pointer() << "]]";
-        return ss.str();
-    }
-    case sol::type::poly:
-        return "<poly>";
-    default:
-        return "<unprintable type>";
+
+        case sol::type::string: {
+            if (QuoteStrings) {
+                return "\"" + Value.as<std::string>() + "\"";
+            } else {
+                return Value.as<std::string>();
+            }
+        }
+
+        case sol::type::number: {
+            std::stringstream ss;
+            ss << Value.as<float>();
+            return ss.str();
+        }
+
+        case sol::type::lua_nil:
+
+            [[fallthrough]];
+        case sol::type::none:
+
+            return "<nil>";
+        case sol::type::boolean:
+            return Value.as<bool>() ? "true" : "false";
+
+        case sol::type::table: {
+            std::stringstream Result;
+            auto Table = Value.as<sol::table>();
+            Result << "[[table: " << Table.pointer() << "]]: {";
+            if (!Table.empty()) {
+                for (const auto& Entry : Table) {
+                    Result << "\n";
+                    for (size_t i = 0; i < Indent; ++i)
+                        Result << "\t";
+
+                    Result << LuaToString(Entry.first, Indent + 1) << ": " << LuaToString(Entry.second, Indent + 1, true) << ",";
+                }
+
+                Result << "\n";
+            }
+
+            for (size_t i = 0; i < Indent - 1; ++i)
+                Result << "\t";
+
+            Result << "}";
+            return Result.str();
+        }
+
+        case sol::type::function: {
+            std::stringstream ss;
+            ss << "[[function: " << Value.as<sol::function>().pointer() << "]]";
+            return ss.str();
+        }
+
+        case sol::type::poly:
+            return "<poly>";
+
+        default:
+            return "<unprintable type>";
     }
 }
 
