@@ -46,7 +46,7 @@ project "ALIM-Core"
         runtime "Debug"
 
     filter "configurations:Release"
-        defines { "NDEBUG" }
+        defines { "NDEBUG", "IMGUI_DISABLE_OBSOLETE_FUNCTIONS=1" }
         libdirs { "$(VCPKG_ROOT)/installed/x86-windows-static/lib" }
         links { "minhook.x32", "spdlog", "fmt", "lua51" }
 
