@@ -1,9 +1,18 @@
 module;
 #include <ctime> // Included due to issue with MSVC & spdlog with localtime_s
 
+#include <imgui_impl_win32.h>
+#include <imgui_internal.h>
+#include <imstb_textedit.h>
+#include <cimgui.h>
+#include "ImGuiImpl.hpp"
+
 module Present;
 
+extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
 import PresentUtil;
+import LuaEngine;
 import Logger;
 import Memory;
 import Menu;
@@ -11,9 +20,6 @@ import Menu;
 import <print>;
 import <Windows.h>;
 import <d3d11.h>;
-import <imgui.h>;
-import <imgui_impl_dx11.h>;
-import <imgui_impl_win32.h>;
 
 using namespace ALIM;
 
@@ -114,7 +120,23 @@ HRESULT WINAPI hD3D11Present(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT
     if (!Present::RenderTargetView)
         CreateRenderTarget(pSwapChain);
 
-    Menu::GetInstance().Render();
+    if (ImGui::GetCurrentContext() && Present::RenderTargetView) {
+        ImGui_ImplDX11_NewFrame();
+        ImGui_ImplWin32_NewFrame();
+        ImGui::NewFrame();
+
+        {
+            Menu::GetInstance().Render();
+            LuaEngine::GetInstance().Render();
+        }
+
+        ImGui::EndFrame();
+        ImGui::Render();
+    
+        Present::DeviceContext->OMSetRenderTargets(1, &Present::RenderTargetView, nullptr);
+        ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+    }
+
     return oD3D11Present(pSwapChain, SyncInterval, Flags);
 }
 
@@ -175,58 +197,28 @@ HRESULT WINAPI hD3D11CreateDeviceAndSwapChain(
     return DeviceCreateResult;
 }
 
-extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-LRESULT CALLBACK hWindowProcedure(HWND hWnd, UINT Message, WPARAM wParam, LPARAM lParam)
-{
+LRESULT CALLBACK hWindowProcedure(HWND hWnd, UINT Message, WPARAM wParam, LPARAM lParam) {
+    Present::WindowHandle = hWnd;
     ALIM::Menu* MenuInstance = &ALIM::Menu::GetInstance();
-    bool ShouldDraw = MenuInstance->GetShouldDraw();
-
-    RECT WindowRect;
 
     if (Message == WM_KEYUP) {
-        if (wParam == VK_F1) {
-            ShouldDraw = !ShouldDraw;
-            MenuInstance->SetShouldDraw(ShouldDraw);
-
-            if (ShouldDraw) {
-                ClipCursor(NULL);
-                ShowCursor(true);
-            } else {
-                GetClientRect(hWnd, &WindowRect);
-                MapWindowPoints(hWnd, NULL, reinterpret_cast<LPPOINT>(&WindowRect), 2);
-                ClipCursor(&WindowRect);
-                ShowCursor(false);
-            }
+        if (wParam == VK_INSERT) {
+            ALIM_CORE_DEBUG("Reloading Lua...");
+            LuaEngine::GetInstance().Initialize();
         }
     }
 
-    ImGuiIO& io = ImGui::GetIO();
+    if (Message == WM_KEYDOWN || Message == WM_KEYUP) {
+        const bool IsKeyDown = (Message == WM_KEYDOWN || Message == WM_SYSKEYDOWN);
+        const std::size_t VirtualKey = static_cast<std::size_t>(wParam);
+        LuaEngine::GetInstance().SendKey(VirtualKey, IsKeyDown);
+    }
 
-    if (!ShouldDraw)
+    if (!Present::CursorEnabled)
         return CallWindowProc(oWindowProcedure, hWnd, Message, wParam, lParam);
 
     if (ImGui_ImplWin32_WndProcHandler(hWnd, Message, wParam, lParam))
         return true;
-
-    if (Message == WM_KEYDOWN || Message == WM_KEYUP) {
-        const bool IsKeyDown = (Message == WM_KEYDOWN || Message == WM_SYSKEYDOWN);
-        std::size_t VirtualKey = static_cast<std::size_t>(wParam);
-
-        const ImGuiKey KeyPressed = ImGuiUtil::VirtualKeyToImGuiKey(VirtualKey);
-        const std::size_t Scancode = static_cast<std::size_t>LOBYTE(HIWORD(lParam));
-        if (KeyPressed != ImGuiKey_None)
-            io.AddKeyEvent(KeyPressed, IsKeyDown);
-
-        return true;
-    } else if (Message >= WM_LBUTTONDOWN && Message <= WM_XBUTTONUP) {
-        int MButton = -1;
-        if (Message == WM_LBUTTONDOWN || Message == WM_LBUTTONUP) MButton = 0;
-        if (Message == WM_RBUTTONDOWN || Message == WM_RBUTTONUP) MButton = 1;
-        if (Message == WM_MBUTTONDOWN || Message == WM_MBUTTONUP) MButton = 2;
-        if (Message == WM_XBUTTONDOWN || Message == WM_XBUTTONUP) MButton = (GET_XBUTTON_WPARAM(wParam) == XBUTTON1) ? 3 : 4;
-
-        io.AddMouseButtonEvent(MButton, Message == WM_LBUTTONDOWN || Message == WM_RBUTTONDOWN || Message == WM_MBUTTONDOWN || Message == WM_XBUTTONDOWN);
-    }
 
     return true;
 }
@@ -253,6 +245,7 @@ bool Present::Hook(HWND hWnd) {
     }
 
     oWindowProcedure = reinterpret_cast<WNDPROC>(SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(hWindowProcedure)));
+
     return true;
 }
 

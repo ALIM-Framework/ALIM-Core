@@ -15,13 +15,32 @@ project "ALIM-Core"
     targetdir "Build/%{cfg.buildcfg}"
     objdir "Build/Intermediate/%{cfg.buildcfg}"
 
-    files { "Source/**.cpp", "Modules/**.ixx", "Modules/**.cxx" }
-    includedirs { VCPKG_ROOT .. "/installed/x86-windows-static/include", "Include" }
+    files {
+		"Source/**.cpp", "Modules/**.ixx", "Modules/**.cxx",
+        "Submodules/cimgui/cimgui.cpp",
+        "Submodules/cimgui/imgui/imgui.cpp",
+        "Submodules/cimgui/imgui/imgui_draw.cpp",
+        "Submodules/cimgui/imgui/imgui_demo.cpp",
+        "Submodules/cimgui/imgui/imgui_widgets.cpp",
+        "Submodules/cimgui/imgui/imgui_tables.cpp",
+        "Submodules/cimgui/imgui/backends/imgui_impl_win32.cpp",
+        "Submodules/cimgui/imgui/backends/imgui_impl_dx11.cpp"
+	}
+	
+    includedirs {
+        VCPKG_ROOT .. "/installed/x86-windows-static/include", -- TODO: Remove and replace with each one, that way there's no issues in the future (like having lua and luajit installed)
+        VCPKG_ROOT .. "/installed/x86-windows-static/include/luajit",
+        "Submodules/Sol2/include",
+        "Submodules/cimgui",
+		"Submodules/cimgui/imgui",
+		"Submodules/cimgui/imgui/backends",
+        "Include"
+    }
 
     filter "configurations:Debug"
-        defines { "DEBUG", "_ITERATOR_DEBUG_LEVEL=2", "SPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_TRACE" }
-        libdirs { VCPKG_ROOT .. "/installed/x86-windows-static/debug/lib" }
-        links { "minhook.x32d", "imguid", "spdlogd", "fmtd" }
+        defines { "DEBUG", "_ITERATOR_DEBUG_LEVEL=2", "SPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_TRACE", "IMGUI_DISABLE_OBSOLETE_FUNCTIONS=1" }
+        libdirs { VCPKG_ROOT .. "/installed/x86-windows-static/debug/lib", "Submodules/cimgui/cmake_build/build32/Debug" }
+        links { "minhook.x32d", "spdlogd", "fmtd", "lua51", "imm32" }
 
         symbols "On"
         runtime "Debug"
@@ -29,7 +48,7 @@ project "ALIM-Core"
     filter "configurations:Release"
         defines { "NDEBUG" }
         libdirs { "$(VCPKG_ROOT)/installed/x86-windows-static/lib" }
-        links { "minhook.x32", "imgui", "spdlog", "fmt" }
+        links { "minhook.x32", "spdlog", "fmt", "lua51" }
 
         symbols "On"
         runtime "Release"

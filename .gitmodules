@@ -1,0 +1,7 @@
+[submodule "Submodules/Sol2"]
+	path = Submodules/Sol2
+	url = https://github.com/ThePhD/sol2
+	branch = main
+[submodule "Submodules/imgui"]
+	path = Submodules/imgui
+	url = https://github.com/ocornut/imgui

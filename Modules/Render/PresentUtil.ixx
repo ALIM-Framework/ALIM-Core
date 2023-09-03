@@ -1,9 +1,12 @@
+module;
+#include <imgui.h>
+#include <imgui_internal.h>
+#include <imstb_textedit.h>
+#include <cimgui.h>
+
 export module PresentUtil;
 
 import <Windows.h>;
-import <imgui.h>;
-import <imgui_impl_dx11.h>;
-import <imgui_impl_win32.h>;
 
 constexpr int IM_VK_KEYPAD_ENTER = VK_RETURN + 256;
 
@@ -119,7 +122,7 @@ export namespace ALIM::ImGuiUtil {
     }
 
     inline void AddKeyEvent(ImGuiKey key, bool down, int native_keycode, int native_scancode = -1) {
-        ImGuiIO& io = ImGui::GetIO();
-        io.AddKeyEvent(key, down);
+//        ImGuiIO& io = ImGui::GetIO();
+//        io.AddKeyEvent(key, down);
     }
 }

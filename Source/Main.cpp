@@ -1,5 +1,6 @@
-#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_TRACE
-#include <time.h>
+#include <ctime>
+#include <imgui.h>
+#include <imgui_impl_win32.h>
 
 // Imports
 //------------------------------------------------------------------------
@@ -7,6 +8,7 @@ import Console;
 import Logger;
 import Present;
 import Memory;
+import LuaEngine;
 
 import Menu;
 
@@ -16,7 +18,6 @@ import <print>;
 
 import <MinHook.h>;
 import <Windows.h>;
-import <imgui_impl_win32.h>;
 
 // Functions
 //------------------------------------------------------------------------
@@ -24,8 +25,8 @@ DWORD WINAPI Entry(LPVOID Parameter) {
     ALIM::Console::Initialize();
     ALIM::Log::Initialize();
 
+    ALIM::LuaEngine::GetInstance().Initialize();
     MH_Initialize();
-
     ALIM_CORE_DEBUG("Entry Point");
 
     constexpr LPCWSTR WindowTitle = L"Alien: Isolation";
@@ -37,7 +38,16 @@ DWORD WINAPI Entry(LPVOID Parameter) {
 
     ALIM_CORE_DEBUG("HWND: {:#x}", reinterpret_cast<uintptr_t>(hWnd));
 
-    ALIM::Menu::GetInstance().Initialize(hWnd);
+    { // Initialize ImGui
+        IMGUI_CHECKVERSION();
+
+        ImGui::CreateContext();
+        ImGui_ImplWin32_Init(hWnd);
+
+        ImGuiIO& io = ImGui::GetIO();
+        io.IniFilename = io.LogFilename = nullptr;
+    }
+    
     ALIM::Present::Hook(hWnd);
 
     return 0;
