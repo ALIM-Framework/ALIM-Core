@@ -3,3 +3,7 @@ Build/
 vcpkg_installed/
 
 ALIM-Core.*
+
+AIROOT/DATA/ALIM/imgui.ini
+AIROOT/DATA/ALIM/LUA/console.lua
+AIROOT/DATA/ALIM/LOGS/[!.gitkeep]*.log

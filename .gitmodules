@@ -5,3 +5,9 @@
 [submodule "Submodules/imgui"]
 	path = Submodules/imgui
 	url = https://github.com/ocornut/imgui
+[submodule "Tools/ImGuiLuaGen"]
+	path = Tools/ImGuiLuaGen
+	url = https://github.com/BeamNG/ImGuiLuaGen
+[submodule "Submodules/Frozen"]
+	path = Submodules/Frozen
+	url = git@github.com:serge-sans-paille/frozen.git

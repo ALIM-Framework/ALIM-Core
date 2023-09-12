@@ -1,0 +1,19 @@
+// Add signatures to this file for it to read and generate the offsets
+// It will copy it to your clipboard
+
+export module Offsets;
+import <cstdint>;
+import Memory;
+
+export namespace ALIM::Offsets {
+    constexpr uintptr_t STD_LEVEL__OpenLevel = _SIG("\x55\x8B\xEC\x83\xE4\xF8\x6A\xFF\x68\xCC\xCC\xCC\xCC\x64\xA1\x00\x00\x00\x00\x50\x64\x89\x25\x00\x00\x00\x00\x81\xEC\x94", "xxxxxxxxx????xxxxxxxxxxxxxxxxx");
+    constexpr uintptr_t STD_LEVEL__Restart = _SIG("\x6A\xFF\x68\xCC\xCC\xCC\xCC\x64\xA1\x00\x00\x00\x00\x50\x64\x89\x25\x00\x00\x00\x00\x83\xEC\x0C\x53\x8B\x1D", "xxx????xxxxxxxxxxxxxxxxxxxx");
+
+    constexpr uintptr_t GameSave__LoadPreviousCheckpoint = _SIG("\xE8\x00\x00\x00\x00\xB0\x01\x5E\xC2\x08\x00\xE8\x00\x00\x00\x00", "x????xxxxxxx????");
+    constexpr uintptr_t GameFlow__RestartCheckpoint = _SIG("\xE8\x00\x00\x00\x00\xEB\x1E\x80\xBE\x00\x00\x00\x00\x00", "x????xxxx?????");
+
+    constexpr uintptr_t UI__LAYERMANAGER__GetLayer = _SIG("\xE8\x00\x00\x00\x00\xF3\x0F\x10\x90\x00\x00\x00\x00", "x????xxxx????");
+    constexpr uintptr_t UI__AUDIO_CALLBACK__trigger_sound_event = _SIG("\x55\x8B\xEC\x83\xE4\xF0\x81\xEC\xDC\x00\x00\x00\x8B\x4D", "xxxxxxxxxxxxxx");
+
+    constexpr uintptr_t GAME_LEVEL_MANAGER__GetLevelOrMakeNew = _SIG("\x56\x57\x8B\x7C\x24\x0C\x57\x8B\xF1\xE8\xCC\xCC\xCC\xCC\x8B\xC8", "xxxxxxxxxx????xx");
+}
