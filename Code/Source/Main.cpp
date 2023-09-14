@@ -34,14 +34,16 @@ DWORD WINAPI Entry(LPVOID Parameter) {
 
     { // Check if we should dump offsets
         bool ShouldDump = ALIM::Arg::GetCommandLineOption("dump");
-        if (ShouldDump)
+        if (ShouldDump) {
             ALIM::Dumper::Dump();
+
+            MessageBoxW(nullptr, L"Successfully Dumped Offsets! Game will now close...", L"ALIM-Core Dumper", MB_OK | MB_ICONINFORMATION);
+            ExitProcess(0);
+        }
     }
 
     ALIM::Logger::Hook();
     ALIM::Cathode::Hook();
-
-    //ALIM_CORE_DEBUG("Launching From: {}", ALIM::Arg::GetCommandLineVar<std::string>("launch-dir"));
 
     constexpr LPCWSTR WindowTitle = L"Alien: Isolation";
     HWND hWnd = FindWindowW(nullptr, WindowTitle);
@@ -84,7 +86,7 @@ BOOL WINAPI DllMain(
 {
     if (Reason == DLL_PROCESS_ATTACH) {
         DisableThreadLibraryCalls(Module);
-        CreateThread(nullptr, 0, Entry, nullptr, 0, nullptr);
+        CreateThread(nullptr, 0, Entry, Module, 0, nullptr);
     } else if (Reason == DLL_PROCESS_DETACH) {
         Cleanup();
     }
