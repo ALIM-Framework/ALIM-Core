@@ -4,6 +4,10 @@
 -- License: http://beamng.com/bCDDL-1.1.txt
 --------------------------------------------------------------------------------
 
+-- If you regenerate the bindings, replace all the logging functions via:
+-- (Search): log\(".*?", "", "(.*?)"\) ;
+-- (Replace): alim:error("$1")
+
 local ffi = require('ffi')
 
 local function readFile(filename)

@@ -41,11 +41,11 @@ function M.ShowStyleEditor(ImGuiStyle_ref)
   C.imgui_ShowStyleEditor(ImGuiStyle_ref)
 end
 function M.ShowStyleSelector(string_label) 
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'ShowStyleSelector' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'ShowStyleSelector' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_ShowStyleSelector(string_label)
 end
 function M.ShowFontSelector(string_label) 
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'ShowFontSelector' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'ShowFontSelector' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_ShowFontSelector(string_label)
 end
 function M.ShowUserGuide() C.imgui_ShowUserGuide() end
@@ -65,7 +65,7 @@ end
 function M.Begin(string_name, bool_p_open, ImGuiWindowFlags_flags) 
   -- bool_p_open is optional and can be nil
   if ImGuiWindowFlags_flags == nil then ImGuiWindowFlags_flags = 0 end
-  if string_name == nil then log("E", "", "Parameter 'string_name' of function 'Begin' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_name == nil then alim:error("Parameter 'string_name' of function 'Begin' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_Begin(string_name, bool_p_open, ImGuiWindowFlags_flags)
 end
 function M.End() C.imgui_End() end
@@ -73,7 +73,7 @@ function M.BeginChild1(string_str_id, ImVec2_size, bool_border, ImGuiWindowFlags
   if ImVec2_size == nil then ImVec2_size = M.ImVec2(0,0) end
   if bool_border == nil then bool_border = false end
   if ImGuiWindowFlags_flags == nil then ImGuiWindowFlags_flags = 0 end
-  if string_str_id == nil then log("E", "", "Parameter 'string_str_id' of function 'BeginChild1' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_str_id == nil then alim:error("Parameter 'string_str_id' of function 'BeginChild1' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_BeginChild1(string_str_id, ImVec2_size, bool_border, ImGuiWindowFlags_flags)
 end
 function M.BeginChild2(ImGuiID_id, ImVec2_size, bool_border, ImGuiWindowFlags_flags) 
@@ -136,21 +136,21 @@ function M.SetWindowFocus1() C.imgui_SetWindowFocus1() end
 function M.SetWindowFontScale(float_scale) C.imgui_SetWindowFontScale(float_scale) end
 function M.SetWindowPos2(string_name, ImVec2_pos, ImGuiCond_cond) 
   if ImGuiCond_cond == nil then ImGuiCond_cond = 0 end
-  if string_name == nil then log("E", "", "Parameter 'string_name' of function 'SetWindowPos2' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_name == nil then alim:error("Parameter 'string_name' of function 'SetWindowPos2' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_SetWindowPos2(string_name, ImVec2_pos, ImGuiCond_cond)
 end
 function M.SetWindowSize2(string_name, ImVec2_size, ImGuiCond_cond) 
   if ImGuiCond_cond == nil then ImGuiCond_cond = 0 end
-  if string_name == nil then log("E", "", "Parameter 'string_name' of function 'SetWindowSize2' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_name == nil then alim:error("Parameter 'string_name' of function 'SetWindowSize2' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_SetWindowSize2(string_name, ImVec2_size, ImGuiCond_cond)
 end
 function M.SetWindowCollapsed2(string_name, bool_collapsed, ImGuiCond_cond) 
   if ImGuiCond_cond == nil then ImGuiCond_cond = 0 end
-  if string_name == nil then log("E", "", "Parameter 'string_name' of function 'SetWindowCollapsed2' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_name == nil then alim:error("Parameter 'string_name' of function 'SetWindowCollapsed2' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_SetWindowCollapsed2(string_name, bool_collapsed, ImGuiCond_cond)
 end
 function M.SetWindowFocus2(string_name) 
-  if string_name == nil then log("E", "", "Parameter 'string_name' of function 'SetWindowFocus2' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_name == nil then alim:error("Parameter 'string_name' of function 'SetWindowFocus2' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_SetWindowFocus2(string_name)
 end
 function M.GetContentRegionAvail() return C.imgui_GetContentRegionAvail() end
@@ -180,7 +180,7 @@ function M.SetScrollFromPosY(float_local_y, float_center_y_ratio)
   C.imgui_SetScrollFromPosY(float_local_y, float_center_y_ratio)
 end
 function M.PushFont(ImFont_font) 
-  if ImFont_font == nil then log("E", "", "Parameter 'ImFont_font' of function 'PushFont' cannot be nil, as the c type is 'ImFont *'") ; return end
+  if ImFont_font == nil then alim:error("Parameter 'ImFont_font' of function 'PushFont' cannot be nil, as the c type is 'ImFont *'") return end
   C.imgui_PushFont(ImFont_font)
 end
 function M.PopFont() C.imgui_PopFont() end
@@ -253,132 +253,132 @@ function M.GetTextLineHeightWithSpacing() return C.imgui_GetTextLineHeightWithSp
 function M.GetFrameHeight() return C.imgui_GetFrameHeight() end
 function M.GetFrameHeightWithSpacing() return C.imgui_GetFrameHeightWithSpacing() end
 function M.PushID1(string_str_id) 
-  if string_str_id == nil then log("E", "", "Parameter 'string_str_id' of function 'PushID1' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_str_id == nil then alim:error("Parameter 'string_str_id' of function 'PushID1' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_PushID1(string_str_id)
 end
 function M.PushID2(string_str_id_begin, string_str_id_end) 
-  if string_str_id_begin == nil then log("E", "", "Parameter 'string_str_id_begin' of function 'PushID2' cannot be nil, as the c type is 'const char *'") ; return end
-  if string_str_id_end == nil then log("E", "", "Parameter 'string_str_id_end' of function 'PushID2' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_str_id_begin == nil then alim:error("Parameter 'string_str_id_begin' of function 'PushID2' cannot be nil, as the c type is 'const char *'") return end
+  if string_str_id_end == nil then alim:error("Parameter 'string_str_id_end' of function 'PushID2' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_PushID2(string_str_id_begin, string_str_id_end)
 end
 function M.PushID3(void_ptr_id) 
-  if void_ptr_id == nil then log("E", "", "Parameter 'void_ptr_id' of function 'PushID3' cannot be nil, as the c type is 'const void *'") ; return end
+  if void_ptr_id == nil then alim:error("Parameter 'void_ptr_id' of function 'PushID3' cannot be nil, as the c type is 'const void *'") return end
   C.imgui_PushID3(void_ptr_id)
 end
 function M.PushID4(int_int_id) C.imgui_PushID4(int_int_id) end
 function M.PopID() C.imgui_PopID() end
 function M.GetID1(string_str_id) 
-  if string_str_id == nil then log("E", "", "Parameter 'string_str_id' of function 'GetID1' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_str_id == nil then alim:error("Parameter 'string_str_id' of function 'GetID1' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_GetID1(string_str_id)
 end
 function M.GetID2(string_str_id_begin, string_str_id_end) 
-  if string_str_id_begin == nil then log("E", "", "Parameter 'string_str_id_begin' of function 'GetID2' cannot be nil, as the c type is 'const char *'") ; return end
-  if string_str_id_end == nil then log("E", "", "Parameter 'string_str_id_end' of function 'GetID2' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_str_id_begin == nil then alim:error("Parameter 'string_str_id_begin' of function 'GetID2' cannot be nil, as the c type is 'const char *'") return end
+  if string_str_id_end == nil then alim:error("Parameter 'string_str_id_end' of function 'GetID2' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_GetID2(string_str_id_begin, string_str_id_end)
 end
 function M.GetID3(void_ptr_id) 
-  if void_ptr_id == nil then log("E", "", "Parameter 'void_ptr_id' of function 'GetID3' cannot be nil, as the c type is 'const void *'") ; return end
+  if void_ptr_id == nil then alim:error("Parameter 'void_ptr_id' of function 'GetID3' cannot be nil, as the c type is 'const void *'") return end
   return C.imgui_GetID3(void_ptr_id)
 end
 function M.TextUnformatted(string_text, string_text_end) 
   -- string_text_end is optional and can be nil
-  if string_text == nil then log("E", "", "Parameter 'string_text' of function 'TextUnformatted' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_text == nil then alim:error("Parameter 'string_text' of function 'TextUnformatted' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_TextUnformatted(string_text, string_text_end)
 end
 function M.Text(string_fmt, ...) 
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'Text' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'Text' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_Text(string_fmt, ...)
 end
 function M.TextV(string_fmt, va_list_args) 
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'TextV' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'TextV' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_TextV(string_fmt, va_list_args)
 end
 function M.TextColored(ImVec4_col, string_fmt, ...) 
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'TextColored' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'TextColored' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_TextColored(ImVec4_col, string_fmt, ...)
 end
 function M.TextColoredV(ImVec4_col, string_fmt, va_list_args) 
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'TextColoredV' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'TextColoredV' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_TextColoredV(ImVec4_col, string_fmt, va_list_args)
 end
 function M.TextDisabled(string_fmt, ...) 
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'TextDisabled' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'TextDisabled' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_TextDisabled(string_fmt, ...)
 end
 function M.TextDisabledV(string_fmt, va_list_args) 
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'TextDisabledV' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'TextDisabledV' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_TextDisabledV(string_fmt, va_list_args)
 end
 function M.TextWrapped(string_fmt, ...) 
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'TextWrapped' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'TextWrapped' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_TextWrapped(string_fmt, ...)
 end
 function M.TextWrappedV(string_fmt, va_list_args) 
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'TextWrappedV' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'TextWrappedV' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_TextWrappedV(string_fmt, va_list_args)
 end
 function M.LabelText(string_label, string_fmt, ...) 
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'LabelText' cannot be nil, as the c type is 'const char *'") ; return end
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'LabelText' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'LabelText' cannot be nil, as the c type is 'const char *'") return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'LabelText' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_LabelText(string_label, string_fmt, ...)
 end
 function M.LabelTextV(string_label, string_fmt, va_list_args) 
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'LabelTextV' cannot be nil, as the c type is 'const char *'") ; return end
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'LabelTextV' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'LabelTextV' cannot be nil, as the c type is 'const char *'") return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'LabelTextV' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_LabelTextV(string_label, string_fmt, va_list_args)
 end
 function M.BulletText(string_fmt, ...) 
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'BulletText' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'BulletText' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_BulletText(string_fmt, ...)
 end
 function M.BulletTextV(string_fmt, va_list_args) 
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'BulletTextV' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'BulletTextV' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_BulletTextV(string_fmt, va_list_args)
 end
 function M.SeparatorText(string_label) 
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'SeparatorText' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'SeparatorText' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_SeparatorText(string_label)
 end
 function M.Button(string_label, ImVec2_size) 
   if ImVec2_size == nil then ImVec2_size = M.ImVec2(0,0) end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'Button' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'Button' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_Button(string_label, ImVec2_size)
 end
 function M.SmallButton(string_label) 
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'SmallButton' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'SmallButton' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_SmallButton(string_label)
 end
 function M.InvisibleButton(string_str_id, ImVec2_size, ImGuiButtonFlags_flags) 
   if ImGuiButtonFlags_flags == nil then ImGuiButtonFlags_flags = 0 end
-  if string_str_id == nil then log("E", "", "Parameter 'string_str_id' of function 'InvisibleButton' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_str_id == nil then alim:error("Parameter 'string_str_id' of function 'InvisibleButton' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_InvisibleButton(string_str_id, ImVec2_size, ImGuiButtonFlags_flags)
 end
 function M.ArrowButton(string_str_id, ImGuiDir_dir) 
-  if string_str_id == nil then log("E", "", "Parameter 'string_str_id' of function 'ArrowButton' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_str_id == nil then alim:error("Parameter 'string_str_id' of function 'ArrowButton' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_ArrowButton(string_str_id, ImGuiDir_dir)
 end
 function M.Checkbox(string_label, bool_v) 
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'Checkbox' cannot be nil, as the c type is 'const char *'") ; return end
-  if bool_v == nil then log("E", "", "Parameter 'bool_v' of function 'Checkbox' cannot be nil, as the c type is 'bool *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'Checkbox' cannot be nil, as the c type is 'const char *'") return end
+  if bool_v == nil then alim:error("Parameter 'bool_v' of function 'Checkbox' cannot be nil, as the c type is 'bool *'") return end
   return C.imgui_Checkbox(string_label, bool_v)
 end
 function M.CheckboxFlags1(string_label, int_flags, int_flags_value) 
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'CheckboxFlags1' cannot be nil, as the c type is 'const char *'") ; return end
-  if int_flags == nil then log("E", "", "Parameter 'int_flags' of function 'CheckboxFlags1' cannot be nil, as the c type is 'int *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'CheckboxFlags1' cannot be nil, as the c type is 'const char *'") return end
+  if int_flags == nil then alim:error("Parameter 'int_flags' of function 'CheckboxFlags1' cannot be nil, as the c type is 'int *'") return end
   return C.imgui_CheckboxFlags1(string_label, int_flags, int_flags_value)
 end
 function M.CheckboxFlags2(string_label, int_flags, int_flags_value) 
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'CheckboxFlags2' cannot be nil, as the c type is 'const char *'") ; return end
-  if int_flags == nil then log("E", "", "Parameter 'int_flags' of function 'CheckboxFlags2' cannot be nil, as the c type is 'unsigned int *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'CheckboxFlags2' cannot be nil, as the c type is 'const char *'") return end
+  if int_flags == nil then alim:error("Parameter 'int_flags' of function 'CheckboxFlags2' cannot be nil, as the c type is 'unsigned int *'") return end
   return C.imgui_CheckboxFlags2(string_label, int_flags, int_flags_value)
 end
 function M.RadioButton1(string_label, bool_active) 
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'RadioButton1' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'RadioButton1' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_RadioButton1(string_label, bool_active)
 end
 function M.RadioButton2(string_label, int_v, int_v_button) 
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'RadioButton2' cannot be nil, as the c type is 'const char *'") ; return end
-  if int_v == nil then log("E", "", "Parameter 'int_v' of function 'RadioButton2' cannot be nil, as the c type is 'int *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'RadioButton2' cannot be nil, as the c type is 'const char *'") return end
+  if int_v == nil then alim:error("Parameter 'int_v' of function 'RadioButton2' cannot be nil, as the c type is 'int *'") return end
   return C.imgui_RadioButton2(string_label, int_v, int_v_button)
 end
 function M.ProgressBar(float_fraction, ImVec2_size_arg, string_overlay) 
@@ -399,36 +399,36 @@ function M.ImageButton(string_str_id, ImTextureID_user_texture_id, ImVec2_size, 
   if ImVec2_uv1 == nil then ImVec2_uv1 = M.ImVec2(1,1) end
   if ImVec4_bg_col == nil then ImVec4_bg_col = M.ImVec4(0,0,0,0) end
   if ImVec4_tint_col == nil then ImVec4_tint_col = M.ImVec4(1,1,1,1) end
-  if string_str_id == nil then log("E", "", "Parameter 'string_str_id' of function 'ImageButton' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_str_id == nil then alim:error("Parameter 'string_str_id' of function 'ImageButton' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_ImageButton(string_str_id, ImTextureID_user_texture_id, ImVec2_size, ImVec2_uv0, ImVec2_uv1, ImVec4_bg_col, ImVec4_tint_col)
 end
 function M.BeginCombo(string_label, string_preview_value, ImGuiComboFlags_flags) 
   if ImGuiComboFlags_flags == nil then ImGuiComboFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'BeginCombo' cannot be nil, as the c type is 'const char *'") ; return end
-  if string_preview_value == nil then log("E", "", "Parameter 'string_preview_value' of function 'BeginCombo' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'BeginCombo' cannot be nil, as the c type is 'const char *'") return end
+  if string_preview_value == nil then alim:error("Parameter 'string_preview_value' of function 'BeginCombo' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_BeginCombo(string_label, string_preview_value, ImGuiComboFlags_flags)
 end
 function M.EndCombo() C.imgui_EndCombo() end
 function M.Combo1(string_label, int_current_item, charconstPtr_items, int_items_count, int_popup_max_height_in_items) 
   if int_popup_max_height_in_items == nil then int_popup_max_height_in_items = -1 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'Combo1' cannot be nil, as the c type is 'const char *'") ; return end
-  if int_current_item == nil then log("E", "", "Parameter 'int_current_item' of function 'Combo1' cannot be nil, as the c type is 'int *'") ; return end
-  if charconstPtr_items == nil then log("E", "", "Parameter 'charconstPtr_items' of function 'Combo1' cannot be nil, as the c type is 'const char *const[]'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'Combo1' cannot be nil, as the c type is 'const char *'") return end
+  if int_current_item == nil then alim:error("Parameter 'int_current_item' of function 'Combo1' cannot be nil, as the c type is 'int *'") return end
+  if charconstPtr_items == nil then alim:error("Parameter 'charconstPtr_items' of function 'Combo1' cannot be nil, as the c type is 'const char *const[]'") return end
   return C.imgui_Combo1(string_label, int_current_item, charconstPtr_items, int_items_count, int_popup_max_height_in_items)
 end
 function M.Combo2(string_label, int_current_item, string_items_separated_by_zeros, int_popup_max_height_in_items) 
   if int_popup_max_height_in_items == nil then int_popup_max_height_in_items = -1 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'Combo2' cannot be nil, as the c type is 'const char *'") ; return end
-  if int_current_item == nil then log("E", "", "Parameter 'int_current_item' of function 'Combo2' cannot be nil, as the c type is 'int *'") ; return end
-  if string_items_separated_by_zeros == nil then log("E", "", "Parameter 'string_items_separated_by_zeros' of function 'Combo2' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'Combo2' cannot be nil, as the c type is 'const char *'") return end
+  if int_current_item == nil then alim:error("Parameter 'int_current_item' of function 'Combo2' cannot be nil, as the c type is 'int *'") return end
+  if string_items_separated_by_zeros == nil then alim:error("Parameter 'string_items_separated_by_zeros' of function 'Combo2' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_Combo2(string_label, int_current_item, string_items_separated_by_zeros, int_popup_max_height_in_items)
 end
 function M.Combo3(string_label, int_current_item, functionPtr_items_getter, void_data, int_items_count, int_popup_max_height_in_items) 
   if int_popup_max_height_in_items == nil then int_popup_max_height_in_items = -1 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'Combo3' cannot be nil, as the c type is 'const char *'") ; return end
-  if int_current_item == nil then log("E", "", "Parameter 'int_current_item' of function 'Combo3' cannot be nil, as the c type is 'int *'") ; return end
-  if functionPtr_items_getter == nil then log("E", "", "Parameter 'functionPtr_items_getter' of function 'Combo3' cannot be nil, as the c type is 'bool (*)(void *, int, const char **)'") ; return end
-  if void_data == nil then log("E", "", "Parameter 'void_data' of function 'Combo3' cannot be nil, as the c type is 'void *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'Combo3' cannot be nil, as the c type is 'const char *'") return end
+  if int_current_item == nil then alim:error("Parameter 'int_current_item' of function 'Combo3' cannot be nil, as the c type is 'int *'") return end
+  if functionPtr_items_getter == nil then alim:error("Parameter 'functionPtr_items_getter' of function 'Combo3' cannot be nil, as the c type is 'bool (*)(void *, int, const char **)'") return end
+  if void_data == nil then alim:error("Parameter 'void_data' of function 'Combo3' cannot be nil, as the c type is 'void *'") return end
   return C.imgui_Combo3(string_label, int_current_item, functionPtr_items_getter, void_data, int_items_count, int_popup_max_height_in_items)
 end
 function M.DragFloat(string_label, float_v, float_v_speed, float_v_min, float_v_max, string_format, ImGuiSliderFlags_flags) 
@@ -437,8 +437,8 @@ function M.DragFloat(string_label, float_v, float_v_speed, float_v_min, float_v_
   if float_v_max == nil then float_v_max = 0 end
   if string_format == nil then string_format = "%.3f" end
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'DragFloat' cannot be nil, as the c type is 'const char *'") ; return end
-  if float_v == nil then log("E", "", "Parameter 'float_v' of function 'DragFloat' cannot be nil, as the c type is 'float *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'DragFloat' cannot be nil, as the c type is 'const char *'") return end
+  if float_v == nil then alim:error("Parameter 'float_v' of function 'DragFloat' cannot be nil, as the c type is 'float *'") return end
   return C.imgui_DragFloat(string_label, float_v, float_v_speed, float_v_min, float_v_max, string_format, ImGuiSliderFlags_flags)
 end
 function M.DragFloat2(string_label, floatPtr_v, float_v_speed, float_v_min, float_v_max, string_format, ImGuiSliderFlags_flags) 
@@ -447,7 +447,7 @@ function M.DragFloat2(string_label, floatPtr_v, float_v_speed, float_v_min, floa
   if float_v_max == nil then float_v_max = 0 end
   if string_format == nil then string_format = "%.3f" end
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'DragFloat2' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'DragFloat2' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_DragFloat2(string_label, floatPtr_v, float_v_speed, float_v_min, float_v_max, string_format, ImGuiSliderFlags_flags)
 end
 function M.DragFloat3(string_label, floatPtr_v, float_v_speed, float_v_min, float_v_max, string_format, ImGuiSliderFlags_flags) 
@@ -456,7 +456,7 @@ function M.DragFloat3(string_label, floatPtr_v, float_v_speed, float_v_min, floa
   if float_v_max == nil then float_v_max = 0 end
   if string_format == nil then string_format = "%.3f" end
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'DragFloat3' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'DragFloat3' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_DragFloat3(string_label, floatPtr_v, float_v_speed, float_v_min, float_v_max, string_format, ImGuiSliderFlags_flags)
 end
 function M.DragFloat4(string_label, floatPtr_v, float_v_speed, float_v_min, float_v_max, string_format, ImGuiSliderFlags_flags) 
@@ -465,7 +465,7 @@ function M.DragFloat4(string_label, floatPtr_v, float_v_speed, float_v_min, floa
   if float_v_max == nil then float_v_max = 0 end
   if string_format == nil then string_format = "%.3f" end
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'DragFloat4' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'DragFloat4' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_DragFloat4(string_label, floatPtr_v, float_v_speed, float_v_min, float_v_max, string_format, ImGuiSliderFlags_flags)
 end
 function M.DragFloatRange2(string_label, float_v_current_min, float_v_current_max, float_v_speed, float_v_min, float_v_max, string_format, string_format_max, ImGuiSliderFlags_flags) 
@@ -475,9 +475,9 @@ function M.DragFloatRange2(string_label, float_v_current_min, float_v_current_ma
   if string_format == nil then string_format = "%.3f" end
   -- string_format_max is optional and can be nil
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'DragFloatRange2' cannot be nil, as the c type is 'const char *'") ; return end
-  if float_v_current_min == nil then log("E", "", "Parameter 'float_v_current_min' of function 'DragFloatRange2' cannot be nil, as the c type is 'float *'") ; return end
-  if float_v_current_max == nil then log("E", "", "Parameter 'float_v_current_max' of function 'DragFloatRange2' cannot be nil, as the c type is 'float *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'DragFloatRange2' cannot be nil, as the c type is 'const char *'") return end
+  if float_v_current_min == nil then alim:error("Parameter 'float_v_current_min' of function 'DragFloatRange2' cannot be nil, as the c type is 'float *'") return end
+  if float_v_current_max == nil then alim:error("Parameter 'float_v_current_max' of function 'DragFloatRange2' cannot be nil, as the c type is 'float *'") return end
   return C.imgui_DragFloatRange2(string_label, float_v_current_min, float_v_current_max, float_v_speed, float_v_min, float_v_max, string_format, string_format_max, ImGuiSliderFlags_flags)
 end
 function M.DragInt(string_label, int_v, float_v_speed, int_v_min, int_v_max, string_format, ImGuiSliderFlags_flags) 
@@ -486,8 +486,8 @@ function M.DragInt(string_label, int_v, float_v_speed, int_v_min, int_v_max, str
   if int_v_max == nil then int_v_max = 0 end
   if string_format == nil then string_format = "%d" end
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'DragInt' cannot be nil, as the c type is 'const char *'") ; return end
-  if int_v == nil then log("E", "", "Parameter 'int_v' of function 'DragInt' cannot be nil, as the c type is 'int *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'DragInt' cannot be nil, as the c type is 'const char *'") return end
+  if int_v == nil then alim:error("Parameter 'int_v' of function 'DragInt' cannot be nil, as the c type is 'int *'") return end
   return C.imgui_DragInt(string_label, int_v, float_v_speed, int_v_min, int_v_max, string_format, ImGuiSliderFlags_flags)
 end
 function M.DragInt2(string_label, intPtr_v, float_v_speed, int_v_min, int_v_max, string_format, ImGuiSliderFlags_flags) 
@@ -496,7 +496,7 @@ function M.DragInt2(string_label, intPtr_v, float_v_speed, int_v_min, int_v_max,
   if int_v_max == nil then int_v_max = 0 end
   if string_format == nil then string_format = "%d" end
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'DragInt2' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'DragInt2' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_DragInt2(string_label, intPtr_v, float_v_speed, int_v_min, int_v_max, string_format, ImGuiSliderFlags_flags)
 end
 function M.DragInt3(string_label, intPtr_v, float_v_speed, int_v_min, int_v_max, string_format, ImGuiSliderFlags_flags) 
@@ -505,7 +505,7 @@ function M.DragInt3(string_label, intPtr_v, float_v_speed, int_v_min, int_v_max,
   if int_v_max == nil then int_v_max = 0 end
   if string_format == nil then string_format = "%d" end
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'DragInt3' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'DragInt3' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_DragInt3(string_label, intPtr_v, float_v_speed, int_v_min, int_v_max, string_format, ImGuiSliderFlags_flags)
 end
 function M.DragInt4(string_label, intPtr_v, float_v_speed, int_v_min, int_v_max, string_format, ImGuiSliderFlags_flags) 
@@ -514,7 +514,7 @@ function M.DragInt4(string_label, intPtr_v, float_v_speed, int_v_min, int_v_max,
   if int_v_max == nil then int_v_max = 0 end
   if string_format == nil then string_format = "%d" end
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'DragInt4' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'DragInt4' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_DragInt4(string_label, intPtr_v, float_v_speed, int_v_min, int_v_max, string_format, ImGuiSliderFlags_flags)
 end
 function M.DragIntRange2(string_label, int_v_current_min, int_v_current_max, float_v_speed, int_v_min, int_v_max, string_format, string_format_max, ImGuiSliderFlags_flags) 
@@ -524,9 +524,9 @@ function M.DragIntRange2(string_label, int_v_current_min, int_v_current_max, flo
   if string_format == nil then string_format = "%d" end
   -- string_format_max is optional and can be nil
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'DragIntRange2' cannot be nil, as the c type is 'const char *'") ; return end
-  if int_v_current_min == nil then log("E", "", "Parameter 'int_v_current_min' of function 'DragIntRange2' cannot be nil, as the c type is 'int *'") ; return end
-  if int_v_current_max == nil then log("E", "", "Parameter 'int_v_current_max' of function 'DragIntRange2' cannot be nil, as the c type is 'int *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'DragIntRange2' cannot be nil, as the c type is 'const char *'") return end
+  if int_v_current_min == nil then alim:error("Parameter 'int_v_current_min' of function 'DragIntRange2' cannot be nil, as the c type is 'int *'") return end
+  if int_v_current_max == nil then alim:error("Parameter 'int_v_current_max' of function 'DragIntRange2' cannot be nil, as the c type is 'int *'") return end
   return C.imgui_DragIntRange2(string_label, int_v_current_min, int_v_current_max, float_v_speed, int_v_min, int_v_max, string_format, string_format_max, ImGuiSliderFlags_flags)
 end
 function M.DragScalar(string_label, ImGuiDataType_data_type, void_p_data, float_v_speed, void_p_min, void_p_max, string_format, ImGuiSliderFlags_flags) 
@@ -535,8 +535,8 @@ function M.DragScalar(string_label, ImGuiDataType_data_type, void_p_data, float_
   -- void_p_max is optional and can be nil
   -- string_format is optional and can be nil
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'DragScalar' cannot be nil, as the c type is 'const char *'") ; return end
-  if void_p_data == nil then log("E", "", "Parameter 'void_p_data' of function 'DragScalar' cannot be nil, as the c type is 'void *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'DragScalar' cannot be nil, as the c type is 'const char *'") return end
+  if void_p_data == nil then alim:error("Parameter 'void_p_data' of function 'DragScalar' cannot be nil, as the c type is 'void *'") return end
   return C.imgui_DragScalar(string_label, ImGuiDataType_data_type, void_p_data, float_v_speed, void_p_min, void_p_max, string_format, ImGuiSliderFlags_flags)
 end
 function M.DragScalarN(string_label, ImGuiDataType_data_type, void_p_data, int_components, float_v_speed, void_p_min, void_p_max, string_format, ImGuiSliderFlags_flags) 
@@ -545,33 +545,33 @@ function M.DragScalarN(string_label, ImGuiDataType_data_type, void_p_data, int_c
   -- void_p_max is optional and can be nil
   -- string_format is optional and can be nil
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'DragScalarN' cannot be nil, as the c type is 'const char *'") ; return end
-  if void_p_data == nil then log("E", "", "Parameter 'void_p_data' of function 'DragScalarN' cannot be nil, as the c type is 'void *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'DragScalarN' cannot be nil, as the c type is 'const char *'") return end
+  if void_p_data == nil then alim:error("Parameter 'void_p_data' of function 'DragScalarN' cannot be nil, as the c type is 'void *'") return end
   return C.imgui_DragScalarN(string_label, ImGuiDataType_data_type, void_p_data, int_components, float_v_speed, void_p_min, void_p_max, string_format, ImGuiSliderFlags_flags)
 end
 function M.SliderFloat(string_label, float_v, float_v_min, float_v_max, string_format, ImGuiSliderFlags_flags) 
   if string_format == nil then string_format = "%.3f" end
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'SliderFloat' cannot be nil, as the c type is 'const char *'") ; return end
-  if float_v == nil then log("E", "", "Parameter 'float_v' of function 'SliderFloat' cannot be nil, as the c type is 'float *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'SliderFloat' cannot be nil, as the c type is 'const char *'") return end
+  if float_v == nil then alim:error("Parameter 'float_v' of function 'SliderFloat' cannot be nil, as the c type is 'float *'") return end
   return C.imgui_SliderFloat(string_label, float_v, float_v_min, float_v_max, string_format, ImGuiSliderFlags_flags)
 end
 function M.SliderFloat2(string_label, floatPtr_v, float_v_min, float_v_max, string_format, ImGuiSliderFlags_flags) 
   if string_format == nil then string_format = "%.3f" end
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'SliderFloat2' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'SliderFloat2' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_SliderFloat2(string_label, floatPtr_v, float_v_min, float_v_max, string_format, ImGuiSliderFlags_flags)
 end
 function M.SliderFloat3(string_label, floatPtr_v, float_v_min, float_v_max, string_format, ImGuiSliderFlags_flags) 
   if string_format == nil then string_format = "%.3f" end
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'SliderFloat3' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'SliderFloat3' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_SliderFloat3(string_label, floatPtr_v, float_v_min, float_v_max, string_format, ImGuiSliderFlags_flags)
 end
 function M.SliderFloat4(string_label, floatPtr_v, float_v_min, float_v_max, string_format, ImGuiSliderFlags_flags) 
   if string_format == nil then string_format = "%.3f" end
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'SliderFloat4' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'SliderFloat4' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_SliderFloat4(string_label, floatPtr_v, float_v_min, float_v_max, string_format, ImGuiSliderFlags_flags)
 end
 function M.SliderAngle(string_label, float_v_rad, float_v_degrees_min, float_v_degrees_max, string_format, ImGuiSliderFlags_flags) 
@@ -579,82 +579,82 @@ function M.SliderAngle(string_label, float_v_rad, float_v_degrees_min, float_v_d
   if float_v_degrees_max == nil then float_v_degrees_max = 360 end
   if string_format == nil then string_format = "%.0f deg" end
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'SliderAngle' cannot be nil, as the c type is 'const char *'") ; return end
-  if float_v_rad == nil then log("E", "", "Parameter 'float_v_rad' of function 'SliderAngle' cannot be nil, as the c type is 'float *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'SliderAngle' cannot be nil, as the c type is 'const char *'") return end
+  if float_v_rad == nil then alim:error("Parameter 'float_v_rad' of function 'SliderAngle' cannot be nil, as the c type is 'float *'") return end
   return C.imgui_SliderAngle(string_label, float_v_rad, float_v_degrees_min, float_v_degrees_max, string_format, ImGuiSliderFlags_flags)
 end
 function M.SliderInt(string_label, int_v, int_v_min, int_v_max, string_format, ImGuiSliderFlags_flags) 
   if string_format == nil then string_format = "%d" end
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'SliderInt' cannot be nil, as the c type is 'const char *'") ; return end
-  if int_v == nil then log("E", "", "Parameter 'int_v' of function 'SliderInt' cannot be nil, as the c type is 'int *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'SliderInt' cannot be nil, as the c type is 'const char *'") return end
+  if int_v == nil then alim:error("Parameter 'int_v' of function 'SliderInt' cannot be nil, as the c type is 'int *'") return end
   return C.imgui_SliderInt(string_label, int_v, int_v_min, int_v_max, string_format, ImGuiSliderFlags_flags)
 end
 function M.SliderInt2(string_label, intPtr_v, int_v_min, int_v_max, string_format, ImGuiSliderFlags_flags) 
   if string_format == nil then string_format = "%d" end
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'SliderInt2' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'SliderInt2' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_SliderInt2(string_label, intPtr_v, int_v_min, int_v_max, string_format, ImGuiSliderFlags_flags)
 end
 function M.SliderInt3(string_label, intPtr_v, int_v_min, int_v_max, string_format, ImGuiSliderFlags_flags) 
   if string_format == nil then string_format = "%d" end
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'SliderInt3' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'SliderInt3' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_SliderInt3(string_label, intPtr_v, int_v_min, int_v_max, string_format, ImGuiSliderFlags_flags)
 end
 function M.SliderInt4(string_label, intPtr_v, int_v_min, int_v_max, string_format, ImGuiSliderFlags_flags) 
   if string_format == nil then string_format = "%d" end
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'SliderInt4' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'SliderInt4' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_SliderInt4(string_label, intPtr_v, int_v_min, int_v_max, string_format, ImGuiSliderFlags_flags)
 end
 function M.SliderScalar(string_label, ImGuiDataType_data_type, void_p_data, void_p_min, void_p_max, string_format, ImGuiSliderFlags_flags) 
   -- string_format is optional and can be nil
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'SliderScalar' cannot be nil, as the c type is 'const char *'") ; return end
-  if void_p_data == nil then log("E", "", "Parameter 'void_p_data' of function 'SliderScalar' cannot be nil, as the c type is 'void *'") ; return end
-  if void_p_min == nil then log("E", "", "Parameter 'void_p_min' of function 'SliderScalar' cannot be nil, as the c type is 'const void *'") ; return end
-  if void_p_max == nil then log("E", "", "Parameter 'void_p_max' of function 'SliderScalar' cannot be nil, as the c type is 'const void *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'SliderScalar' cannot be nil, as the c type is 'const char *'") return end
+  if void_p_data == nil then alim:error("Parameter 'void_p_data' of function 'SliderScalar' cannot be nil, as the c type is 'void *'") return end
+  if void_p_min == nil then alim:error("Parameter 'void_p_min' of function 'SliderScalar' cannot be nil, as the c type is 'const void *'") return end
+  if void_p_max == nil then alim:error("Parameter 'void_p_max' of function 'SliderScalar' cannot be nil, as the c type is 'const void *'") return end
   return C.imgui_SliderScalar(string_label, ImGuiDataType_data_type, void_p_data, void_p_min, void_p_max, string_format, ImGuiSliderFlags_flags)
 end
 function M.SliderScalarN(string_label, ImGuiDataType_data_type, void_p_data, int_components, void_p_min, void_p_max, string_format, ImGuiSliderFlags_flags) 
   -- string_format is optional and can be nil
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'SliderScalarN' cannot be nil, as the c type is 'const char *'") ; return end
-  if void_p_data == nil then log("E", "", "Parameter 'void_p_data' of function 'SliderScalarN' cannot be nil, as the c type is 'void *'") ; return end
-  if void_p_min == nil then log("E", "", "Parameter 'void_p_min' of function 'SliderScalarN' cannot be nil, as the c type is 'const void *'") ; return end
-  if void_p_max == nil then log("E", "", "Parameter 'void_p_max' of function 'SliderScalarN' cannot be nil, as the c type is 'const void *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'SliderScalarN' cannot be nil, as the c type is 'const char *'") return end
+  if void_p_data == nil then alim:error("Parameter 'void_p_data' of function 'SliderScalarN' cannot be nil, as the c type is 'void *'") return end
+  if void_p_min == nil then alim:error("Parameter 'void_p_min' of function 'SliderScalarN' cannot be nil, as the c type is 'const void *'") return end
+  if void_p_max == nil then alim:error("Parameter 'void_p_max' of function 'SliderScalarN' cannot be nil, as the c type is 'const void *'") return end
   return C.imgui_SliderScalarN(string_label, ImGuiDataType_data_type, void_p_data, int_components, void_p_min, void_p_max, string_format, ImGuiSliderFlags_flags)
 end
 function M.VSliderFloat(string_label, ImVec2_size, float_v, float_v_min, float_v_max, string_format, ImGuiSliderFlags_flags) 
   if string_format == nil then string_format = "%.3f" end
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'VSliderFloat' cannot be nil, as the c type is 'const char *'") ; return end
-  if float_v == nil then log("E", "", "Parameter 'float_v' of function 'VSliderFloat' cannot be nil, as the c type is 'float *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'VSliderFloat' cannot be nil, as the c type is 'const char *'") return end
+  if float_v == nil then alim:error("Parameter 'float_v' of function 'VSliderFloat' cannot be nil, as the c type is 'float *'") return end
   return C.imgui_VSliderFloat(string_label, ImVec2_size, float_v, float_v_min, float_v_max, string_format, ImGuiSliderFlags_flags)
 end
 function M.VSliderInt(string_label, ImVec2_size, int_v, int_v_min, int_v_max, string_format, ImGuiSliderFlags_flags) 
   if string_format == nil then string_format = "%d" end
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'VSliderInt' cannot be nil, as the c type is 'const char *'") ; return end
-  if int_v == nil then log("E", "", "Parameter 'int_v' of function 'VSliderInt' cannot be nil, as the c type is 'int *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'VSliderInt' cannot be nil, as the c type is 'const char *'") return end
+  if int_v == nil then alim:error("Parameter 'int_v' of function 'VSliderInt' cannot be nil, as the c type is 'int *'") return end
   return C.imgui_VSliderInt(string_label, ImVec2_size, int_v, int_v_min, int_v_max, string_format, ImGuiSliderFlags_flags)
 end
 function M.VSliderScalar(string_label, ImVec2_size, ImGuiDataType_data_type, void_p_data, void_p_min, void_p_max, string_format, ImGuiSliderFlags_flags) 
   -- string_format is optional and can be nil
   if ImGuiSliderFlags_flags == nil then ImGuiSliderFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'VSliderScalar' cannot be nil, as the c type is 'const char *'") ; return end
-  if void_p_data == nil then log("E", "", "Parameter 'void_p_data' of function 'VSliderScalar' cannot be nil, as the c type is 'void *'") ; return end
-  if void_p_min == nil then log("E", "", "Parameter 'void_p_min' of function 'VSliderScalar' cannot be nil, as the c type is 'const void *'") ; return end
-  if void_p_max == nil then log("E", "", "Parameter 'void_p_max' of function 'VSliderScalar' cannot be nil, as the c type is 'const void *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'VSliderScalar' cannot be nil, as the c type is 'const char *'") return end
+  if void_p_data == nil then alim:error("Parameter 'void_p_data' of function 'VSliderScalar' cannot be nil, as the c type is 'void *'") return end
+  if void_p_min == nil then alim:error("Parameter 'void_p_min' of function 'VSliderScalar' cannot be nil, as the c type is 'const void *'") return end
+  if void_p_max == nil then alim:error("Parameter 'void_p_max' of function 'VSliderScalar' cannot be nil, as the c type is 'const void *'") return end
   return C.imgui_VSliderScalar(string_label, ImVec2_size, ImGuiDataType_data_type, void_p_data, void_p_min, void_p_max, string_format, ImGuiSliderFlags_flags)
 end
 function M.InputText(string_label, string_buf, size_t_buf_size, ImGuiInputTextFlags_flags, ImGuiInputTextCallback_callback, void_user_data) 
   if ImGuiInputTextFlags_flags == nil then ImGuiInputTextFlags_flags = 0 end
   if ImGuiInputTextCallback_callback == nil then ImGuiInputTextCallback_callback = NULL end
   -- void_user_data is optional and can be nil
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'InputText' cannot be nil, as the c type is 'const char *'") ; return end
-  if string_buf == nil then log("E", "", "Parameter 'string_buf' of function 'InputText' cannot be nil, as the c type is 'char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'InputText' cannot be nil, as the c type is 'const char *'") return end
+  if string_buf == nil then alim:error("Parameter 'string_buf' of function 'InputText' cannot be nil, as the c type is 'char *'") return end
   return C.imgui_InputText(string_label, string_buf, size_t_buf_size, ImGuiInputTextFlags_flags, ImGuiInputTextCallback_callback, void_user_data)
 end
 function M.InputTextMultiline(string_label, string_buf, size_t_buf_size, ImVec2_size, ImGuiInputTextFlags_flags, ImGuiInputTextCallback_callback, void_user_data) 
@@ -662,17 +662,17 @@ function M.InputTextMultiline(string_label, string_buf, size_t_buf_size, ImVec2_
   if ImGuiInputTextFlags_flags == nil then ImGuiInputTextFlags_flags = 0 end
   if ImGuiInputTextCallback_callback == nil then ImGuiInputTextCallback_callback = NULL end
   -- void_user_data is optional and can be nil
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'InputTextMultiline' cannot be nil, as the c type is 'const char *'") ; return end
-  if string_buf == nil then log("E", "", "Parameter 'string_buf' of function 'InputTextMultiline' cannot be nil, as the c type is 'char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'InputTextMultiline' cannot be nil, as the c type is 'const char *'") return end
+  if string_buf == nil then alim:error("Parameter 'string_buf' of function 'InputTextMultiline' cannot be nil, as the c type is 'char *'") return end
   return C.imgui_InputTextMultiline(string_label, string_buf, size_t_buf_size, ImVec2_size, ImGuiInputTextFlags_flags, ImGuiInputTextCallback_callback, void_user_data)
 end
 function M.InputTextWithHint(string_label, string_hint, string_buf, size_t_buf_size, ImGuiInputTextFlags_flags, ImGuiInputTextCallback_callback, void_user_data) 
   if ImGuiInputTextFlags_flags == nil then ImGuiInputTextFlags_flags = 0 end
   if ImGuiInputTextCallback_callback == nil then ImGuiInputTextCallback_callback = NULL end
   -- void_user_data is optional and can be nil
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'InputTextWithHint' cannot be nil, as the c type is 'const char *'") ; return end
-  if string_hint == nil then log("E", "", "Parameter 'string_hint' of function 'InputTextWithHint' cannot be nil, as the c type is 'const char *'") ; return end
-  if string_buf == nil then log("E", "", "Parameter 'string_buf' of function 'InputTextWithHint' cannot be nil, as the c type is 'char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'InputTextWithHint' cannot be nil, as the c type is 'const char *'") return end
+  if string_hint == nil then alim:error("Parameter 'string_hint' of function 'InputTextWithHint' cannot be nil, as the c type is 'const char *'") return end
+  if string_buf == nil then alim:error("Parameter 'string_buf' of function 'InputTextWithHint' cannot be nil, as the c type is 'char *'") return end
   return C.imgui_InputTextWithHint(string_label, string_hint, string_buf, size_t_buf_size, ImGuiInputTextFlags_flags, ImGuiInputTextCallback_callback, void_user_data)
 end
 function M.InputFloat(string_label, float_v, float_step, float_step_fast, string_format, ImGuiInputTextFlags_flags) 
@@ -680,49 +680,49 @@ function M.InputFloat(string_label, float_v, float_step, float_step_fast, string
   if float_step_fast == nil then float_step_fast = 0 end
   if string_format == nil then string_format = "%.3f" end
   if ImGuiInputTextFlags_flags == nil then ImGuiInputTextFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'InputFloat' cannot be nil, as the c type is 'const char *'") ; return end
-  if float_v == nil then log("E", "", "Parameter 'float_v' of function 'InputFloat' cannot be nil, as the c type is 'float *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'InputFloat' cannot be nil, as the c type is 'const char *'") return end
+  if float_v == nil then alim:error("Parameter 'float_v' of function 'InputFloat' cannot be nil, as the c type is 'float *'") return end
   return C.imgui_InputFloat(string_label, float_v, float_step, float_step_fast, string_format, ImGuiInputTextFlags_flags)
 end
 function M.InputFloat2(string_label, floatPtr_v, string_format, ImGuiInputTextFlags_flags) 
   if string_format == nil then string_format = "%.3f" end
   if ImGuiInputTextFlags_flags == nil then ImGuiInputTextFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'InputFloat2' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'InputFloat2' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_InputFloat2(string_label, floatPtr_v, string_format, ImGuiInputTextFlags_flags)
 end
 function M.InputFloat3(string_label, floatPtr_v, string_format, ImGuiInputTextFlags_flags) 
   if string_format == nil then string_format = "%.3f" end
   if ImGuiInputTextFlags_flags == nil then ImGuiInputTextFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'InputFloat3' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'InputFloat3' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_InputFloat3(string_label, floatPtr_v, string_format, ImGuiInputTextFlags_flags)
 end
 function M.InputFloat4(string_label, floatPtr_v, string_format, ImGuiInputTextFlags_flags) 
   if string_format == nil then string_format = "%.3f" end
   if ImGuiInputTextFlags_flags == nil then ImGuiInputTextFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'InputFloat4' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'InputFloat4' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_InputFloat4(string_label, floatPtr_v, string_format, ImGuiInputTextFlags_flags)
 end
 function M.InputInt(string_label, int_v, int_step, int_step_fast, ImGuiInputTextFlags_flags) 
   if int_step == nil then int_step = 1 end
   if int_step_fast == nil then int_step_fast = 100 end
   if ImGuiInputTextFlags_flags == nil then ImGuiInputTextFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'InputInt' cannot be nil, as the c type is 'const char *'") ; return end
-  if int_v == nil then log("E", "", "Parameter 'int_v' of function 'InputInt' cannot be nil, as the c type is 'int *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'InputInt' cannot be nil, as the c type is 'const char *'") return end
+  if int_v == nil then alim:error("Parameter 'int_v' of function 'InputInt' cannot be nil, as the c type is 'int *'") return end
   return C.imgui_InputInt(string_label, int_v, int_step, int_step_fast, ImGuiInputTextFlags_flags)
 end
 function M.InputInt2(string_label, intPtr_v, ImGuiInputTextFlags_flags) 
   if ImGuiInputTextFlags_flags == nil then ImGuiInputTextFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'InputInt2' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'InputInt2' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_InputInt2(string_label, intPtr_v, ImGuiInputTextFlags_flags)
 end
 function M.InputInt3(string_label, intPtr_v, ImGuiInputTextFlags_flags) 
   if ImGuiInputTextFlags_flags == nil then ImGuiInputTextFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'InputInt3' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'InputInt3' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_InputInt3(string_label, intPtr_v, ImGuiInputTextFlags_flags)
 end
 function M.InputInt4(string_label, intPtr_v, ImGuiInputTextFlags_flags) 
   if ImGuiInputTextFlags_flags == nil then ImGuiInputTextFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'InputInt4' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'InputInt4' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_InputInt4(string_label, intPtr_v, ImGuiInputTextFlags_flags)
 end
 function M.InputDouble(string_label, double_v, double_step, double_step_fast, string_format, ImGuiInputTextFlags_flags) 
@@ -730,8 +730,8 @@ function M.InputDouble(string_label, double_v, double_step, double_step_fast, st
   if double_step_fast == nil then double_step_fast = 0 end
   if string_format == nil then string_format = "%.6f" end
   if ImGuiInputTextFlags_flags == nil then ImGuiInputTextFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'InputDouble' cannot be nil, as the c type is 'const char *'") ; return end
-  if double_v == nil then log("E", "", "Parameter 'double_v' of function 'InputDouble' cannot be nil, as the c type is 'double *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'InputDouble' cannot be nil, as the c type is 'const char *'") return end
+  if double_v == nil then alim:error("Parameter 'double_v' of function 'InputDouble' cannot be nil, as the c type is 'double *'") return end
   return C.imgui_InputDouble(string_label, double_v, double_step, double_step_fast, string_format, ImGuiInputTextFlags_flags)
 end
 function M.InputScalar(string_label, ImGuiDataType_data_type, void_p_data, void_p_step, void_p_step_fast, string_format, ImGuiInputTextFlags_flags) 
@@ -739,8 +739,8 @@ function M.InputScalar(string_label, ImGuiDataType_data_type, void_p_data, void_
   -- void_p_step_fast is optional and can be nil
   -- string_format is optional and can be nil
   if ImGuiInputTextFlags_flags == nil then ImGuiInputTextFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'InputScalar' cannot be nil, as the c type is 'const char *'") ; return end
-  if void_p_data == nil then log("E", "", "Parameter 'void_p_data' of function 'InputScalar' cannot be nil, as the c type is 'void *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'InputScalar' cannot be nil, as the c type is 'const char *'") return end
+  if void_p_data == nil then alim:error("Parameter 'void_p_data' of function 'InputScalar' cannot be nil, as the c type is 'void *'") return end
   return C.imgui_InputScalar(string_label, ImGuiDataType_data_type, void_p_data, void_p_step, void_p_step_fast, string_format, ImGuiInputTextFlags_flags)
 end
 function M.InputScalarN(string_label, ImGuiDataType_data_type, void_p_data, int_components, void_p_step, void_p_step_fast, string_format, ImGuiInputTextFlags_flags) 
@@ -748,106 +748,106 @@ function M.InputScalarN(string_label, ImGuiDataType_data_type, void_p_data, int_
   -- void_p_step_fast is optional and can be nil
   -- string_format is optional and can be nil
   if ImGuiInputTextFlags_flags == nil then ImGuiInputTextFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'InputScalarN' cannot be nil, as the c type is 'const char *'") ; return end
-  if void_p_data == nil then log("E", "", "Parameter 'void_p_data' of function 'InputScalarN' cannot be nil, as the c type is 'void *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'InputScalarN' cannot be nil, as the c type is 'const char *'") return end
+  if void_p_data == nil then alim:error("Parameter 'void_p_data' of function 'InputScalarN' cannot be nil, as the c type is 'void *'") return end
   return C.imgui_InputScalarN(string_label, ImGuiDataType_data_type, void_p_data, int_components, void_p_step, void_p_step_fast, string_format, ImGuiInputTextFlags_flags)
 end
 function M.ColorEdit3(string_label, floatPtr_col, ImGuiColorEditFlags_flags) 
   if ImGuiColorEditFlags_flags == nil then ImGuiColorEditFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'ColorEdit3' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'ColorEdit3' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_ColorEdit3(string_label, floatPtr_col, ImGuiColorEditFlags_flags)
 end
 function M.ColorEdit4(string_label, floatPtr_col, ImGuiColorEditFlags_flags) 
   if ImGuiColorEditFlags_flags == nil then ImGuiColorEditFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'ColorEdit4' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'ColorEdit4' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_ColorEdit4(string_label, floatPtr_col, ImGuiColorEditFlags_flags)
 end
 function M.ColorPicker3(string_label, floatPtr_col, ImGuiColorEditFlags_flags) 
   if ImGuiColorEditFlags_flags == nil then ImGuiColorEditFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'ColorPicker3' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'ColorPicker3' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_ColorPicker3(string_label, floatPtr_col, ImGuiColorEditFlags_flags)
 end
 function M.ColorPicker4(string_label, floatPtr_col, ImGuiColorEditFlags_flags, float_ref_col) 
   if ImGuiColorEditFlags_flags == nil then ImGuiColorEditFlags_flags = 0 end
   -- float_ref_col is optional and can be nil
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'ColorPicker4' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'ColorPicker4' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_ColorPicker4(string_label, floatPtr_col, ImGuiColorEditFlags_flags, float_ref_col)
 end
 function M.ColorButton(string_desc_id, ImVec4_col, ImGuiColorEditFlags_flags, ImVec2_size) 
   if ImGuiColorEditFlags_flags == nil then ImGuiColorEditFlags_flags = 0 end
   if ImVec2_size == nil then ImVec2_size = M.ImVec2(0,0) end
-  if string_desc_id == nil then log("E", "", "Parameter 'string_desc_id' of function 'ColorButton' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_desc_id == nil then alim:error("Parameter 'string_desc_id' of function 'ColorButton' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_ColorButton(string_desc_id, ImVec4_col, ImGuiColorEditFlags_flags, ImVec2_size)
 end
 function M.SetColorEditOptions(ImGuiColorEditFlags_flags) C.imgui_SetColorEditOptions(ImGuiColorEditFlags_flags) end
 function M.TreeNode1(string_label) 
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'TreeNode1' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'TreeNode1' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_TreeNode1(string_label)
 end
 function M.TreeNode2(string_str_id, string_fmt, ...) 
-  if string_str_id == nil then log("E", "", "Parameter 'string_str_id' of function 'TreeNode2' cannot be nil, as the c type is 'const char *'") ; return end
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'TreeNode2' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_str_id == nil then alim:error("Parameter 'string_str_id' of function 'TreeNode2' cannot be nil, as the c type is 'const char *'") return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'TreeNode2' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_TreeNode2(string_str_id, string_fmt, ...)
 end
 function M.TreeNode3(void_ptr_id, string_fmt, ...) 
-  if void_ptr_id == nil then log("E", "", "Parameter 'void_ptr_id' of function 'TreeNode3' cannot be nil, as the c type is 'const void *'") ; return end
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'TreeNode3' cannot be nil, as the c type is 'const char *'") ; return end
+  if void_ptr_id == nil then alim:error("Parameter 'void_ptr_id' of function 'TreeNode3' cannot be nil, as the c type is 'const void *'") return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'TreeNode3' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_TreeNode3(void_ptr_id, string_fmt, ...)
 end
 function M.TreeNodeV1(string_str_id, string_fmt, va_list_args) 
-  if string_str_id == nil then log("E", "", "Parameter 'string_str_id' of function 'TreeNodeV1' cannot be nil, as the c type is 'const char *'") ; return end
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'TreeNodeV1' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_str_id == nil then alim:error("Parameter 'string_str_id' of function 'TreeNodeV1' cannot be nil, as the c type is 'const char *'") return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'TreeNodeV1' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_TreeNodeV1(string_str_id, string_fmt, va_list_args)
 end
 function M.TreeNodeV2(void_ptr_id, string_fmt, va_list_args) 
-  if void_ptr_id == nil then log("E", "", "Parameter 'void_ptr_id' of function 'TreeNodeV2' cannot be nil, as the c type is 'const void *'") ; return end
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'TreeNodeV2' cannot be nil, as the c type is 'const char *'") ; return end
+  if void_ptr_id == nil then alim:error("Parameter 'void_ptr_id' of function 'TreeNodeV2' cannot be nil, as the c type is 'const void *'") return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'TreeNodeV2' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_TreeNodeV2(void_ptr_id, string_fmt, va_list_args)
 end
 function M.TreeNodeEx1(string_label, ImGuiTreeNodeFlags_flags) 
   if ImGuiTreeNodeFlags_flags == nil then ImGuiTreeNodeFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'TreeNodeEx1' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'TreeNodeEx1' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_TreeNodeEx1(string_label, ImGuiTreeNodeFlags_flags)
 end
 function M.TreeNodeEx2(string_str_id, ImGuiTreeNodeFlags_flags, string_fmt, ...) 
-  if string_str_id == nil then log("E", "", "Parameter 'string_str_id' of function 'TreeNodeEx2' cannot be nil, as the c type is 'const char *'") ; return end
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'TreeNodeEx2' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_str_id == nil then alim:error("Parameter 'string_str_id' of function 'TreeNodeEx2' cannot be nil, as the c type is 'const char *'") return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'TreeNodeEx2' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_TreeNodeEx2(string_str_id, ImGuiTreeNodeFlags_flags, string_fmt, ...)
 end
 function M.TreeNodeEx3(void_ptr_id, ImGuiTreeNodeFlags_flags, string_fmt, ...) 
-  if void_ptr_id == nil then log("E", "", "Parameter 'void_ptr_id' of function 'TreeNodeEx3' cannot be nil, as the c type is 'const void *'") ; return end
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'TreeNodeEx3' cannot be nil, as the c type is 'const char *'") ; return end
+  if void_ptr_id == nil then alim:error("Parameter 'void_ptr_id' of function 'TreeNodeEx3' cannot be nil, as the c type is 'const void *'") return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'TreeNodeEx3' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_TreeNodeEx3(void_ptr_id, ImGuiTreeNodeFlags_flags, string_fmt, ...)
 end
 function M.TreeNodeExV1(string_str_id, ImGuiTreeNodeFlags_flags, string_fmt, va_list_args) 
-  if string_str_id == nil then log("E", "", "Parameter 'string_str_id' of function 'TreeNodeExV1' cannot be nil, as the c type is 'const char *'") ; return end
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'TreeNodeExV1' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_str_id == nil then alim:error("Parameter 'string_str_id' of function 'TreeNodeExV1' cannot be nil, as the c type is 'const char *'") return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'TreeNodeExV1' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_TreeNodeExV1(string_str_id, ImGuiTreeNodeFlags_flags, string_fmt, va_list_args)
 end
 function M.TreeNodeExV2(void_ptr_id, ImGuiTreeNodeFlags_flags, string_fmt, va_list_args) 
-  if void_ptr_id == nil then log("E", "", "Parameter 'void_ptr_id' of function 'TreeNodeExV2' cannot be nil, as the c type is 'const void *'") ; return end
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'TreeNodeExV2' cannot be nil, as the c type is 'const char *'") ; return end
+  if void_ptr_id == nil then alim:error("Parameter 'void_ptr_id' of function 'TreeNodeExV2' cannot be nil, as the c type is 'const void *'") return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'TreeNodeExV2' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_TreeNodeExV2(void_ptr_id, ImGuiTreeNodeFlags_flags, string_fmt, va_list_args)
 end
 function M.TreePush1(string_str_id) 
-  if string_str_id == nil then log("E", "", "Parameter 'string_str_id' of function 'TreePush1' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_str_id == nil then alim:error("Parameter 'string_str_id' of function 'TreePush1' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_TreePush1(string_str_id)
 end
 function M.TreePush2(void_ptr_id) 
-  if void_ptr_id == nil then log("E", "", "Parameter 'void_ptr_id' of function 'TreePush2' cannot be nil, as the c type is 'const void *'") ; return end
+  if void_ptr_id == nil then alim:error("Parameter 'void_ptr_id' of function 'TreePush2' cannot be nil, as the c type is 'const void *'") return end
   C.imgui_TreePush2(void_ptr_id)
 end
 function M.TreePop() C.imgui_TreePop() end
 function M.GetTreeNodeToLabelSpacing() return C.imgui_GetTreeNodeToLabelSpacing() end
 function M.CollapsingHeader1(string_label, ImGuiTreeNodeFlags_flags) 
   if ImGuiTreeNodeFlags_flags == nil then ImGuiTreeNodeFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'CollapsingHeader1' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'CollapsingHeader1' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_CollapsingHeader1(string_label, ImGuiTreeNodeFlags_flags)
 end
 function M.CollapsingHeader2(string_label, bool_p_visible, ImGuiTreeNodeFlags_flags) 
   if ImGuiTreeNodeFlags_flags == nil then ImGuiTreeNodeFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'CollapsingHeader2' cannot be nil, as the c type is 'const char *'") ; return end
-  if bool_p_visible == nil then log("E", "", "Parameter 'bool_p_visible' of function 'CollapsingHeader2' cannot be nil, as the c type is 'bool *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'CollapsingHeader2' cannot be nil, as the c type is 'const char *'") return end
+  if bool_p_visible == nil then alim:error("Parameter 'bool_p_visible' of function 'CollapsingHeader2' cannot be nil, as the c type is 'bool *'") return end
   return C.imgui_CollapsingHeader2(string_label, bool_p_visible, ImGuiTreeNodeFlags_flags)
 end
 function M.SetNextItemOpen(bool_is_open, ImGuiCond_cond) 
@@ -858,35 +858,35 @@ function M.Selectable1(string_label, bool_selected, ImGuiSelectableFlags_flags, 
   if bool_selected == nil then bool_selected = false end
   if ImGuiSelectableFlags_flags == nil then ImGuiSelectableFlags_flags = 0 end
   if ImVec2_size == nil then ImVec2_size = M.ImVec2(0,0) end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'Selectable1' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'Selectable1' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_Selectable1(string_label, bool_selected, ImGuiSelectableFlags_flags, ImVec2_size)
 end
 function M.Selectable2(string_label, bool_p_selected, ImGuiSelectableFlags_flags, ImVec2_size) 
   if ImGuiSelectableFlags_flags == nil then ImGuiSelectableFlags_flags = 0 end
   if ImVec2_size == nil then ImVec2_size = M.ImVec2(0,0) end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'Selectable2' cannot be nil, as the c type is 'const char *'") ; return end
-  if bool_p_selected == nil then log("E", "", "Parameter 'bool_p_selected' of function 'Selectable2' cannot be nil, as the c type is 'bool *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'Selectable2' cannot be nil, as the c type is 'const char *'") return end
+  if bool_p_selected == nil then alim:error("Parameter 'bool_p_selected' of function 'Selectable2' cannot be nil, as the c type is 'bool *'") return end
   return C.imgui_Selectable2(string_label, bool_p_selected, ImGuiSelectableFlags_flags, ImVec2_size)
 end
 function M.BeginListBox(string_label, ImVec2_size) 
   if ImVec2_size == nil then ImVec2_size = M.ImVec2(0,0) end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'BeginListBox' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'BeginListBox' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_BeginListBox(string_label, ImVec2_size)
 end
 function M.EndListBox() C.imgui_EndListBox() end
 function M.ListBox1(string_label, int_current_item, charconstPtr_items, int_items_count, int_height_in_items) 
   if int_height_in_items == nil then int_height_in_items = -1 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'ListBox1' cannot be nil, as the c type is 'const char *'") ; return end
-  if int_current_item == nil then log("E", "", "Parameter 'int_current_item' of function 'ListBox1' cannot be nil, as the c type is 'int *'") ; return end
-  if charconstPtr_items == nil then log("E", "", "Parameter 'charconstPtr_items' of function 'ListBox1' cannot be nil, as the c type is 'const char *const[]'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'ListBox1' cannot be nil, as the c type is 'const char *'") return end
+  if int_current_item == nil then alim:error("Parameter 'int_current_item' of function 'ListBox1' cannot be nil, as the c type is 'int *'") return end
+  if charconstPtr_items == nil then alim:error("Parameter 'charconstPtr_items' of function 'ListBox1' cannot be nil, as the c type is 'const char *const[]'") return end
   return C.imgui_ListBox1(string_label, int_current_item, charconstPtr_items, int_items_count, int_height_in_items)
 end
 function M.ListBox2(string_label, int_current_item, functionPtr_items_getter, void_data, int_items_count, int_height_in_items) 
   if int_height_in_items == nil then int_height_in_items = -1 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'ListBox2' cannot be nil, as the c type is 'const char *'") ; return end
-  if int_current_item == nil then log("E", "", "Parameter 'int_current_item' of function 'ListBox2' cannot be nil, as the c type is 'int *'") ; return end
-  if functionPtr_items_getter == nil then log("E", "", "Parameter 'functionPtr_items_getter' of function 'ListBox2' cannot be nil, as the c type is 'bool (*)(void *, int, const char **)'") ; return end
-  if void_data == nil then log("E", "", "Parameter 'void_data' of function 'ListBox2' cannot be nil, as the c type is 'void *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'ListBox2' cannot be nil, as the c type is 'const char *'") return end
+  if int_current_item == nil then alim:error("Parameter 'int_current_item' of function 'ListBox2' cannot be nil, as the c type is 'int *'") return end
+  if functionPtr_items_getter == nil then alim:error("Parameter 'functionPtr_items_getter' of function 'ListBox2' cannot be nil, as the c type is 'bool (*)(void *, int, const char **)'") return end
+  if void_data == nil then alim:error("Parameter 'void_data' of function 'ListBox2' cannot be nil, as the c type is 'void *'") return end
   return C.imgui_ListBox2(string_label, int_current_item, functionPtr_items_getter, void_data, int_items_count, int_height_in_items)
 end
 function M.PlotLines1(string_label, float_values, int_values_count, int_values_offset, string_overlay_text, float_scale_min, float_scale_max, ImVec2_graph_size, int_stride) 
@@ -896,8 +896,8 @@ function M.PlotLines1(string_label, float_values, int_values_count, int_values_o
   if float_scale_max == nil then float_scale_max = FLT_MAX end
   if ImVec2_graph_size == nil then ImVec2_graph_size = ImVec2(0,0) end
   if int_stride == nil then int_stride = ffi.sizeof('float') end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'PlotLines1' cannot be nil, as the c type is 'const char *'") ; return end
-  if float_values == nil then log("E", "", "Parameter 'float_values' of function 'PlotLines1' cannot be nil, as the c type is 'const float *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'PlotLines1' cannot be nil, as the c type is 'const char *'") return end
+  if float_values == nil then alim:error("Parameter 'float_values' of function 'PlotLines1' cannot be nil, as the c type is 'const float *'") return end
   C.imgui_PlotLines1(string_label, float_values, int_values_count, int_values_offset, string_overlay_text, float_scale_min, float_scale_max, ImVec2_graph_size, int_stride)
 end
 function M.PlotLines2(string_label, functionPtr_values_getter, void_data, int_values_count, int_values_offset, string_overlay_text, float_scale_min, float_scale_max, ImVec2_graph_size) 
@@ -906,9 +906,9 @@ function M.PlotLines2(string_label, functionPtr_values_getter, void_data, int_va
   if float_scale_min == nil then float_scale_min = FLT_MAX end
   if float_scale_max == nil then float_scale_max = FLT_MAX end
   if ImVec2_graph_size == nil then ImVec2_graph_size = ImVec2(0,0) end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'PlotLines2' cannot be nil, as the c type is 'const char *'") ; return end
-  if functionPtr_values_getter == nil then log("E", "", "Parameter 'functionPtr_values_getter' of function 'PlotLines2' cannot be nil, as the c type is 'float (*)(void *, int)'") ; return end
-  if void_data == nil then log("E", "", "Parameter 'void_data' of function 'PlotLines2' cannot be nil, as the c type is 'void *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'PlotLines2' cannot be nil, as the c type is 'const char *'") return end
+  if functionPtr_values_getter == nil then alim:error("Parameter 'functionPtr_values_getter' of function 'PlotLines2' cannot be nil, as the c type is 'float (*)(void *, int)'") return end
+  if void_data == nil then alim:error("Parameter 'void_data' of function 'PlotLines2' cannot be nil, as the c type is 'void *'") return end
   C.imgui_PlotLines2(string_label, functionPtr_values_getter, void_data, int_values_count, int_values_offset, string_overlay_text, float_scale_min, float_scale_max, ImVec2_graph_size)
 end
 function M.PlotHistogram1(string_label, float_values, int_values_count, int_values_offset, string_overlay_text, float_scale_min, float_scale_max, ImVec2_graph_size, int_stride) 
@@ -918,8 +918,8 @@ function M.PlotHistogram1(string_label, float_values, int_values_count, int_valu
   if float_scale_max == nil then float_scale_max = FLT_MAX end
   if ImVec2_graph_size == nil then ImVec2_graph_size = ImVec2(0,0) end
   if int_stride == nil then int_stride = ffi.sizeof('float') end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'PlotHistogram1' cannot be nil, as the c type is 'const char *'") ; return end
-  if float_values == nil then log("E", "", "Parameter 'float_values' of function 'PlotHistogram1' cannot be nil, as the c type is 'const float *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'PlotHistogram1' cannot be nil, as the c type is 'const char *'") return end
+  if float_values == nil then alim:error("Parameter 'float_values' of function 'PlotHistogram1' cannot be nil, as the c type is 'const float *'") return end
   C.imgui_PlotHistogram1(string_label, float_values, int_values_count, int_values_offset, string_overlay_text, float_scale_min, float_scale_max, ImVec2_graph_size, int_stride)
 end
 function M.PlotHistogram2(string_label, functionPtr_values_getter, void_data, int_values_count, int_values_offset, string_overlay_text, float_scale_min, float_scale_max, ImVec2_graph_size) 
@@ -928,26 +928,26 @@ function M.PlotHistogram2(string_label, functionPtr_values_getter, void_data, in
   if float_scale_min == nil then float_scale_min = FLT_MAX end
   if float_scale_max == nil then float_scale_max = FLT_MAX end
   if ImVec2_graph_size == nil then ImVec2_graph_size = ImVec2(0,0) end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'PlotHistogram2' cannot be nil, as the c type is 'const char *'") ; return end
-  if functionPtr_values_getter == nil then log("E", "", "Parameter 'functionPtr_values_getter' of function 'PlotHistogram2' cannot be nil, as the c type is 'float (*)(void *, int)'") ; return end
-  if void_data == nil then log("E", "", "Parameter 'void_data' of function 'PlotHistogram2' cannot be nil, as the c type is 'void *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'PlotHistogram2' cannot be nil, as the c type is 'const char *'") return end
+  if functionPtr_values_getter == nil then alim:error("Parameter 'functionPtr_values_getter' of function 'PlotHistogram2' cannot be nil, as the c type is 'float (*)(void *, int)'") return end
+  if void_data == nil then alim:error("Parameter 'void_data' of function 'PlotHistogram2' cannot be nil, as the c type is 'void *'") return end
   C.imgui_PlotHistogram2(string_label, functionPtr_values_getter, void_data, int_values_count, int_values_offset, string_overlay_text, float_scale_min, float_scale_max, ImVec2_graph_size)
 end
 function M.Value1(string_prefix, bool_b) 
-  if string_prefix == nil then log("E", "", "Parameter 'string_prefix' of function 'Value1' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_prefix == nil then alim:error("Parameter 'string_prefix' of function 'Value1' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_Value1(string_prefix, bool_b)
 end
 function M.Value2(string_prefix, int_v) 
-  if string_prefix == nil then log("E", "", "Parameter 'string_prefix' of function 'Value2' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_prefix == nil then alim:error("Parameter 'string_prefix' of function 'Value2' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_Value2(string_prefix, int_v)
 end
 function M.Value3(string_prefix, int_v) 
-  if string_prefix == nil then log("E", "", "Parameter 'string_prefix' of function 'Value3' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_prefix == nil then alim:error("Parameter 'string_prefix' of function 'Value3' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_Value3(string_prefix, int_v)
 end
 function M.Value4(string_prefix, float_v, string_float_format) 
   -- string_float_format is optional and can be nil
-  if string_prefix == nil then log("E", "", "Parameter 'string_prefix' of function 'Value4' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_prefix == nil then alim:error("Parameter 'string_prefix' of function 'Value4' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_Value4(string_prefix, float_v, string_float_format)
 end
 function M.BeginMenuBar() return C.imgui_BeginMenuBar() end
@@ -956,7 +956,7 @@ function M.BeginMainMenuBar() return C.imgui_BeginMainMenuBar() end
 function M.EndMainMenuBar() C.imgui_EndMainMenuBar() end
 function M.BeginMenu(string_label, bool_enabled) 
   if bool_enabled == nil then bool_enabled = true end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'BeginMenu' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'BeginMenu' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_BeginMenu(string_label, bool_enabled)
 end
 function M.EndMenu() C.imgui_EndMenu() end
@@ -964,50 +964,50 @@ function M.MenuItem1(string_label, string_shortcut, bool_selected, bool_enabled)
   -- string_shortcut is optional and can be nil
   if bool_selected == nil then bool_selected = false end
   if bool_enabled == nil then bool_enabled = true end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'MenuItem1' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'MenuItem1' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_MenuItem1(string_label, string_shortcut, bool_selected, bool_enabled)
 end
 function M.MenuItem2(string_label, string_shortcut, bool_p_selected, bool_enabled) 
   if bool_enabled == nil then bool_enabled = true end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'MenuItem2' cannot be nil, as the c type is 'const char *'") ; return end
-  if string_shortcut == nil then log("E", "", "Parameter 'string_shortcut' of function 'MenuItem2' cannot be nil, as the c type is 'const char *'") ; return end
-  if bool_p_selected == nil then log("E", "", "Parameter 'bool_p_selected' of function 'MenuItem2' cannot be nil, as the c type is 'bool *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'MenuItem2' cannot be nil, as the c type is 'const char *'") return end
+  if string_shortcut == nil then alim:error("Parameter 'string_shortcut' of function 'MenuItem2' cannot be nil, as the c type is 'const char *'") return end
+  if bool_p_selected == nil then alim:error("Parameter 'bool_p_selected' of function 'MenuItem2' cannot be nil, as the c type is 'bool *'") return end
   return C.imgui_MenuItem2(string_label, string_shortcut, bool_p_selected, bool_enabled)
 end
 function M.BeginTooltip() return C.imgui_BeginTooltip() end
 function M.EndTooltip() C.imgui_EndTooltip() end
 function M.SetTooltip(string_fmt, ...) 
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'SetTooltip' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'SetTooltip' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_SetTooltip(string_fmt, ...)
 end
 function M.SetTooltipV(string_fmt, va_list_args) 
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'SetTooltipV' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'SetTooltipV' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_SetTooltipV(string_fmt, va_list_args)
 end
 function M.BeginItemTooltip() return C.imgui_BeginItemTooltip() end
 function M.SetItemTooltip(string_fmt, ...) 
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'SetItemTooltip' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'SetItemTooltip' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_SetItemTooltip(string_fmt, ...)
 end
 function M.SetItemTooltipV(string_fmt, va_list_args) 
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'SetItemTooltipV' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'SetItemTooltipV' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_SetItemTooltipV(string_fmt, va_list_args)
 end
 function M.BeginPopup(string_str_id, ImGuiWindowFlags_flags) 
   if ImGuiWindowFlags_flags == nil then ImGuiWindowFlags_flags = 0 end
-  if string_str_id == nil then log("E", "", "Parameter 'string_str_id' of function 'BeginPopup' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_str_id == nil then alim:error("Parameter 'string_str_id' of function 'BeginPopup' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_BeginPopup(string_str_id, ImGuiWindowFlags_flags)
 end
 function M.BeginPopupModal(string_name, bool_p_open, ImGuiWindowFlags_flags) 
   -- bool_p_open is optional and can be nil
   if ImGuiWindowFlags_flags == nil then ImGuiWindowFlags_flags = 0 end
-  if string_name == nil then log("E", "", "Parameter 'string_name' of function 'BeginPopupModal' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_name == nil then alim:error("Parameter 'string_name' of function 'BeginPopupModal' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_BeginPopupModal(string_name, bool_p_open, ImGuiWindowFlags_flags)
 end
 function M.EndPopup() C.imgui_EndPopup() end
 function M.OpenPopup1(string_str_id, ImGuiPopupFlags_popup_flags) 
   if ImGuiPopupFlags_popup_flags == nil then ImGuiPopupFlags_popup_flags = 0 end
-  if string_str_id == nil then log("E", "", "Parameter 'string_str_id' of function 'OpenPopup1' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_str_id == nil then alim:error("Parameter 'string_str_id' of function 'OpenPopup1' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_OpenPopup1(string_str_id, ImGuiPopupFlags_popup_flags)
 end
 function M.OpenPopup2(ImGuiID_id, ImGuiPopupFlags_popup_flags) 
@@ -1037,14 +1037,14 @@ function M.BeginPopupContextVoid(string_str_id, ImGuiPopupFlags_popup_flags)
 end
 function M.IsPopupOpen(string_str_id, ImGuiPopupFlags_flags) 
   if ImGuiPopupFlags_flags == nil then ImGuiPopupFlags_flags = 0 end
-  if string_str_id == nil then log("E", "", "Parameter 'string_str_id' of function 'IsPopupOpen' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_str_id == nil then alim:error("Parameter 'string_str_id' of function 'IsPopupOpen' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_IsPopupOpen(string_str_id, ImGuiPopupFlags_flags)
 end
 function M.BeginTable(string_str_id, int_column, ImGuiTableFlags_flags, ImVec2_outer_size, float_inner_width) 
   if ImGuiTableFlags_flags == nil then ImGuiTableFlags_flags = 0 end
   if ImVec2_outer_size == nil then ImVec2_outer_size = M.ImVec2(0.0,0.0) end
   if float_inner_width == nil then float_inner_width = 0 end
-  if string_str_id == nil then log("E", "", "Parameter 'string_str_id' of function 'BeginTable' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_str_id == nil then alim:error("Parameter 'string_str_id' of function 'BeginTable' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_BeginTable(string_str_id, int_column, ImGuiTableFlags_flags, ImVec2_outer_size, float_inner_width)
 end
 function M.EndTable() C.imgui_EndTable() end
@@ -1059,13 +1059,13 @@ function M.TableSetupColumn(string_label, ImGuiTableColumnFlags_flags, float_ini
   if ImGuiTableColumnFlags_flags == nil then ImGuiTableColumnFlags_flags = 0 end
   if float_init_width_or_weight == nil then float_init_width_or_weight = 0 end
   if ImGuiID_user_id == nil then ImGuiID_user_id = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'TableSetupColumn' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'TableSetupColumn' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_TableSetupColumn(string_label, ImGuiTableColumnFlags_flags, float_init_width_or_weight, ImGuiID_user_id)
 end
 function M.TableSetupScrollFreeze(int_cols, int_rows) C.imgui_TableSetupScrollFreeze(int_cols, int_rows) end
 function M.TableHeadersRow() C.imgui_TableHeadersRow() end
 function M.TableHeader(string_label) 
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'TableHeader' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'TableHeader' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_TableHeader(string_label)
 end
 function M.TableGetSortSpecs() return C.imgui_TableGetSortSpecs() end
@@ -1106,24 +1106,24 @@ function M.SetColumnOffset(int_column_index, float_offset_x) C.imgui_SetColumnOf
 function M.GetColumnsCount() return C.imgui_GetColumnsCount() end
 function M.BeginTabBar(string_str_id, ImGuiTabBarFlags_flags) 
   if ImGuiTabBarFlags_flags == nil then ImGuiTabBarFlags_flags = 0 end
-  if string_str_id == nil then log("E", "", "Parameter 'string_str_id' of function 'BeginTabBar' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_str_id == nil then alim:error("Parameter 'string_str_id' of function 'BeginTabBar' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_BeginTabBar(string_str_id, ImGuiTabBarFlags_flags)
 end
 function M.EndTabBar() C.imgui_EndTabBar() end
 function M.BeginTabItem(string_label, bool_p_open, ImGuiTabItemFlags_flags) 
   -- bool_p_open is optional and can be nil
   if ImGuiTabItemFlags_flags == nil then ImGuiTabItemFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'BeginTabItem' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'BeginTabItem' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_BeginTabItem(string_label, bool_p_open, ImGuiTabItemFlags_flags)
 end
 function M.EndTabItem() C.imgui_EndTabItem() end
 function M.TabItemButton(string_label, ImGuiTabItemFlags_flags) 
   if ImGuiTabItemFlags_flags == nil then ImGuiTabItemFlags_flags = 0 end
-  if string_label == nil then log("E", "", "Parameter 'string_label' of function 'TabItemButton' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_label == nil then alim:error("Parameter 'string_label' of function 'TabItemButton' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_TabItemButton(string_label, ImGuiTabItemFlags_flags)
 end
 function M.SetTabItemClosed(string_tab_or_docked_window_label) 
-  if string_tab_or_docked_window_label == nil then log("E", "", "Parameter 'string_tab_or_docked_window_label' of function 'SetTabItemClosed' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_tab_or_docked_window_label == nil then alim:error("Parameter 'string_tab_or_docked_window_label' of function 'SetTabItemClosed' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_SetTabItemClosed(string_tab_or_docked_window_label)
 end
 function M.LogToTTY(int_auto_open_depth) 
@@ -1142,11 +1142,11 @@ end
 function M.LogFinish() C.imgui_LogFinish() end
 function M.LogButtons() C.imgui_LogButtons() end
 function M.LogText(string_fmt, ...) 
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'LogText' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'LogText' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_LogText(string_fmt, ...)
 end
 function M.LogTextV(string_fmt, va_list_args) 
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'LogTextV' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'LogTextV' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_LogTextV(string_fmt, va_list_args)
 end
 function M.BeginDragDropSource(ImGuiDragDropFlags_flags) 
@@ -1155,15 +1155,15 @@ function M.BeginDragDropSource(ImGuiDragDropFlags_flags)
 end
 function M.SetDragDropPayload(string_type, void_data, size_t_sz, ImGuiCond_cond) 
   if ImGuiCond_cond == nil then ImGuiCond_cond = 0 end
-  if string_type == nil then log("E", "", "Parameter 'string_type' of function 'SetDragDropPayload' cannot be nil, as the c type is 'const char *'") ; return end
-  if void_data == nil then log("E", "", "Parameter 'void_data' of function 'SetDragDropPayload' cannot be nil, as the c type is 'const void *'") ; return end
+  if string_type == nil then alim:error("Parameter 'string_type' of function 'SetDragDropPayload' cannot be nil, as the c type is 'const char *'") return end
+  if void_data == nil then alim:error("Parameter 'void_data' of function 'SetDragDropPayload' cannot be nil, as the c type is 'const void *'") return end
   return C.imgui_SetDragDropPayload(string_type, void_data, size_t_sz, ImGuiCond_cond)
 end
 function M.EndDragDropSource() C.imgui_EndDragDropSource() end
 function M.BeginDragDropTarget() return C.imgui_BeginDragDropTarget() end
 function M.AcceptDragDropPayload(string_type, ImGuiDragDropFlags_flags) 
   if ImGuiDragDropFlags_flags == nil then ImGuiDragDropFlags_flags = 0 end
-  if string_type == nil then log("E", "", "Parameter 'string_type' of function 'AcceptDragDropPayload' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_type == nil then alim:error("Parameter 'string_type' of function 'AcceptDragDropPayload' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_AcceptDragDropPayload(string_type, ImGuiDragDropFlags_flags)
 end
 function M.EndDragDropTarget() C.imgui_EndDragDropTarget() end
@@ -1214,7 +1214,7 @@ function M.GetFrameCount() return C.imgui_GetFrameCount() end
 function M.GetDrawListSharedData() return C.imgui_GetDrawListSharedData() end
 function M.GetStyleColorName(ImGuiCol_idx) return C.imgui_GetStyleColorName(ImGuiCol_idx) end
 function M.SetStateStorage(ImGuiStorage_storage) 
-  if ImGuiStorage_storage == nil then log("E", "", "Parameter 'ImGuiStorage_storage' of function 'SetStateStorage' cannot be nil, as the c type is 'ImGuiStorage *'") ; return end
+  if ImGuiStorage_storage == nil then alim:error("Parameter 'ImGuiStorage_storage' of function 'SetStateStorage' cannot be nil, as the c type is 'ImGuiStorage *'") return end
   C.imgui_SetStateStorage(ImGuiStorage_storage)
 end
 function M.GetStateStorage() return C.imgui_GetStateStorage() end
@@ -1227,7 +1227,7 @@ function M.CalcTextSize(string_text, string_text_end, bool_hide_text_after_doubl
   -- string_text_end is optional and can be nil
   if bool_hide_text_after_double_hash == nil then bool_hide_text_after_double_hash = false end
   if float_wrap_width == nil then float_wrap_width = -1 end
-  if string_text == nil then log("E", "", "Parameter 'string_text' of function 'CalcTextSize' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_text == nil then alim:error("Parameter 'string_text' of function 'CalcTextSize' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_CalcTextSize(string_text, string_text_end, bool_hide_text_after_double_hash, float_wrap_width)
 end
 function M.ColorConvertU32ToFloat4(_in) return C.imgui_ColorConvertU32ToFloat4(_in) end
@@ -1280,21 +1280,21 @@ function M.SetMouseCursor(ImGuiMouseCursor_cursor_type) C.imgui_SetMouseCursor(I
 function M.SetNextFrameWantCaptureMouse(bool_want_capture_mouse) C.imgui_SetNextFrameWantCaptureMouse(bool_want_capture_mouse) end
 function M.GetClipboardText() return C.imgui_GetClipboardText() end
 function M.SetClipboardText(string_text) 
-  if string_text == nil then log("E", "", "Parameter 'string_text' of function 'SetClipboardText' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_text == nil then alim:error("Parameter 'string_text' of function 'SetClipboardText' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_SetClipboardText(string_text)
 end
 function M.DebugTextEncoding(string_text) 
-  if string_text == nil then log("E", "", "Parameter 'string_text' of function 'DebugTextEncoding' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_text == nil then alim:error("Parameter 'string_text' of function 'DebugTextEncoding' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_DebugTextEncoding(string_text)
 end
 function M.DebugCheckVersionAndDataLayout(string_version_str, size_t_sz_io, size_t_sz_style, size_t_sz_vec2, size_t_sz_vec4, size_t_sz_drawvert, size_t_sz_drawidx) 
-  if string_version_str == nil then log("E", "", "Parameter 'string_version_str' of function 'DebugCheckVersionAndDataLayout' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_version_str == nil then alim:error("Parameter 'string_version_str' of function 'DebugCheckVersionAndDataLayout' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_DebugCheckVersionAndDataLayout(string_version_str, size_t_sz_io, size_t_sz_style, size_t_sz_vec2, size_t_sz_vec4, size_t_sz_drawvert, size_t_sz_drawidx)
 end
 function M.GetAllocatorFunctions(ImGuiMemAllocFunc_p_alloc_func, ImGuiMemFreeFunc_p_free_func, void_p_user_data) 
-  if ImGuiMemAllocFunc_p_alloc_func == nil then log("E", "", "Parameter 'ImGuiMemAllocFunc_p_alloc_func' of function 'GetAllocatorFunctions' cannot be nil, as the c type is 'ImGuiMemAllocFunc *'") ; return end
-  if ImGuiMemFreeFunc_p_free_func == nil then log("E", "", "Parameter 'ImGuiMemFreeFunc_p_free_func' of function 'GetAllocatorFunctions' cannot be nil, as the c type is 'ImGuiMemFreeFunc *'") ; return end
-  if void_p_user_data == nil then log("E", "", "Parameter 'void_p_user_data' of function 'GetAllocatorFunctions' cannot be nil, as the c type is 'void **'") ; return end
+  if ImGuiMemAllocFunc_p_alloc_func == nil then alim:error("Parameter 'ImGuiMemAllocFunc_p_alloc_func' of function 'GetAllocatorFunctions' cannot be nil, as the c type is 'ImGuiMemAllocFunc *'") return end
+  if ImGuiMemFreeFunc_p_free_func == nil then alim:error("Parameter 'ImGuiMemFreeFunc_p_free_func' of function 'GetAllocatorFunctions' cannot be nil, as the c type is 'ImGuiMemFreeFunc *'") return end
+  if void_p_user_data == nil then alim:error("Parameter 'void_p_user_data' of function 'GetAllocatorFunctions' cannot be nil, as the c type is 'void **'") return end
   C.imgui_GetAllocatorFunctions(ImGuiMemAllocFunc_p_alloc_func, ImGuiMemFreeFunc_p_free_func, void_p_user_data)
 end
 --=== enum ImGuiWindowFlags_ ===
@@ -1952,7 +1952,7 @@ function M.ImGuiIO_AddFocusEvent(ImGuiIO_ctx, bool_focused) C.imgui_ImGuiIO_AddF
 function M.ImGuiIO_AddInputCharacter(ImGuiIO_ctx, int_c) C.imgui_ImGuiIO_AddInputCharacter(ImGuiIO_ctx, int_c) end
 function M.ImGuiIO_AddInputCharacterUTF16(ImGuiIO_ctx, ImWchar16_c) C.imgui_ImGuiIO_AddInputCharacterUTF16(ImGuiIO_ctx, ImWchar16_c) end
 function M.ImGuiIO_AddInputCharactersUTF8(ImGuiIO_ctx, string_str) 
-  if string_str == nil then log("E", "", "Parameter 'string_str' of function 'AddInputCharactersUTF8' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_str == nil then alim:error("Parameter 'string_str' of function 'AddInputCharactersUTF8' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_ImGuiIO_AddInputCharactersUTF8(ImGuiIO_ctx, string_str)
 end
 function M.ImGuiIO_SetKeyEventNativeData(ImGuiIO_ctx, ImGuiKey_key, int_native_keycode, int_native_scancode, int_native_legacy_index) 
@@ -1971,7 +1971,7 @@ function M.ImGuiInputTextCallbackDataPtr() return ffi.new("ImGuiInputTextCallbac
 function M.ImGuiInputTextCallbackData_DeleteChars(ImGuiInputTextCallbackData_ctx, int_pos, int_bytes_count) C.imgui_ImGuiInputTextCallbackData_DeleteChars(ImGuiInputTextCallbackData_ctx, int_pos, int_bytes_count) end
 function M.ImGuiInputTextCallbackData_InsertChars(ImGuiInputTextCallbackData_ctx, int_pos, string_text, string_text_end) 
   -- string_text_end is optional and can be nil
-  if string_text == nil then log("E", "", "Parameter 'string_text' of function 'InsertChars' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_text == nil then alim:error("Parameter 'string_text' of function 'InsertChars' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_ImGuiInputTextCallbackData_InsertChars(ImGuiInputTextCallbackData_ctx, int_pos, string_text, string_text_end)
 end
 function M.ImGuiInputTextCallbackData_SelectAll(ImGuiInputTextCallbackData_ctx) C.imgui_ImGuiInputTextCallbackData_SelectAll(ImGuiInputTextCallbackData_ctx) end
@@ -1985,7 +1985,7 @@ function M.ImGuiPayload() return ffi.new("ImGuiPayload") end
 function M.ImGuiPayloadPtr() return ffi.new("ImGuiPayload[1]") end
 function M.ImGuiPayload_Clear(ImGuiPayload_ctx) C.imgui_ImGuiPayload_Clear(ImGuiPayload_ctx) end
 function M.ImGuiPayload_IsDataType(ImGuiPayload_ctx, string_type) 
-  if string_type == nil then log("E", "", "Parameter 'string_type' of function 'IsDataType' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_type == nil then alim:error("Parameter 'string_type' of function 'IsDataType' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_ImGuiPayload_IsDataType(ImGuiPayload_ctx, string_type)
 end
 function M.ImGuiPayload_IsPreview(ImGuiPayload_ctx) return C.imgui_ImGuiPayload_IsPreview(ImGuiPayload_ctx) end
@@ -2007,7 +2007,7 @@ function M.ImGuiTextFilter_Draw(ImGuiTextFilter_ctx, string_label, float_width)
 end
 function M.ImGuiTextFilter_PassFilter(ImGuiTextFilter_ctx, string_text, string_text_end) 
   -- string_text_end is optional and can be nil
-  if string_text == nil then log("E", "", "Parameter 'string_text' of function 'PassFilter' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_text == nil then alim:error("Parameter 'string_text' of function 'PassFilter' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_ImGuiTextFilter_PassFilter(ImGuiTextFilter_ctx, string_text, string_text_end)
 end
 function M.ImGuiTextFilter_Build(ImGuiTextFilter_ctx) C.imgui_ImGuiTextFilter_Build(ImGuiTextFilter_ctx) end
@@ -2026,11 +2026,11 @@ function M.ImGuiTextBuffer_reserve(ImGuiTextBuffer_ctx, int_capacity) C.imgui_Im
 function M.ImGuiTextBuffer_c_str(ImGuiTextBuffer_ctx) return C.imgui_ImGuiTextBuffer_c_str(ImGuiTextBuffer_ctx) end
 function M.ImGuiTextBuffer_append(ImGuiTextBuffer_ctx, string_str, string_str_end) 
   -- string_str_end is optional and can be nil
-  if string_str == nil then log("E", "", "Parameter 'string_str' of function 'append' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_str == nil then alim:error("Parameter 'string_str' of function 'append' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_ImGuiTextBuffer_append(ImGuiTextBuffer_ctx, string_str, string_str_end)
 end
 function M.ImGuiTextBuffer_appendfv(ImGuiTextBuffer_ctx, string_fmt, va_list_args) 
-  if string_fmt == nil then log("E", "", "Parameter 'string_fmt' of function 'appendfv' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_fmt == nil then alim:error("Parameter 'string_fmt' of function 'appendfv' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_ImGuiTextBuffer_appendfv(ImGuiTextBuffer_ctx, string_fmt, va_list_args)
 end
 --===
@@ -2053,7 +2053,7 @@ end
 function M.ImGuiStorage_SetFloat(ImGuiStorage_ctx, ImGuiID_key, float_val) C.imgui_ImGuiStorage_SetFloat(ImGuiStorage_ctx, ImGuiID_key, float_val) end
 function M.ImGuiStorage_GetVoidPtr(ImGuiStorage_ctx, ImGuiID_key) return C.imgui_ImGuiStorage_GetVoidPtr(ImGuiStorage_ctx, ImGuiID_key) end
 function M.ImGuiStorage_SetVoidPtr(ImGuiStorage_ctx, ImGuiID_key, void_val) 
-  if void_val == nil then log("E", "", "Parameter 'void_val' of function 'SetVoidPtr' cannot be nil, as the c type is 'void *'") ; return end
+  if void_val == nil then alim:error("Parameter 'void_val' of function 'SetVoidPtr' cannot be nil, as the c type is 'void *'") return end
   C.imgui_ImGuiStorage_SetVoidPtr(ImGuiStorage_ctx, ImGuiID_key, void_val)
 end
 function M.ImGuiStorage_GetIntRef(ImGuiStorage_ctx, ImGuiID_key, int_default_val) 
@@ -2144,15 +2144,15 @@ function M.ImDrawListSplitterPtr() return ffi.new("ImDrawListSplitter[1]") end
 function M.ImDrawListSplitter_Clear(ImDrawListSplitter_ctx) C.imgui_ImDrawListSplitter_Clear(ImDrawListSplitter_ctx) end
 function M.ImDrawListSplitter_ClearFreeMemory(ImDrawListSplitter_ctx) C.imgui_ImDrawListSplitter_ClearFreeMemory(ImDrawListSplitter_ctx) end
 function M.ImDrawListSplitter_Split(ImDrawListSplitter_ctx, ImDrawList_draw_list, int_count) 
-  if ImDrawList_draw_list == nil then log("E", "", "Parameter 'ImDrawList_draw_list' of function 'Split' cannot be nil, as the c type is 'ImDrawList *'") ; return end
+  if ImDrawList_draw_list == nil then alim:error("Parameter 'ImDrawList_draw_list' of function 'Split' cannot be nil, as the c type is 'ImDrawList *'") return end
   C.imgui_ImDrawListSplitter_Split(ImDrawListSplitter_ctx, ImDrawList_draw_list, int_count)
 end
 function M.ImDrawListSplitter_Merge(ImDrawListSplitter_ctx, ImDrawList_draw_list) 
-  if ImDrawList_draw_list == nil then log("E", "", "Parameter 'ImDrawList_draw_list' of function 'Merge' cannot be nil, as the c type is 'ImDrawList *'") ; return end
+  if ImDrawList_draw_list == nil then alim:error("Parameter 'ImDrawList_draw_list' of function 'Merge' cannot be nil, as the c type is 'ImDrawList *'") return end
   C.imgui_ImDrawListSplitter_Merge(ImDrawListSplitter_ctx, ImDrawList_draw_list)
 end
 function M.ImDrawListSplitter_SetCurrentChannel(ImDrawListSplitter_ctx, ImDrawList_draw_list, int_channel_idx) 
-  if ImDrawList_draw_list == nil then log("E", "", "Parameter 'ImDrawList_draw_list' of function 'SetCurrentChannel' cannot be nil, as the c type is 'ImDrawList *'") ; return end
+  if ImDrawList_draw_list == nil then alim:error("Parameter 'ImDrawList_draw_list' of function 'SetCurrentChannel' cannot be nil, as the c type is 'ImDrawList *'") return end
   C.imgui_ImDrawListSplitter_SetCurrentChannel(ImDrawListSplitter_ctx, ImDrawList_draw_list, int_channel_idx)
 end
 --===
@@ -2232,23 +2232,23 @@ end
 function M.ImDrawList_AddNgonFilled(ImDrawList_ctx, ImVec2_center, float_radius, ImU32_col, int_num_segments) C.imgui_ImDrawList_AddNgonFilled(ImDrawList_ctx, ImVec2_center, float_radius, ImU32_col, int_num_segments) end
 function M.ImDrawList_AddText1(ImDrawList_ctx, ImVec2_pos, ImU32_col, string_text_begin, string_text_end) 
   -- string_text_end is optional and can be nil
-  if string_text_begin == nil then log("E", "", "Parameter 'string_text_begin' of function 'AddText1' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_text_begin == nil then alim:error("Parameter 'string_text_begin' of function 'AddText1' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_ImDrawList_AddText1(ImDrawList_ctx, ImVec2_pos, ImU32_col, string_text_begin, string_text_end)
 end
 function M.ImDrawList_AddText2(ImDrawList_ctx, ImFont_font, float_font_size, ImVec2_pos, ImU32_col, string_text_begin, string_text_end, float_wrap_width, ImVec4_cpu_fine_clip_rect) 
   -- string_text_end is optional and can be nil
   if float_wrap_width == nil then float_wrap_width = 0 end
   -- ImVec4_cpu_fine_clip_rect is optional and can be nil
-  if ImFont_font == nil then log("E", "", "Parameter 'ImFont_font' of function 'AddText2' cannot be nil, as the c type is 'const ImFont *'") ; return end
-  if string_text_begin == nil then log("E", "", "Parameter 'string_text_begin' of function 'AddText2' cannot be nil, as the c type is 'const char *'") ; return end
+  if ImFont_font == nil then alim:error("Parameter 'ImFont_font' of function 'AddText2' cannot be nil, as the c type is 'const ImFont *'") return end
+  if string_text_begin == nil then alim:error("Parameter 'string_text_begin' of function 'AddText2' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_ImDrawList_AddText2(ImDrawList_ctx, ImFont_font, float_font_size, ImVec2_pos, ImU32_col, string_text_begin, string_text_end, float_wrap_width, ImVec4_cpu_fine_clip_rect)
 end
 function M.ImDrawList_AddPolyline(ImDrawList_ctx, ImVec2_points, int_num_points, ImU32_col, ImDrawFlags_flags, float_thickness) 
-  if ImVec2_points == nil then log("E", "", "Parameter 'ImVec2_points' of function 'AddPolyline' cannot be nil, as the c type is 'const ImVec2 *'") ; return end
+  if ImVec2_points == nil then alim:error("Parameter 'ImVec2_points' of function 'AddPolyline' cannot be nil, as the c type is 'const ImVec2 *'") return end
   C.imgui_ImDrawList_AddPolyline(ImDrawList_ctx, ImVec2_points, int_num_points, ImU32_col, ImDrawFlags_flags, float_thickness)
 end
 function M.ImDrawList_AddConvexPolyFilled(ImDrawList_ctx, ImVec2_points, int_num_points, ImU32_col) 
-  if ImVec2_points == nil then log("E", "", "Parameter 'ImVec2_points' of function 'AddConvexPolyFilled' cannot be nil, as the c type is 'const ImVec2 *'") ; return end
+  if ImVec2_points == nil then alim:error("Parameter 'ImVec2_points' of function 'AddConvexPolyFilled' cannot be nil, as the c type is 'const ImVec2 *'") return end
   C.imgui_ImDrawList_AddConvexPolyFilled(ImDrawList_ctx, ImVec2_points, int_num_points, ImU32_col)
 end
 function M.ImDrawList_AddBezierCubic(ImDrawList_ctx, ImVec2_p1, ImVec2_p2, ImVec2_p3, ImVec2_p4, ImU32_col, float_thickness, int_num_segments) 
@@ -2305,7 +2305,7 @@ function M.ImDrawList_PathRect(ImDrawList_ctx, ImVec2_rect_min, ImVec2_rect_max,
   C.imgui_ImDrawList_PathRect(ImDrawList_ctx, ImVec2_rect_min, ImVec2_rect_max, float_rounding, ImDrawFlags_flags)
 end
 function M.ImDrawList_AddCallback(ImDrawList_ctx, ImDrawCallback_callback, void_callback_data) 
-  if void_callback_data == nil then log("E", "", "Parameter 'void_callback_data' of function 'AddCallback' cannot be nil, as the c type is 'void *'") ; return end
+  if void_callback_data == nil then alim:error("Parameter 'void_callback_data' of function 'AddCallback' cannot be nil, as the c type is 'void *'") return end
   C.imgui_ImDrawList_AddCallback(ImDrawList_ctx, ImDrawCallback_callback, void_callback_data)
 end
 function M.ImDrawList_AddDrawCmd(ImDrawList_ctx) C.imgui_ImDrawList_AddDrawCmd(ImDrawList_ctx) end
@@ -2337,7 +2337,7 @@ function M.ImDrawData() return ffi.new("ImDrawData") end
 function M.ImDrawDataPtr() return ffi.new("ImDrawData[1]") end
 function M.ImDrawData_Clear(ImDrawData_ctx) C.imgui_ImDrawData_Clear(ImDrawData_ctx) end
 function M.ImDrawData_AddDrawList(ImDrawData_ctx, ImDrawList_draw_list) 
-  if ImDrawList_draw_list == nil then log("E", "", "Parameter 'ImDrawList_draw_list' of function 'AddDrawList' cannot be nil, as the c type is 'ImDrawList *'") ; return end
+  if ImDrawList_draw_list == nil then alim:error("Parameter 'ImDrawList_draw_list' of function 'AddDrawList' cannot be nil, as the c type is 'ImDrawList *'") return end
   C.imgui_ImDrawData_AddDrawList(ImDrawData_ctx, ImDrawList_draw_list)
 end
 function M.ImDrawData_DeIndexAllBuffers(ImDrawData_ctx) C.imgui_ImDrawData_DeIndexAllBuffers(ImDrawData_ctx) end
@@ -2358,11 +2358,11 @@ function M.ImFontGlyphRangesBuilder_SetBit(ImFontGlyphRangesBuilder_ctx, size_t_
 function M.ImFontGlyphRangesBuilder_AddChar(ImFontGlyphRangesBuilder_ctx, ImWchar_c) C.imgui_ImFontGlyphRangesBuilder_AddChar(ImFontGlyphRangesBuilder_ctx, ImWchar_c) end
 function M.ImFontGlyphRangesBuilder_AddText(ImFontGlyphRangesBuilder_ctx, string_text, string_text_end) 
   -- string_text_end is optional and can be nil
-  if string_text == nil then log("E", "", "Parameter 'string_text' of function 'AddText' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_text == nil then alim:error("Parameter 'string_text' of function 'AddText' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_ImFontGlyphRangesBuilder_AddText(ImFontGlyphRangesBuilder_ctx, string_text, string_text_end)
 end
 function M.ImFontGlyphRangesBuilder_AddRanges(ImFontGlyphRangesBuilder_ctx, ImWchar_ranges) 
-  if ImWchar_ranges == nil then log("E", "", "Parameter 'ImWchar_ranges' of function 'AddRanges' cannot be nil, as the c type is 'const ImWchar *'") ; return end
+  if ImWchar_ranges == nil then alim:error("Parameter 'ImWchar_ranges' of function 'AddRanges' cannot be nil, as the c type is 'const ImWchar *'") return end
   C.imgui_ImFontGlyphRangesBuilder_AddRanges(ImFontGlyphRangesBuilder_ctx, ImWchar_ranges)
 end
 --===
@@ -2381,7 +2381,7 @@ M.ImFontAtlasFlags_NoBakedLines = C.ImFontAtlasFlags_NoBakedLines
 function M.ImFontAtlas() return ffi.new("ImFontAtlas") end
 function M.ImFontAtlasPtr() return ffi.new("ImFontAtlas[1]") end
 function M.ImFontAtlas_AddFont(ImFontAtlas_ctx, ImFontConfig_font_cfg) 
-  if ImFontConfig_font_cfg == nil then log("E", "", "Parameter 'ImFontConfig_font_cfg' of function 'AddFont' cannot be nil, as the c type is 'const ImFontConfig *'") ; return end
+  if ImFontConfig_font_cfg == nil then alim:error("Parameter 'ImFontConfig_font_cfg' of function 'AddFont' cannot be nil, as the c type is 'const ImFontConfig *'") return end
   return C.imgui_ImFontAtlas_AddFont(ImFontAtlas_ctx, ImFontConfig_font_cfg)
 end
 function M.ImFontAtlas_AddFontDefault(ImFontAtlas_ctx, ImFontConfig_font_cfg) 
@@ -2391,25 +2391,25 @@ end
 function M.ImFontAtlas_AddFontFromFileTTF(ImFontAtlas_ctx, string_filename, float_size_pixels, ImFontConfig_font_cfg, ImWchar_glyph_ranges) 
   -- ImFontConfig_font_cfg is optional and can be nil
   -- ImWchar_glyph_ranges is optional and can be nil
-  if string_filename == nil then log("E", "", "Parameter 'string_filename' of function 'AddFontFromFileTTF' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_filename == nil then alim:error("Parameter 'string_filename' of function 'AddFontFromFileTTF' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_ImFontAtlas_AddFontFromFileTTF(ImFontAtlas_ctx, string_filename, float_size_pixels, ImFontConfig_font_cfg, ImWchar_glyph_ranges)
 end
 function M.ImFontAtlas_AddFontFromMemoryTTF(ImFontAtlas_ctx, void_font_data, int_font_size, float_size_pixels, ImFontConfig_font_cfg, ImWchar_glyph_ranges) 
   -- ImFontConfig_font_cfg is optional and can be nil
   -- ImWchar_glyph_ranges is optional and can be nil
-  if void_font_data == nil then log("E", "", "Parameter 'void_font_data' of function 'AddFontFromMemoryTTF' cannot be nil, as the c type is 'void *'") ; return end
+  if void_font_data == nil then alim:error("Parameter 'void_font_data' of function 'AddFontFromMemoryTTF' cannot be nil, as the c type is 'void *'") return end
   return C.imgui_ImFontAtlas_AddFontFromMemoryTTF(ImFontAtlas_ctx, void_font_data, int_font_size, float_size_pixels, ImFontConfig_font_cfg, ImWchar_glyph_ranges)
 end
 function M.ImFontAtlas_AddFontFromMemoryCompressedTTF(ImFontAtlas_ctx, void_compressed_font_data, int_compressed_font_size, float_size_pixels, ImFontConfig_font_cfg, ImWchar_glyph_ranges) 
   -- ImFontConfig_font_cfg is optional and can be nil
   -- ImWchar_glyph_ranges is optional and can be nil
-  if void_compressed_font_data == nil then log("E", "", "Parameter 'void_compressed_font_data' of function 'AddFontFromMemoryCompressedTTF' cannot be nil, as the c type is 'const void *'") ; return end
+  if void_compressed_font_data == nil then alim:error("Parameter 'void_compressed_font_data' of function 'AddFontFromMemoryCompressedTTF' cannot be nil, as the c type is 'const void *'") return end
   return C.imgui_ImFontAtlas_AddFontFromMemoryCompressedTTF(ImFontAtlas_ctx, void_compressed_font_data, int_compressed_font_size, float_size_pixels, ImFontConfig_font_cfg, ImWchar_glyph_ranges)
 end
 function M.ImFontAtlas_AddFontFromMemoryCompressedBase85TTF(ImFontAtlas_ctx, string_compressed_font_data_base85, float_size_pixels, ImFontConfig_font_cfg, ImWchar_glyph_ranges) 
   -- ImFontConfig_font_cfg is optional and can be nil
   -- ImWchar_glyph_ranges is optional and can be nil
-  if string_compressed_font_data_base85 == nil then log("E", "", "Parameter 'string_compressed_font_data_base85' of function 'AddFontFromMemoryCompressedBase85TTF' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_compressed_font_data_base85 == nil then alim:error("Parameter 'string_compressed_font_data_base85' of function 'AddFontFromMemoryCompressedBase85TTF' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_ImFontAtlas_AddFontFromMemoryCompressedBase85TTF(ImFontAtlas_ctx, string_compressed_font_data_base85, float_size_pixels, ImFontConfig_font_cfg, ImWchar_glyph_ranges)
 end
 function M.ImFontAtlas_ClearInputData(ImFontAtlas_ctx) C.imgui_ImFontAtlas_ClearInputData(ImFontAtlas_ctx) end
@@ -2419,16 +2419,16 @@ function M.ImFontAtlas_Clear(ImFontAtlas_ctx) C.imgui_ImFontAtlas_Clear(ImFontAt
 function M.ImFontAtlas_Build(ImFontAtlas_ctx) return C.imgui_ImFontAtlas_Build(ImFontAtlas_ctx) end
 function M.ImFontAtlas_GetTexDataAsAlpha8(ImFontAtlas_ctx, string_out_pixels, int_out_width, int_out_height, int_out_bytes_per_pixel) 
   -- int_out_bytes_per_pixel is optional and can be nil
-  if string_out_pixels == nil then log("E", "", "Parameter 'string_out_pixels' of function 'GetTexDataAsAlpha8' cannot be nil, as the c type is 'unsigned char **'") ; return end
-  if int_out_width == nil then log("E", "", "Parameter 'int_out_width' of function 'GetTexDataAsAlpha8' cannot be nil, as the c type is 'int *'") ; return end
-  if int_out_height == nil then log("E", "", "Parameter 'int_out_height' of function 'GetTexDataAsAlpha8' cannot be nil, as the c type is 'int *'") ; return end
+  if string_out_pixels == nil then alim:error("Parameter 'string_out_pixels' of function 'GetTexDataAsAlpha8' cannot be nil, as the c type is 'unsigned char **'") return end
+  if int_out_width == nil then alim:error("Parameter 'int_out_width' of function 'GetTexDataAsAlpha8' cannot be nil, as the c type is 'int *'") return end
+  if int_out_height == nil then alim:error("Parameter 'int_out_height' of function 'GetTexDataAsAlpha8' cannot be nil, as the c type is 'int *'") return end
   C.imgui_ImFontAtlas_GetTexDataAsAlpha8(ImFontAtlas_ctx, string_out_pixels, int_out_width, int_out_height, int_out_bytes_per_pixel)
 end
 function M.ImFontAtlas_GetTexDataAsRGBA32(ImFontAtlas_ctx, string_out_pixels, int_out_width, int_out_height, int_out_bytes_per_pixel) 
   -- int_out_bytes_per_pixel is optional and can be nil
-  if string_out_pixels == nil then log("E", "", "Parameter 'string_out_pixels' of function 'GetTexDataAsRGBA32' cannot be nil, as the c type is 'unsigned char **'") ; return end
-  if int_out_width == nil then log("E", "", "Parameter 'int_out_width' of function 'GetTexDataAsRGBA32' cannot be nil, as the c type is 'int *'") ; return end
-  if int_out_height == nil then log("E", "", "Parameter 'int_out_height' of function 'GetTexDataAsRGBA32' cannot be nil, as the c type is 'int *'") ; return end
+  if string_out_pixels == nil then alim:error("Parameter 'string_out_pixels' of function 'GetTexDataAsRGBA32' cannot be nil, as the c type is 'unsigned char **'") return end
+  if int_out_width == nil then alim:error("Parameter 'int_out_width' of function 'GetTexDataAsRGBA32' cannot be nil, as the c type is 'int *'") return end
+  if int_out_height == nil then alim:error("Parameter 'int_out_height' of function 'GetTexDataAsRGBA32' cannot be nil, as the c type is 'int *'") return end
   C.imgui_ImFontAtlas_GetTexDataAsRGBA32(ImFontAtlas_ctx, string_out_pixels, int_out_width, int_out_height, int_out_bytes_per_pixel)
 end
 function M.ImFontAtlas_IsBuilt(ImFontAtlas_ctx) return C.imgui_ImFontAtlas_IsBuilt(ImFontAtlas_ctx) end
@@ -2445,19 +2445,19 @@ function M.ImFontAtlas_GetGlyphRangesVietnamese(ImFontAtlas_ctx) return C.imgui_
 function M.ImFontAtlas_AddCustomRectRegular(ImFontAtlas_ctx, int_width, int_height) return C.imgui_ImFontAtlas_AddCustomRectRegular(ImFontAtlas_ctx, int_width, int_height) end
 function M.ImFontAtlas_AddCustomRectFontGlyph(ImFontAtlas_ctx, ImFont_font, ImWchar_id, int_width, int_height, float_advance_x, ImVec2_offset) 
   if ImVec2_offset == nil then ImVec2_offset = M.ImVec2(0,0) end
-  if ImFont_font == nil then log("E", "", "Parameter 'ImFont_font' of function 'AddCustomRectFontGlyph' cannot be nil, as the c type is 'ImFont *'") ; return end
+  if ImFont_font == nil then alim:error("Parameter 'ImFont_font' of function 'AddCustomRectFontGlyph' cannot be nil, as the c type is 'ImFont *'") return end
   return C.imgui_ImFontAtlas_AddCustomRectFontGlyph(ImFontAtlas_ctx, ImFont_font, ImWchar_id, int_width, int_height, float_advance_x, ImVec2_offset)
 end
 function M.ImFontAtlas_GetCustomRectByIndex(ImFontAtlas_ctx, int_index) return C.imgui_ImFontAtlas_GetCustomRectByIndex(ImFontAtlas_ctx, int_index) end
 function M.ImFontAtlas_CalcCustomRectUV(ImFontAtlas_ctx, ImFontAtlasCustomRect_rect, ImVec2_out_uv_min, ImVec2_out_uv_max) 
-  if ImFontAtlasCustomRect_rect == nil then log("E", "", "Parameter 'ImFontAtlasCustomRect_rect' of function 'CalcCustomRectUV' cannot be nil, as the c type is 'const ImFontAtlasCustomRect *'") ; return end
-  if ImVec2_out_uv_min == nil then log("E", "", "Parameter 'ImVec2_out_uv_min' of function 'CalcCustomRectUV' cannot be nil, as the c type is 'ImVec2 *'") ; return end
-  if ImVec2_out_uv_max == nil then log("E", "", "Parameter 'ImVec2_out_uv_max' of function 'CalcCustomRectUV' cannot be nil, as the c type is 'ImVec2 *'") ; return end
+  if ImFontAtlasCustomRect_rect == nil then alim:error("Parameter 'ImFontAtlasCustomRect_rect' of function 'CalcCustomRectUV' cannot be nil, as the c type is 'const ImFontAtlasCustomRect *'") return end
+  if ImVec2_out_uv_min == nil then alim:error("Parameter 'ImVec2_out_uv_min' of function 'CalcCustomRectUV' cannot be nil, as the c type is 'ImVec2 *'") return end
+  if ImVec2_out_uv_max == nil then alim:error("Parameter 'ImVec2_out_uv_max' of function 'CalcCustomRectUV' cannot be nil, as the c type is 'ImVec2 *'") return end
   C.imgui_ImFontAtlas_CalcCustomRectUV(ImFontAtlas_ctx, ImFontAtlasCustomRect_rect, ImVec2_out_uv_min, ImVec2_out_uv_max)
 end
 function M.ImFontAtlas_GetMouseCursorTexData(ImFontAtlas_ctx, ImGuiMouseCursor_cursor, ImVec2_out_offset, ImVec2_out_size, ImVec2Ptr_out_uv_border, ImVec2Ptr_out_uv_fill) 
-  if ImVec2_out_offset == nil then log("E", "", "Parameter 'ImVec2_out_offset' of function 'GetMouseCursorTexData' cannot be nil, as the c type is 'ImVec2 *'") ; return end
-  if ImVec2_out_size == nil then log("E", "", "Parameter 'ImVec2_out_size' of function 'GetMouseCursorTexData' cannot be nil, as the c type is 'ImVec2 *'") ; return end
+  if ImVec2_out_offset == nil then alim:error("Parameter 'ImVec2_out_offset' of function 'GetMouseCursorTexData' cannot be nil, as the c type is 'ImVec2 *'") return end
+  if ImVec2_out_size == nil then alim:error("Parameter 'ImVec2_out_size' of function 'GetMouseCursorTexData' cannot be nil, as the c type is 'ImVec2 *'") return end
   return C.imgui_ImFontAtlas_GetMouseCursorTexData(ImFontAtlas_ctx, ImGuiMouseCursor_cursor, ImVec2_out_offset, ImVec2_out_size, ImVec2Ptr_out_uv_border, ImVec2Ptr_out_uv_fill)
 end
 --===
@@ -2472,31 +2472,31 @@ function M.ImFont_GetDebugName(ImFont_ctx) return C.imgui_ImFont_GetDebugName(Im
 function M.ImFont_CalcTextSizeA(ImFont_ctx, float_size, float_max_width, float_wrap_width, string_text_begin, string_text_end, string_remaining) 
   -- string_text_end is optional and can be nil
   -- string_remaining is optional and can be nil
-  if string_text_begin == nil then log("E", "", "Parameter 'string_text_begin' of function 'CalcTextSizeA' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_text_begin == nil then alim:error("Parameter 'string_text_begin' of function 'CalcTextSizeA' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_ImFont_CalcTextSizeA(ImFont_ctx, float_size, float_max_width, float_wrap_width, string_text_begin, string_text_end, string_remaining)
 end
 function M.ImFont_CalcWordWrapPositionA(ImFont_ctx, float_scale, string_text, string_text_end, float_wrap_width) 
-  if string_text == nil then log("E", "", "Parameter 'string_text' of function 'CalcWordWrapPositionA' cannot be nil, as the c type is 'const char *'") ; return end
-  if string_text_end == nil then log("E", "", "Parameter 'string_text_end' of function 'CalcWordWrapPositionA' cannot be nil, as the c type is 'const char *'") ; return end
+  if string_text == nil then alim:error("Parameter 'string_text' of function 'CalcWordWrapPositionA' cannot be nil, as the c type is 'const char *'") return end
+  if string_text_end == nil then alim:error("Parameter 'string_text_end' of function 'CalcWordWrapPositionA' cannot be nil, as the c type is 'const char *'") return end
   return C.imgui_ImFont_CalcWordWrapPositionA(ImFont_ctx, float_scale, string_text, string_text_end, float_wrap_width)
 end
 function M.ImFont_RenderChar(ImFont_ctx, ImDrawList_draw_list, float_size, ImVec2_pos, ImU32_col, ImWchar_c) 
-  if ImDrawList_draw_list == nil then log("E", "", "Parameter 'ImDrawList_draw_list' of function 'RenderChar' cannot be nil, as the c type is 'ImDrawList *'") ; return end
+  if ImDrawList_draw_list == nil then alim:error("Parameter 'ImDrawList_draw_list' of function 'RenderChar' cannot be nil, as the c type is 'ImDrawList *'") return end
   C.imgui_ImFont_RenderChar(ImFont_ctx, ImDrawList_draw_list, float_size, ImVec2_pos, ImU32_col, ImWchar_c)
 end
 function M.ImFont_RenderText(ImFont_ctx, ImDrawList_draw_list, float_size, ImVec2_pos, ImU32_col, ImVec4_clip_rect, string_text_begin, string_text_end, float_wrap_width, bool_cpu_fine_clip) 
   if float_wrap_width == nil then float_wrap_width = 0 end
   if bool_cpu_fine_clip == nil then bool_cpu_fine_clip = false end
-  if ImDrawList_draw_list == nil then log("E", "", "Parameter 'ImDrawList_draw_list' of function 'RenderText' cannot be nil, as the c type is 'ImDrawList *'") ; return end
-  if string_text_begin == nil then log("E", "", "Parameter 'string_text_begin' of function 'RenderText' cannot be nil, as the c type is 'const char *'") ; return end
-  if string_text_end == nil then log("E", "", "Parameter 'string_text_end' of function 'RenderText' cannot be nil, as the c type is 'const char *'") ; return end
+  if ImDrawList_draw_list == nil then alim:error("Parameter 'ImDrawList_draw_list' of function 'RenderText' cannot be nil, as the c type is 'ImDrawList *'") return end
+  if string_text_begin == nil then alim:error("Parameter 'string_text_begin' of function 'RenderText' cannot be nil, as the c type is 'const char *'") return end
+  if string_text_end == nil then alim:error("Parameter 'string_text_end' of function 'RenderText' cannot be nil, as the c type is 'const char *'") return end
   C.imgui_ImFont_RenderText(ImFont_ctx, ImDrawList_draw_list, float_size, ImVec2_pos, ImU32_col, ImVec4_clip_rect, string_text_begin, string_text_end, float_wrap_width, bool_cpu_fine_clip)
 end
 function M.ImFont_BuildLookupTable(ImFont_ctx) C.imgui_ImFont_BuildLookupTable(ImFont_ctx) end
 function M.ImFont_ClearOutputData(ImFont_ctx) C.imgui_ImFont_ClearOutputData(ImFont_ctx) end
 function M.ImFont_GrowIndex(ImFont_ctx, int_new_size) C.imgui_ImFont_GrowIndex(ImFont_ctx, int_new_size) end
 function M.ImFont_AddGlyph(ImFont_ctx, ImFontConfig_src_cfg, ImWchar_c, float_x0, float_y0, float_x1, float_y1, float_u0, float_v0, float_u1, float_v1, float_advance_x) 
-  if ImFontConfig_src_cfg == nil then log("E", "", "Parameter 'ImFontConfig_src_cfg' of function 'AddGlyph' cannot be nil, as the c type is 'const ImFontConfig *'") ; return end
+  if ImFontConfig_src_cfg == nil then alim:error("Parameter 'ImFontConfig_src_cfg' of function 'AddGlyph' cannot be nil, as the c type is 'const ImFontConfig *'") return end
   C.imgui_ImFont_AddGlyph(ImFont_ctx, ImFontConfig_src_cfg, ImWchar_c, float_x0, float_y0, float_x1, float_y1, float_u0, float_v0, float_u1, float_v1, float_advance_x)
 end
 function M.ImFont_AddRemapChar(ImFont_ctx, ImWchar_dst, ImWchar_src, bool_overwrite_dst) 
