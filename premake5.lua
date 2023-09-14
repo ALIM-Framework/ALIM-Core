@@ -42,17 +42,10 @@ project "ALIM-Core"
         "Submodules/imgui/backends/imgui_impl_dx11.cpp"
 	}
 
-    --if USE_DUMPER then
-    --    removefiles { "Code/Source/Main.cpp" }
-    --else
-        removefiles { "Code/Source/Dumper.cpp" }
-    --end
-	
     includedirs {
         VCPKG_ROOT .. "/installed/x86-windows-static/include", -- TODO: Remove and replace with each one, that way there's no issues in the future (like having lua and luajit installed)
         VCPKG_ROOT .. "/installed/x86-windows-static/include/luajit",
         "Submodules/Sol2/include",
-        "Submodules/Frozen/include",
 		"Submodules/imgui",
 		"Submodules/imgui/backends",
         "Code/Include"
@@ -61,7 +54,7 @@ project "ALIM-Core"
     filter "configurations:Debug"
         defines { "DEBUG", "_ITERATOR_DEBUG_LEVEL=2", "SPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_TRACE", "IMGUI_DISABLE_OBSOLETE_FUNCTIONS=1", "SOL_LUAJIT=1", "IMGUI_USER_CONFIG=\"ImGuiConfig.h\"" }
         libdirs { VCPKG_ROOT .. "/installed/x86-windows-static/debug/lib", "Submodules/cimgui/cmake_build/build32/Debug" }
-        links { "minhook.x32d", "spdlogd", "fmtd", "lua51", "imm32", "Onecore.lib" }
+        links { "minhook.x32d", "fmtd", "lua51", "imm32", "Onecore" }
 
         symbols "On"
         runtime "Debug"
