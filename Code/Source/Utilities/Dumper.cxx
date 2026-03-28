@@ -64,47 +64,6 @@ std::string EscapeString(const std::string& Input) {
     return Escaped;
 }
 
-// TODO: Make safe...
-// static std::string ReplaceSignature(const std::string& Line) {
-//     std::string Result = Line;
-//     std::size_t StartPos = Result.find("_SIG(");
-// 
-//     while (StartPos != std::string::npos) {
-//         std::size_t EndPos = Result.find(")", StartPos);
-// 
-//         if (EndPos != std::string::npos) {
-//             std::string SigCall = Result.substr(StartPos, EndPos - StartPos + 1);
-//             std::string Pattern, Mask = "";
-// 
-//             std::size_t CommaPos = SigCall.find(",");
-//             if (CommaPos != std::string::npos) {
-//                 Pattern = SigCall.substr(0, CommaPos);
-//                 Pattern = Pattern.substr(6, Pattern.size() - 7);
-// 
-//                 Mask = SigCall.substr(CommaPos + 1);
-//                 Mask = Mask.substr(2, Mask.size() - 4);
-// 
-//                 const std::string EscapedPattern = EscapeString(Pattern);
-//                 const Memory::Signature Sig = Memory::Signature(EscapedPattern.c_str(), Mask.c_str());
-//                 const uint32_t Offset = Memory::FindPattern(Sig);
-// 
-//                 if (!Offset) {
-//                     ALIM_CORE_ERROR("Failed getting:\nPattern: {}\nMask: {}", Pattern, Mask);
-//                     Result.replace(StartPos, EndPos - StartPos + 1, "0x0");
-//                 } else {
-//                     Result.replace(StartPos, EndPos - StartPos + 1, std::format("{:#x}", Offset));
-//                 }
-//             }
-// 
-//             StartPos = Result.find("_SIG(", StartPos + 1);
-//         } else {
-//             StartPos = Result.find("_SIG(", StartPos + 1);
-//         }
-//     }
-// 
-//     return Result;
-// }
-
 struct SignatureValue {
     std::string Name;
     std::string Pattern;
