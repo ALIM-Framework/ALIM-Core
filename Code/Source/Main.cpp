@@ -13,7 +13,6 @@ import Offsets;
 import Arguments;
 import AI;
 import Dumper;
-import SignatureParse; // Temporary?
 
 import Menu;
 
@@ -27,20 +26,6 @@ import <Windows.h>;
 
 // Functions
 //------------------------------------------------------------------------
-void WriteNodeToStream(std::stringstream& Stream, const SectionNode& Node) {
-    if (Node.Values.size() > 0) {
-        for (const auto& Value : Node.Values) {
-            Stream << "[" << Node.Name << "] " << Value.Name << ": " << Value.Sig.Token << " " << Value.Sig.Mask << '\n';
-        }
-    }
-
-    if (Node.Children.size() > 0) {
-        for (const auto& ChildNode : Node.Children) {
-            WriteNodeToStream(Stream, ChildNode);
-        }
-    }
-}
-
 using tSetCurrentRenderTarget = std::add_pointer_t<__int64 __fastcall(__int64* a1)>;
 static tSetCurrentRenderTarget oSetCurrentRenderTarget = nullptr;
 
