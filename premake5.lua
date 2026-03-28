@@ -38,38 +38,34 @@ project "ALIM-Core"
 
     -- TODO: Improve this for the Dumper
     files {
-		"Code/Source/**.cpp", "Code/Source/**.cxx", "Code/Source/**.ixx", "Code/Interfaces/**.ixx"
-	}
+        "Code/Source/**.cpp", "Code/Source/**.cxx", "Code/Source/**.ixx", "Code/Interfaces/**.ixx"
+    }
 
-	link_library("imgui")
+    link_library("imgui")
+    link_library("luajit")
+    link_library("sol")
+    link_library("spdlog")
+    link_library("minhook")
 
     includedirs {
-        VCPKG_ROOT .. "/installed/x86-windows-static/include", -- TODO: Remove and replace with each one, that way there's no issues in the future (like having lua and luajit installed)
-        VCPKG_ROOT .. "/installed/x86-windows-static/include/luajit",
-		VCPKG_ROOT .. "/installed/x86-windows-static/include/sol",
         "Code/Include"
     }
 
-	links { "volatileaccessu", "lua51" }
+    links { "volatileaccessu", "lua51" }
 
     filter "configurations:Debug"
-        defines { "DEBUG", "_ITERATOR_DEBUG_LEVEL=2", "SPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_TRACE", "IMGUI_DISABLE_OBSOLETE_FUNCTIONS=1", "SOL_LUAJIT=1" }
-        libdirs { VCPKG_ROOT .. "/installed/x86-windows-static/debug/lib" }
-        links { "minhook.x32d", "fmtd", "lua51", "imm32", "Onecore" }
+        defines { "DEBUG", "_ITERATOR_DEBUG_LEVEL=2", "SPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_TRACE" }
+        links { "fmtd", "imm32", "Onecore" }
 
         symbols "On"
         runtime "Debug"
 
     filter "configurations:Release"
-        defines { "NDEBUG", "IMGUI_DISABLE_OBSOLETE_FUNCTIONS=1", "SOL_LUAJIT=1" }
-        libdirs { "$(VCPKG_ROOT)/installed/x86-windows-static/lib" }
-        links { "minhook.x32", "spdlog", "fmt" }
+        defines { "NDEBUG" }
+        links { "spdlog", "fmt" }
 
         symbols "On"
         runtime "Release"
-
-
-
 
 require('vstudio')
 

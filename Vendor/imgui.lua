@@ -10,5 +10,8 @@ return {
     "./",
     "backends",
   },
+  defines = {
+    "IMGUI_DISABLE_OBSOLETE_FUNCTIONS=1"
+  },
   no_pch = true,
 }

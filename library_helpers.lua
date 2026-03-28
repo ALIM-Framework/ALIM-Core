@@ -23,8 +23,10 @@ VCPKG_INSTALLED = VCPKG_ROOT .. "/installed/"
 -- For vcpkg libraries, copy_files paths are relative to the vcpkg bin directory.
 
 -- Applies common fields from a library table (or config-override table).
--- If basedir is provided, it is prepended to files and includedirs entries.
-local function apply_lib_fields(lib, basedir)
+-- If basedir is provided, it is prepended to local file/include/lib entries.
+-- If vcpkg_include_root is provided, package include dirs are resolved under it.
+-- If vcpkg_lib_root is provided, package lib dirs are resolved under it.
+local function apply_lib_fields(lib, basedir, vcpkg_include_root, vcpkg_lib_root)
   if lib.files then
     if basedir then
       local resolved = {}
@@ -47,6 +49,16 @@ local function apply_lib_fields(lib, basedir)
         end
       end
       includedirs(resolved)
+    elseif vcpkg_include_root then
+      local resolved = {}
+      for _, f in ipairs(lib.includedirs) do
+        if f == "" then
+          table.insert(resolved, vcpkg_include_root)
+        else
+          table.insert(resolved, vcpkg_include_root .. "/" .. f)
+        end
+      end
+      includedirs(resolved)
     else
       includedirs(lib.includedirs)
     end
@@ -62,6 +74,16 @@ local function apply_lib_fields(lib, basedir)
       local resolved = {}
       for _, f in ipairs(lib.libdirs) do
         table.insert(resolved, basedir .. "/" .. f)
+      end
+      libdirs(resolved)
+    elseif vcpkg_lib_root then
+      local resolved = {}
+      for _, f in ipairs(lib.libdirs) do
+        if f == "" then
+          table.insert(resolved, vcpkg_lib_root)
+        else
+          table.insert(resolved, vcpkg_lib_root .. "/" .. f)
+        end
       end
       libdirs(resolved)
     else
@@ -118,6 +140,9 @@ function link_library(name)
 
   -- vcpkg: automatically add include and lib dirs
   local vcpkg_path = VCPKG_INSTALLED
+  local vcpkg_include_dir = nil
+  local vcpkg_lib_dir = nil
+  local vcpkg_debug_lib_dir = nil
   if lib.vcpkg then
     if not lib.triplet then
       error("Invalid triplet version for library: " .. name)
@@ -125,16 +150,20 @@ function link_library(name)
 
     vcpkg_path = vcpkg_path .. lib.triplet .. '/'
 
-    includedirs { vcpkg_path .. "/include" }
+    vcpkg_include_dir = vcpkg_path .. "/include"
+    vcpkg_lib_dir = vcpkg_path .. "/lib"
+    vcpkg_debug_lib_dir = vcpkg_path .. "/debug/lib"
+
+    includedirs { vcpkg_include_dir }
     filter "configurations:Debug"
-      libdirs { vcpkg_path .. "/debug/lib" }
+      libdirs { vcpkg_debug_lib_dir }
     filter "configurations:Release"
-      libdirs { vcpkg_path .. "/lib" }
+      libdirs { vcpkg_lib_dir }
     filter {}
   end
 
   -- Apply shared (non-config-specific) fields
-  apply_lib_fields(lib, basedir)
+  apply_lib_fields(lib, basedir, vcpkg_include_dir, vcpkg_lib_dir)
 
   -- Apply shared copy_files (resolve with basedir for local libs)
   local vcpkg_bin = vcpkg_path .. "/bin"
@@ -151,7 +180,7 @@ function link_library(name)
   -- Apply per-configuration overrides
   if lib.debug then
     filter "configurations:Debug"
-      apply_lib_fields(lib.debug, basedir)
+      apply_lib_fields(lib.debug, basedir, vcpkg_include_dir, vcpkg_debug_lib_dir)
       local debug_copy = lib.debug.copy_files
       if debug_copy and basedir and not lib.vcpkg then
         local resolved = {}
@@ -165,7 +194,7 @@ function link_library(name)
   end
   if lib.release then
     filter "configurations:Release"
-      apply_lib_fields(lib.release, basedir)
+      apply_lib_fields(lib.release, basedir, vcpkg_include_dir, vcpkg_lib_dir)
       local release_copy = lib.release.copy_files
       if release_copy and basedir and not lib.vcpkg then
         local resolved = {}
