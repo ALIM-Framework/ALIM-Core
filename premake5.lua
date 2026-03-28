@@ -1,3 +1,5 @@
+require("library_helpers")
+
 VCPKG_ROOT = os.getenv("VCPKG_ROOT")
 USE_DUMPER = false
 
@@ -36,22 +38,15 @@ project "ALIM-Core"
 
     -- TODO: Improve this for the Dumper
     files {
-		"Code/Source/**.cpp", "Code/Source/**.cxx", "Code/Source/**.ixx", "Code/Interfaces/**.ixx",
-        "Submodules/imgui/imgui.cpp",
-        "Submodules/imgui/imgui_draw.cpp",
-        "Submodules/imgui/imgui_demo.cpp",
-        "Submodules/imgui/imgui_widgets.cpp",
-        "Submodules/imgui/imgui_tables.cpp",
-        "Submodules/imgui/backends/imgui_impl_win32.cpp",
-        "Submodules/imgui/backends/imgui_impl_dx11.cpp"
+		"Code/Source/**.cpp", "Code/Source/**.cxx", "Code/Source/**.ixx", "Code/Interfaces/**.ixx"
 	}
+
+	link_library("imgui")
 
     includedirs {
         VCPKG_ROOT .. "/installed/x86-windows-static/include", -- TODO: Remove and replace with each one, that way there's no issues in the future (like having lua and luajit installed)
         VCPKG_ROOT .. "/installed/x86-windows-static/include/luajit",
 		VCPKG_ROOT .. "/installed/x86-windows-static/include/sol",
-		"Submodules/imgui",
-		"Submodules/imgui/backends",
         "Code/Include"
     }
 
