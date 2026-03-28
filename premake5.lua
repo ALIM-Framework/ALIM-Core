@@ -20,6 +20,10 @@ project "ALIM-Core"
     objdir "Build/Intermediate/%{cfg.buildcfg}"
     location "Solution"
 
+    enablemodules("On")
+    buildstlmodules("On")
+    scanformoduledependencies("On")
+
     filter "system:windows"
         buildoptions { "/utf-8" }
 
@@ -36,7 +40,6 @@ project "ALIM-Core"
 		Edit: The new version also seems to fix having to include ctime whenever I use spdlog
     --]]
 
-    -- TODO: Improve this for the Dumper
     files {
         "Code/Source/**.cpp", "Code/Source/**.cxx", "Code/Source/**.ixx", "Code/Interfaces/**.ixx"
     }
@@ -66,68 +69,3 @@ project "ALIM-Core"
 
         symbols "On"
         runtime "Release"
-
-require('vstudio')
-
-local p = premake
-local m = p.vstudio.vc2010
-
-m.elements.clCompile = function(cfg)
-	local calls = {
-        function(cfg) m.element("ScanSourceForModuleDependencies", nil, "true") end,
-        function(cfg) m.element("EnableModules", nil, "true") end,
-        function(cfg) m.element("BuildStlModules", nil, "true") end,
-
-		m.precompiledHeader,
-		m.warningLevel,
-		m.treatWarningAsError,
-		m.disableSpecificWarnings,
-		m.treatSpecificWarningsAsErrors,
-		m.basicRuntimeChecks,
-		m.clCompilePreprocessorDefinitions,
-		m.clCompileUndefinePreprocessorDefinitions,
-		m.clCompileAdditionalIncludeDirectories,
-		m.clCompileAdditionalUsingDirectories,
-		m.forceIncludes,
-		m.debugInformationFormat,
-		m.optimization,
-		m.functionLevelLinking,
-		m.intrinsicFunctions,
-		m.justMyCodeDebugging,
-		m.supportOpenMP,
-		m.minimalRebuild,
-		m.omitFramePointers,
-		m.stringPooling,
-		m.runtimeLibrary,
-		m.omitDefaultLib,
-		m.exceptionHandling,
-		m.runtimeTypeInfo,
-		m.bufferSecurityCheck,
-		m.treatWChar_tAsBuiltInType,
-		m.floatingPointModel,
-		m.floatingPointExceptions,
-		m.inlineFunctionExpansion,
-		m.enableEnhancedInstructionSet,
-		m.multiProcessorCompilation,
-		m.additionalCompileOptions,
-		m.compileAs,
-		m.callingConvention,
-		m.languageStandard,
-		m.languageStandardC,
-		m.conformanceMode,
-		m.structMemberAlignment,
-		m.useFullPaths,
-		m.removeUnreferencedCodeData,
-		m.compileAsWinRT,
-		m.externalWarningLevel,
-		m.externalAngleBrackets,
-		m.scanSourceForModuleDependencies,
-		m.useStandardPreprocessor,
-	}
-
-	if cfg.kind == p.STATICLIB then
-		table.insert(calls, m.programDatabaseFileName)
-	end
-
-	return calls
-end
