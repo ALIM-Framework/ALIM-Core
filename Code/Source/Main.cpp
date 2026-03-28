@@ -45,7 +45,8 @@ using tSetCurrentRenderTarget = std::add_pointer_t<__int64 __fastcall(__int64* a
 static tSetCurrentRenderTarget oSetCurrentRenderTarget = nullptr;
 
 __int64 __fastcall hSetCurrentRenderTarget(__int64* a1) {
-    ALIM_CORE_DEBUG("hSetCurrentRenderTarget Called!");
+    //ALIM_CORE_DEBUG("hSetCurrentRenderTarget Called!");
+    //return oSetCurrentRenderTarget(a1);
     return 0;
 }
 
@@ -71,6 +72,7 @@ DWORD WINAPI Entry(LPVOID Parameter) {
     ALIM::Cathode::Hook();
 
     ALIM::Memory::InstallHook(ALIM::Offsets::RENDER::SetCurrentRenderTarget, &hSetCurrentRenderTarget, reinterpret_cast<LPVOID*>(&oSetCurrentRenderTarget));
+    ALIM::Present::Hook(nullptr);
 
     constexpr LPCWSTR WindowTitle = L"Alien: Isolation";
     ALIM_CORE_DEBUG("Waiting for window");
@@ -81,7 +83,6 @@ DWORD WINAPI Entry(LPVOID Parameter) {
     }
     ALIM_CORE_DEBUG("Found window title!");
 
-    ALIM::Present::Hook(hWnd);
     ALIM::Window::Hook(hWnd);
 
     { // Initialize ImGui
