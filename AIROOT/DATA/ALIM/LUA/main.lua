@@ -41,5 +41,6 @@ function onKeyEvent(key, down)
     if key == 0x70 and down then
         showMenu = not showMenu
         alim:enableCursor(showMenu)
+        alim:showDebugMenu(showMenu)
     end
 end

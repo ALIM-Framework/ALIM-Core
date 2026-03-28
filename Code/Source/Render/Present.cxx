@@ -117,30 +117,30 @@ void WINAPI hOMSetRenderTargets(ID3D11DeviceContext* DeviceContext,
         return;
     }
 
-    static float timeOffset = 0.0f;
-    timeOffset += 0.008f; // Slowed down the effect
+    //static float timeOffset = 0.0f;
+    //timeOffset += 0.008f; // Slowed down the effect
 
-    UINT modifiedNumViews = min(NumViews, D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT);
-    ID3D11RenderTargetView* modifiedTargets[D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT] = { nullptr };
+    //UINT modifiedNumViews = min(NumViews, D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT);
+    //ID3D11RenderTargetView* modifiedTargets[D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT] = { nullptr };
 
-    // Copy targets with occasional gentle swap
-    for (UINT i = 0; i < modifiedNumViews; i++) {
-        if (!ppRenderTargetViews[i]) {
-            continue;
-        }
+    //// Copy targets with occasional gentle swap
+    //for (UINT i = 0; i < modifiedNumViews; i++) {
+    //    if (!ppRenderTargetViews[i]) {
+    //        continue;
+    //    }
 
-        modifiedTargets[i] = ppRenderTargetViews[i];
+    //    modifiedTargets[i] = ppRenderTargetViews[i];
 
-        // Only swap every 2 seconds and only the first two targets
-        if (i == 0 && timeOffset - (int)timeOffset > 0.75f &&
-            modifiedNumViews > 1 && ppRenderTargetViews[1]) {
-            modifiedTargets[0] = ppRenderTargetViews[1];
-            modifiedTargets[1] = ppRenderTargetViews[0];
-            i++; // Skip next
-        }
-    }
+    //    // Only swap every 2 seconds and only the first two targets
+    //    if (i == 0 && timeOffset - (int)timeOffset > 0.75f &&
+    //        modifiedNumViews > 1 && ppRenderTargetViews[1]) {
+    //        modifiedTargets[0] = ppRenderTargetViews[1];
+    //        modifiedTargets[1] = ppRenderTargetViews[0];
+    //        i++; // Skip next
+    //    }
+    //}
 
-    oOMSetRenderTargets(DeviceContext, modifiedNumViews, modifiedTargets, pDepthStencilView);
+    oOMSetRenderTargets(DeviceContext, NumViews, ppRenderTargetViews, pDepthStencilView);
 }
 
 using tSetRenderTargets = std::add_pointer_t<int __cdecl(int a1, unsigned __int16 a2, unsigned __int16* a3, unsigned int a4)>;
@@ -152,7 +152,7 @@ int __cdecl hSetRenderTargets(int a1, unsigned __int16 a2, unsigned __int16* a3,
 
     // Hooking this just makes the game black because there is no render target :D
     // I need to redirect this to mine
-    ALIM_CORE_DEBUG("SetRenderTargets Called! {}", a2);
+    //ALIM_CORE_DEBUG("SetRenderTargets Called! {}", a2);
 
     return oSetRenderTargets(a1, a2, a3, a4);
 }
@@ -161,7 +161,7 @@ using tDX11_GetNativeRenderTarget = std::add_pointer_t<int __cdecl(int a1, unsig
 static tDX11_GetNativeRenderTarget oDX11_GetNativeRenderTarget = nullptr;
 
 int __cdecl hDX11_GetNativeRenderTarget(int a1, unsigned __int16 a2) {
-    ALIM_CORE_DEBUG("DX11_GetNativeRenderTarget Called!");
+    //ALIM_CORE_DEBUG("DX11_GetNativeRenderTarget Called!");
     // Doesn't seem to do anything if I just return 0 and do nothing, hmm...
 
     // if (!Present::ShaderResourceView)

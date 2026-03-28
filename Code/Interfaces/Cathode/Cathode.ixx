@@ -12,6 +12,26 @@ export namespace ALIM::Cathode {
     // Structures
     //------------------------------------------------------------------------
     namespace Structs {
+        struct Entity {
+            void* vtable;
+            int ref_count;
+            BYTE gap8[4];
+            void* data; // Offset 12
+        };
+
+        struct EntityContainer {
+            BYTE gap0[8];
+            int count; // Offset 8
+            Entity** entities; // Offset 12
+        };
+
+        struct EntityManager {
+            BYTE gap0[40];
+            EntityContainer* temp_entities; // Offset 40
+            BYTE gap2C[24];
+            Entity* root_instance; // Offset 68
+        };
+
         struct LevelManager {
             DWORD dword0;
             BYTE gap4[4];

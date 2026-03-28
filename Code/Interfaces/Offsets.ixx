@@ -83,6 +83,7 @@ export namespace ALIM::Offsets {
 
         namespace Entity_Manager {
             constexpr uintptr_t Entity_Manager = 0x92E810;
+            constexpr uintptr_t Instance = 0x174EF40;
         }
     }
 

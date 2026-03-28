@@ -11,6 +11,7 @@ import Logger;
 import Present;
 import Window;
 import Offsets;
+import Menu;
 
 import <Windows.h>;
 import <string_view>;
@@ -186,6 +187,10 @@ namespace Lua {
             tTriggerSoundEvent TriggerSoundEvent = reinterpret_cast<tTriggerSoundEvent>(Offsets::UI::AUDIO_CALLBACK::TriggerSoundEvent);
             TriggerSoundEvent(Name, a2);
         }
+
+        void ShowDebugMenu(bool enabled) {
+            Menu::GetInstance().SetEnabled(enabled);
+        }
     
         void Trace(sol::variadic_args args) noexcept { Lua::Function::Log(spdlog::level::trace, args); }
         void Debug(sol::variadic_args args) noexcept { Lua::Function::Log(spdlog::level::debug, args); }
@@ -219,6 +224,7 @@ void LuaEngine::Initialize() noexcept {
         "alim",
         "enableCursor", &Lua::ALIM::EnableCursor,
         "triggerSoundEvent", &Lua::ALIM::TriggerSoundEvent,
+        "showDebugMenu", &Lua::ALIM::ShowDebugMenu,
 
         "trace", &Lua::ALIM::Trace,
         "debug", &Lua::ALIM::Debug,
