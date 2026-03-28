@@ -29,10 +29,33 @@ namespace Hooks {
 
         return Result;
     }
+
+    void* __fastcall hStringTable_Init(void* StringTable) {
+        ALIM_CORE_DEBUG("hStringTable_Init Called!");
+        void* Result = Functions::StringTable::Init(StringTable);
+        Globals::StringTable = Result;
+        ALIM_CORE_DEBUG("StringTable: 0x{:X}", reinterpret_cast<uintptr_t>(Result));
+        return Result;
+    }
+
+    void* __fastcall hEntityManager_Ctor(void* self) {
+        ALIM_CORE_DEBUG("hEntityManager_Ctor Called!");
+        void* Result = Functions::Entity_Manager::Ctor(self);
+        Globals::EntityManager = Result;
+        ALIM_CORE_DEBUG("EntityManager: 0x{:X}", reinterpret_cast<uintptr_t>(Result));
+        return Result;
+    }
 }
 
 void Cathode::Hook() {
+    Functions::StringTable::ShortGuid_ToString = reinterpret_cast<Type::tShortGuid_ToString>(Offsets::StringTable::ShortGuid_ToString);
+    Functions::StringTable::Offset_From_Hash = reinterpret_cast<Type::tOffset_From_Hash>(Offsets::StringTable::Offset_From_Hash);
+    Functions::LAYERMANAGER::Render = reinterpret_cast<Type::tLAYERMANAGER_Render>(Offsets::UI::LEVELMANAGER::Render);
+
     Memory::InstallHook(Offsets::STD_LEVEL::Open, &Hooks::hSTDLEVEL_OpenLevel, reinterpret_cast<LPVOID*>(&Functions::STDLEVEL::Open));
+    Memory::InstallHook(Offsets::StringTable::New, &Hooks::hStringTable_Init, reinterpret_cast<LPVOID*>(&Functions::StringTable::Init));
+    Memory::InstallHook(Offsets::CATHODE::Entity_Manager::Init, &Hooks::hEntityManager_Ctor, reinterpret_cast<LPVOID*>(&Functions::Entity_Manager::Ctor));
+
     //Memory::InstallHook(Offsets::STD_LEVEL::Restart, &Hooks::hSTDLEVEL_RestartLevel, reinterpret_cast<LPVOID*>(&Functions::STDLEVEL::Restart));
     // Memory::InstallHook(Offsets::UI::LEVELMANAGER::Render, &Hooks::hLAYERMANAGER_Render, reinterpret_cast<LPVOID*>(&Functions::LAYERMANAGER::Render));
 

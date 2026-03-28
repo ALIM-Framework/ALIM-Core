@@ -12,11 +12,18 @@ export namespace ALIM::Cathode {
     // Structures
     //------------------------------------------------------------------------
     namespace Structs {
+        struct EntityData {
+            void* vtable;
+            BYTE gap4[8];
+            DWORD instance_guid; // Offset 12
+            DWORD class_guid;    // Offset 16
+        };
+
         struct Entity {
             void* vtable;
             int ref_count;
             BYTE gap8[4];
-            void* data; // Offset 12
+            EntityData* data; // Offset 12
         };
 
         struct EntityContainer {
@@ -83,7 +90,13 @@ export namespace ALIM::Cathode {
         using tSTDLEVEL_GetOrMakeNew = std::add_pointer_t<int __fastcall(Structs::LevelManager* LM, const char* Name)>;
         using tSTDLEVEL_Restart = std::add_pointer_t<void __fastcall(Structs::LevelManager* LM)>;
 
+        using tStringTable_Init = std::add_pointer_t<void* __fastcall(void* StringTable)>;
+
         using tLAYERMANAGER_Render = std::add_pointer_t<int __fastcall(void* self, bool a2)>;
+        using tShortGuid_ToString = std::add_pointer_t<const char* __thiscall(void* StringTable, int Index)>;
+        using tOffset_From_Hash = std::add_pointer_t<int __thiscall(void* StringTable, DWORD* pHash)>;
+
+        using tEntityManager_Ctor = std::add_pointer_t<void* __thiscall(void* self)>;
     }
 
     namespace Functions {
@@ -96,11 +109,22 @@ export namespace ALIM::Cathode {
         namespace LAYERMANAGER {
             Type::tLAYERMANAGER_Render Render;
         }
+
+        namespace Entity_Manager {
+            Type::tEntityManager_Ctor Ctor;
+        }
+
+        namespace StringTable {
+            Type::tStringTable_Init Init;
+            Type::tShortGuid_ToString ShortGuid_ToString;
+            Type::tOffset_From_Hash Offset_From_Hash;
+        }
     }
 
-//    namespace Offsets::Globals {
-//        export constexpr uint64_t GAME = 0x018A0C88;
-//    }
+    namespace Globals {
+        export void* StringTable = 0;
+        export void* EntityManager = 0;
+    }
 
     // Functions
     //------------------------------------------------------------------------

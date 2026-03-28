@@ -29,7 +29,7 @@ void Menu::Render() {
     ALIM_CORE_DEBUG("Rendering Menu");
 
     if (ImGui::Begin("CATHODE Debug", &_Enabled)) {
-        auto EM = *(Cathode::Structs::EntityManager**)Offsets::CATHODE::Entity_Manager::Instance;
+        auto* EM = reinterpret_cast<Cathode::Structs::EntityManager*>(Cathode::Globals::EntityManager);
         if (EM) {
             ImGui::Text("EntityManager: %p", EM);
 
@@ -39,8 +39,27 @@ void Menu::Render() {
                     ImGui::Text("Count: %d", Container->count);
                     for (int i = 0; i < Container->count; ++i) {
                         auto Entity = Container->entities[i];
-                        if (Entity) {
-                            ImGui::BulletText("Entity [%d]: %p (Data: %p)", i, Entity, Entity->data);
+                        if (Entity && Entity->data && Cathode::Globals::StringTable) {
+                            int InstanceOffset = Cathode::Functions::StringTable::Offset_From_Hash(Cathode::Globals::StringTable, &Entity->data->instance_guid);
+                            int ClassOffset = Cathode::Functions::StringTable::Offset_From_Hash(Cathode::Globals::StringTable, &Entity->data->class_guid);
+
+                            const char* InstanceName = (InstanceOffset != -1) ? Cathode::Functions::StringTable::ShortGuid_ToString(Cathode::Globals::StringTable, InstanceOffset) : nullptr;
+                            const char* ClassName = (ClassOffset != -1) ? Cathode::Functions::StringTable::ShortGuid_ToString(Cathode::Globals::StringTable, ClassOffset) : nullptr;
+
+                            auto SafeString = [](const char* str, const char* default_val) -> const char* {
+                                if ((uintptr_t)str < 0x10000 || (uintptr_t)str > 0x7FFFFFFF) return default_val;
+                                __try {
+                                    if (str[0] == '\0') return default_val;
+                                    return str;
+                                } __except (EXCEPTION_EXECUTE_HANDLER) {
+                                    return default_val;
+                                }
+                            };
+
+                            ImGui::BulletText("Entity [%d]: %s (%s) [%p]", i, 
+                                SafeString(InstanceName, "Unnamed"), 
+                                SafeString(ClassName, "Unknown Class"),
+                                Entity);
                         }
                     }
                 } else {

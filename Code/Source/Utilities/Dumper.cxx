@@ -276,7 +276,16 @@ std::string NodeToNamespace(const Node& node, const std::string& parent_namespac
     for (const auto& pair : node.Values) {
         ALIM_CORE_DEBUG("Scanning {}: {}", pair.first, pair.second);
 
-        const uintptr_t Offset = Memory::FindPattern(pair.second);
+        uintptr_t Offset = 0x0;
+        if (pair.second.find("0x") != std::string::npos) {
+            try {
+                Offset = std::stoull(pair.second, nullptr, 16);
+            } catch (const std::exception& e) {
+                ALIM_CORE_ERROR("Failed parsing offset for {}: {}", pair.first, e.what());
+            }
+        } else {
+            Offset = Memory::FindPattern(pair.second);
+        }
         Stream << indent << "constexpr uintptr_t " << pair.first << " = 0x" << std::uppercase << std::hex << Offset << ";\n";
 
         if (!Offset)
