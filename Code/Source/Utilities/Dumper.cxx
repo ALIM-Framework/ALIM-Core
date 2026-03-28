@@ -16,10 +16,7 @@ import <thread>;
 import <sstream>;
 import <print>;
 import <filesystem>;
-import <iostream>;
-import <cctype>;
-import <expected>;
-import <unordered_map>;
+import <vector>;
 
 import <Windows.h>;
 
@@ -108,195 +105,126 @@ std::string EscapeString(const std::string& Input) {
 //     return Result;
 // }
 
-static inline void TrimLeft(std::string& s) {
-    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](char ch){
-        return !std::isspace(ch);
-    }));
-}
-
-// Trim from end (in place)
-static inline void TrimRight(std::string& s) {
-    s.erase(std::find_if(s.rbegin(), s.rend(), [](char ch){
-        return !std::isspace(ch);
-    }).base(), s.end());
-}
-
-// Trim from both ends (in place)
-static inline void Trim(std::string& s) {
-    TrimLeft(s);
-    TrimRight(s);
-}
-
-// static std::string ReplaceSignature(std::string& Line) {
-//     Line.erase(Line.begin(), std::find_if(Line.begin(), Line.end(), [](char c) {
-//         return !std::isspace(c);
-//     }));
-// 
-//     if (Line.size() <= 1)
-//         return Line;
-// 
-//     if (Line[0] == '/')
-//         return Line;
-// 
-//     std::string Result = Line;
-//     std::size_t StartPos = Result.find("_SIG2(");
-//     while (StartPos != std::string::npos) {
-//         std::size_t EndPos = Result.find(");", StartPos);
-//         if (EndPos != std::string::npos) {
-//             std::string SigCall = Result.substr(StartPos, EndPos - StartPos - 1);
-//             std::string Pattern = "";
-// 
-//             Pattern = SigCall.substr(7);
-//             bool Relative = Pattern[0] == 'E' && Pattern[1] == '8';
-//             
-//             uint32_t Offset = Memory::FindPattern(Pattern, Relative);
-//             if (!Offset) {
-//                 ALIM_CORE_ERROR("Failed getting: {}", Pattern);
-//                 Result.replace(StartPos, EndPos - StartPos + 1, "0x0");
-//             } else {
-//                 Result.replace(StartPos, EndPos - StartPos + 1, std::format("{:#x}", Offset));
-//             }
-// 
-//             StartPos = Result.find("_SIG2(", StartPos + 1);
-//         } else {
-//             StartPos = Result.find("_SIG2(", StartPos + 1);
-//         }
-//     }
-//     return Result;
-// }
+struct SignatureValue {
+    std::string Name;
+    std::string Pattern;
+};
 
 struct Node {
-    std::unordered_map<std::string, std::string> Values;
-    std::unordered_map<std::string, Node> Children;
+    std::string Name;
+    std::vector<SignatureValue> Values;
+    std::vector<Node> Children;
 };
 
-enum class ParseErrorCode : uint8_t {
-    MISSING_CLOSING_BRACKET,
-    INVALID_LINE_IN_SECTION,
-    UNCLOSED_SECTION
-};
-
-struct ParseError {
-    ParseErrorCode Code;
-    std::string    Message;
-};
-
-std::expected<Node, ParseError> ParseFile(const std::string& Filename) {
-    Node Root;
-    std::ifstream File(Filename);
-    std::string Line;
-    std::vector<std::string> SectionStack;
-    std::vector<Node*> NodeStack;
-    NodeStack.push_back(&Root);
-
-    int LineNumber = 0;
-    while (std::getline(File, Line)) {
-        LineNumber++;
-        Trim(Line);
-        // Ignore comments
-        if (Line[0] == '#') continue;
-
-        // Check for section
-        if (Line[0] == '[') {
-            size_t Start = 1;
-            size_t End = Line.find("::", Start);
-            Node* CurrentNode = NodeStack.back();
-            while (End != std::string::npos) {
-                std::string Section = Line.substr(Start, End - Start);
-                CurrentNode = &CurrentNode->Children[Section];
-                Start = End + 2;
-                End = Line.find("::", Start);
+static Node BuildSignatureTree() {
+    return {
+        "",
+        {},
+        {
+            {
+                "STD_LEVEL",
+                {
+                    { "Open", "55 8B EC 83 E4 F8 6A FF 68 ?? ?? ?? ?? 64 A1 00 00 00 00 50 64 89 25 00 00 00 00 81 EC 94" },
+                    { "Restart", "6A FF 68 ?? ?? ?? ?? 64 A1 ?? ?? ?? ?? 50 64 89 25 ?? ?? ?? ?? 83 EC 0C 53 8B 1D ?? ?? ?? ??" }
+                },
+                {}
+            },
+            {
+                "UI",
+                {},
+                {
+                    {
+                        "LEVELMANAGER",
+                        {
+                            { "GetLayer", "E8 ?? ?? ?? ?? F3 0F 10 90 ?? ?? ?? ??" },
+                            { "Render", "E8 ?? ?? ?? ?? B9 ?? ?? ?? ?? E8 ?? ?? ?? ?? F3 0F 10 05 ?? ?? ?? ??" }
+                        },
+                        {}
+                    },
+                    {
+                        "AUDIO_CALLBACK",
+                        {
+                            { "TriggerSoundEvent", "E8 ?? ?? ?? ?? 80 66 0C EF" }
+                        },
+                        {}
+                    }
+                }
+            },
+            {
+                "CATHODE",
+                {},
+                {
+                    {
+                        "TASKS",
+                        {
+                            { "Add", "8B 44 24 08 56 6A 00 6A" }
+                        },
+                        {}
+                    },
+                    {
+                        "Entity_Manager",
+                        {
+                            { "Init", "55 8B EC 6A FF 68 ?? ?? ?? ?? 64 A1 00 00 00 00 50 83 EC 08 53 56 A1 ?? ?? ?? ?? 33 C5 50 8D 45 F4 64 A3 00 00 00 00 8B F1 89 75 F0" }
+                        },
+                        {}
+                    }
+                }
+            },
+            {
+                "StringTable",
+                {
+                    { "New", "55 8B EC 6A ?? 68 ?? ?? ?? ?? 64 A1 ?? ?? ?? ?? 50 51 56 A1 ?? ?? ?? ?? 33 C5 50 8D 45 ?? 64 A3 ?? ?? ?? ?? 6A ?? E8" },
+                    { "Offset_From_Hash", "55 8B EC 83 EC ?? 8B 45 ?? ?? ?? 8B 41" },
+                    { "ShortGuid_ToString", "55 8B EC 8B 45 ?? 83 F8 ?? 75 ?? B8 ?? ?? ?? ?? 5D C2" }
+                },
+                {}
+            },
+            {
+                "RENDER",
+                {
+                    { "SetCurrentRenderTarget", "E8 ?? ?? ?? ?? 8B 35 ?? ?? ?? ?? 83 C4 04 3B F3" }
+                },
+                {
+                    {
+                        "GFX",
+                        {
+                            { "SetRenderTargets", "E8 ?? ?? ?? ?? 83 C4 10 8D 44 24 54" },
+                            { "DX11_GetNativeRenderTarget", "E8 ?? ?? ?? ?? 8B 54 24 24 8B D8" }
+                        },
+                        {}
+                    }
+                }
             }
-            End = Line.find(']', Start);
-            std::string Section = Line.substr(Start, End - Start);
-            CurrentNode = &CurrentNode->Children[Section];
-            SectionStack.push_back(Section);
-            NodeStack.push_back(CurrentNode);
-            continue;
         }
-
-        // Check for subsection
-        size_t Pos = Line.find('[');
-        if (Pos != std::string::npos) {
-            size_t End = Line.find(']', Pos);
-            std::string Section = Line.substr(Pos + 1, End - Pos - 1);
-            Node* CurrentNode = NodeStack.back();
-            CurrentNode = &CurrentNode->Children[Section];
-            SectionStack.push_back(Section);
-            NodeStack.push_back(CurrentNode);
-            continue;
-        }
-
-        // Check for end of section or subsection
-        if (Line[0] == '}') {
-            if (NodeStack.size() > 1) {
-                // std::cout << "Closing section: " << SectionStack.back() << "\n";
-                SectionStack.pop_back();
-                NodeStack.pop_back();
-            } else {
-                return std::unexpected<ParseError>({ ParseErrorCode::MISSING_CLOSING_BRACKET, std::to_string(LineNumber) });
-            }
-            continue;
-        }
-
-        // Check for key-value pair
-        Pos = Line.find(':');
-        if (Pos != std::string::npos) {
-            std::string Key = Line.substr(0, Pos);
-            std::string Value = Line.substr(Pos + 1);
-            Trim(Key);
-            Trim(Value);
-            NodeStack.back()->Values[Key] = Value;
-        } else if (!Line.empty()) {
-            return std::unexpected<ParseError>({ ParseErrorCode::INVALID_LINE_IN_SECTION, std::format("Line [{}]: Invalid line in section {}: {}", LineNumber, SectionStack.back(), Line) });
-        }
-    }
-
-    if (NodeStack.size() > 1) {
-        return std::unexpected<ParseError>({ ParseErrorCode::UNCLOSED_SECTION, std::format("Line [{}]: Not all sections were closed. Unclosed section: {}", LineNumber, SectionStack.back()) });
-    }
-
-    return Root;
+    };
 }
 
-void PrintNode(const Node& node, const std::string& indent = "") {
-    for (const auto& pair : node.Values) {
-        std::cout << indent << pair.first << ": " << pair.second << "\n";
-    }
-
-    for (const auto& pair : node.Children) {
-        std::cout << indent << "[" << pair.first << "]\n";
-        PrintNode(pair.second, indent + "  ");
-    }
-}
-
-std::string NodeToNamespace(const Node& node, const std::string& parent_namespace = "", const std::string& indent = "") {
+std::string NodeToNamespace(const Node& node, const std::string& indent = "") {
     std::stringstream Stream;
 
-    for (const auto& pair : node.Values) {
-        ALIM_CORE_DEBUG("Scanning {}: {}", pair.first, pair.second);
+    for (const SignatureValue& value : node.Values) {
+        ALIM_CORE_DEBUG("Scanning {}: {}", value.Name, value.Pattern);
 
         uintptr_t Offset = 0x0;
-        if (pair.second.find("0x") != std::string::npos) {
+        if (value.Pattern.find("0x") != std::string::npos) {
             try {
-                Offset = std::stoull(pair.second, nullptr, 16);
+                Offset = std::stoull(value.Pattern, nullptr, 16);
             } catch (const std::exception& e) {
-                ALIM_CORE_ERROR("Failed parsing offset for {}: {}", pair.first, e.what());
+                ALIM_CORE_ERROR("Failed parsing offset for {}: {}", value.Name, e.what());
             }
         } else {
-            Offset = Memory::FindPattern(pair.second);
+            Offset = Memory::FindPattern(value.Pattern);
         }
-        Stream << indent << "constexpr uintptr_t " << pair.first << " = 0x" << std::uppercase << std::hex << Offset << ";\n";
+        Stream << indent << "constexpr uintptr_t " << value.Name << " = 0x" << std::uppercase << std::hex << Offset << ";\n";
 
         if (!Offset)
-            ALIM_CORE_ERROR("Could not find offset for {}", pair.first);
+            ALIM_CORE_ERROR("Could not find offset for {}", value.Name);
     }
 
-    int childCount = node.Children.size();
-    for (const auto& pair : node.Children) {
-        std::string new_namespace = pair.first;
-        Stream << indent + "namespace " + new_namespace + " {\n";
-        Stream << NodeToNamespace(pair.second, new_namespace, indent + "    ");
+    int childCount = static_cast<int>(node.Children.size());
+    for (const Node& child : node.Children) {
+        Stream << indent + "namespace " + child.Name + " {\n";
+        Stream << NodeToNamespace(child, indent + "    ");
         Stream << indent + "}";
         if (--childCount > 0) {
             Stream << "\n\n";  // Add newline between namespaces
@@ -310,22 +238,9 @@ std::string NodeToNamespace(const Node& node, const std::string& parent_namespac
 // Dumper Functions
 //------------------------------------------------------------------------
 void Dumper::Dump() {
-    std::ifstream Signatures("DATA/ALIM/INTERNAL/SIGNATURES");
-    if (!Signatures.is_open()) {
-        MessageBoxW(nullptr, L"Unable to open \"DATA/ALIM/INTERNAL/SIGNATURES\"", L"ALIM-Core Dumper", MB_OK | MB_ICONERROR);
-    }
+    const Node Root = BuildSignatureTree();
+    const std::string ParsedToNamespace = NodeToNamespace(Root, "    ");
 
-    std::expected<Node, ParseError> ParseResult = ParseFile("DATA/ALIM/INTERNAL/SIGNATURES");
-    if (!ParseResult.has_value()) {
-        ParseError Error = ParseResult.error();
-        ALIM_CORE_ERROR("Failed parsing signatures: ({}) {}", static_cast<uint8_t>(Error.Code), Error.Message);
-        return;
-    }
-
-    Node Root = ParseResult.value();
-    std::string ParsedToNamespace = NodeToNamespace(Root, "", "    ");
-
-    std::string Line;
     std::stringstream OutBuffer;
     OutBuffer << "//------------------------------------------------------------------------\n"
               << "// Generated by " << __FILE__ "\n"
