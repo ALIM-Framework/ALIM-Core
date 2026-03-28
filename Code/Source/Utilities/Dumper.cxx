@@ -310,12 +310,12 @@ std::string NodeToNamespace(const Node& node, const std::string& parent_namespac
 // Dumper Functions
 //------------------------------------------------------------------------
 void Dumper::Dump() {
-    std::ifstream Signatures("DATA/ALIM/INTERNAL/SIGNATURES_NEW");
+    std::ifstream Signatures("DATA/ALIM/INTERNAL/SIGNATURES");
     if (!Signatures.is_open()) {
-        MessageBoxW(nullptr, L"Unable to open \"DATA/ALIM/INTERNAL/SIGNATURES_NEW\"", L"ALIM-Core Dumper", MB_OK | MB_ICONERROR);
+        MessageBoxW(nullptr, L"Unable to open \"DATA/ALIM/INTERNAL/SIGNATURES\"", L"ALIM-Core Dumper", MB_OK | MB_ICONERROR);
     }
 
-    std::expected<Node, ParseError> ParseResult = ParseFile("DATA/ALIM/INTERNAL/SIGNATURES_NEW");
+    std::expected<Node, ParseError> ParseResult = ParseFile("DATA/ALIM/INTERNAL/SIGNATURES");
     if (!ParseResult.has_value()) {
         ParseError Error = ParseResult.error();
         ALIM_CORE_ERROR("Failed parsing signatures: ({}) {}", static_cast<uint8_t>(Error.Code), Error.Message);
