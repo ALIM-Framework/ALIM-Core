@@ -183,7 +183,7 @@ namespace Lua {
         }
 
         void TriggerSoundEvent(const char* Name, int a2) {
-            tTriggerSoundEvent TriggerSoundEvent = reinterpret_cast<tTriggerSoundEvent>(Offsets::UI__AUDIO_CALLBACK__trigger_sound_event);
+            tTriggerSoundEvent TriggerSoundEvent = reinterpret_cast<tTriggerSoundEvent>(Offsets::UI::AUDIO_CALLBACK::TriggerSoundEvent);
             TriggerSoundEvent(Name, a2);
         }
     

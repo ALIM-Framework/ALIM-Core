@@ -21,11 +21,24 @@ namespace Hooks {
         ALIM_CORE_DEBUG("hSTDLEVEL_GetOrMakeNew Called with {}", Name);
         return Functions::STDLEVEL::GetOrMakeNew(LM, Name);
     }
+
+    int __fastcall hLAYERMANAGER_Render(void* self, bool a2) {
+        ALIM_CORE_DEBUG("hLayerManagerRender");
+        auto Result = Functions::LAYERMANAGER::Render(self, a2);
+        ALIM_CORE_DEBUG("Rendererd");
+
+        return Result;
+    }
 }
 
 void Cathode::Hook() {
-    Memory::InstallHook(Offsets::STD_LEVEL__OpenLevel, &Hooks::hSTDLEVEL_OpenLevel, reinterpret_cast<LPVOID*>(&Functions::STDLEVEL::Open));
-    Memory::InstallHook(Offsets::STD_LEVEL__Restart, &Hooks::hSTDLEVEL_RestartLevel, reinterpret_cast<LPVOID*>(&Functions::STDLEVEL::Restart));
+    Memory::InstallHook(Offsets::STD_LEVEL::Open, &Hooks::hSTDLEVEL_OpenLevel, reinterpret_cast<LPVOID*>(&Functions::STDLEVEL::Open));
+    //Memory::InstallHook(Offsets::STD_LEVEL::Restart, &Hooks::hSTDLEVEL_RestartLevel, reinterpret_cast<LPVOID*>(&Functions::STDLEVEL::Restart));
+    // Memory::InstallHook(Offsets::UI::LEVELMANAGER::Render, &Hooks::hLAYERMANAGER_Render, reinterpret_cast<LPVOID*>(&Functions::LAYERMANAGER::Render));
+
+    //auto EntityManager_Ctor = Memory::FindPattern(Memory::Signature("\x55\x8B\xEC\x6A\xFF\x68\xCC\xCC\xCC\xCC\x64\xA1\x00\x00\x00\x00\x50\x83\xEC\x08\x53\x56\xA1\xCC\xCC\xCC\xCC\x33\xC5\x50\x8D\x45\//xF4\x64\xA3\x00\x00\x00\x00\x8B\xF1\x89", "xxxxxx????xxxxxxxxxxxxx????xxxxxxxxxxxxxxx"));
+    //ALIM_CORE_DEBUG("EntityManager_Ctor: 0x{:X}", EntityManager_Ctor);
+    // It finds it just fine, just an issue with how I scan IDA patterns
 
     // GetOrMakeNew
     //------------------------------------------------------------------------

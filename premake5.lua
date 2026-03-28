@@ -10,12 +10,16 @@ workspace "ALIM-Core"
     cppdialect "C++latest"
     staticruntime "on"
     language "C++"
+	characterset "Unicode"
 
 project "ALIM-Core"
     kind "SharedLib"
     targetdir "Build/%{cfg.buildcfg}"
     objdir "Build/Intermediate/%{cfg.buildcfg}"
-	location "Solution"
+    location "Solution"
+
+    filter "system:windows"
+        buildoptions { "/utf-8" }
 
     buildoptions "/dxifcInlineFunctions-" --[[
         fixes the following:
@@ -45,15 +49,17 @@ project "ALIM-Core"
     includedirs {
         VCPKG_ROOT .. "/installed/x86-windows-static/include", -- TODO: Remove and replace with each one, that way there's no issues in the future (like having lua and luajit installed)
         VCPKG_ROOT .. "/installed/x86-windows-static/include/luajit",
-        "Submodules/Sol2/include",
+		VCPKG_ROOT .. "/installed/x86-windows-static/include/sol",
 		"Submodules/imgui",
 		"Submodules/imgui/backends",
         "Code/Include"
     }
 
+	links { "volatileaccessu", "lua51" }
+
     filter "configurations:Debug"
-        defines { "DEBUG", "_ITERATOR_DEBUG_LEVEL=2", "SPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_TRACE", "IMGUI_DISABLE_OBSOLETE_FUNCTIONS=1", "SOL_LUAJIT=1", "IMGUI_USER_CONFIG=\"ImGuiConfig.h\"" }
-        libdirs { VCPKG_ROOT .. "/installed/x86-windows-static/debug/lib", "Submodules/cimgui/cmake_build/build32/Debug" }
+        defines { "DEBUG", "_ITERATOR_DEBUG_LEVEL=2", "SPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_TRACE", "IMGUI_DISABLE_OBSOLETE_FUNCTIONS=1", "SOL_LUAJIT=1" }
+        libdirs { VCPKG_ROOT .. "/installed/x86-windows-static/debug/lib" }
         links { "minhook.x32d", "fmtd", "lua51", "imm32", "Onecore" }
 
         symbols "On"
@@ -62,7 +68,7 @@ project "ALIM-Core"
     filter "configurations:Release"
         defines { "NDEBUG", "IMGUI_DISABLE_OBSOLETE_FUNCTIONS=1", "SOL_LUAJIT=1" }
         libdirs { "$(VCPKG_ROOT)/installed/x86-windows-static/lib" }
-        links { "minhook.x32", "spdlog", "fmt", "lua51" }
+        links { "minhook.x32", "spdlog", "fmt" }
 
         symbols "On"
         runtime "Release"

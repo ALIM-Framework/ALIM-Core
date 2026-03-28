@@ -13,30 +13,55 @@ import Offsets;
 import Arguments;
 import Cathode;
 import Dumper;
+import SignatureParse; // Temporary?
 
 import Menu;
 
 import <chrono>;
 import <thread>;
 import <print>;
+import <sstream>;
 
 import <MinHook.h>;
 import <Windows.h>;
 
 // Functions
 //------------------------------------------------------------------------
+void WriteNodeToStream(std::stringstream& Stream, const SectionNode& Node) {
+    if (Node.Values.size() > 0) {
+        for (const auto& Value : Node.Values) {
+            Stream << "[" << Node.Name << "] " << Value.Name << ": " << Value.Sig.Token << " " << Value.Sig.Mask << '\n';
+        }
+    }
+
+    if (Node.Children.size() > 0) {
+        for (const auto& ChildNode : Node.Children) {
+            WriteNodeToStream(Stream, ChildNode);
+        }
+    }
+}
+
+using tSetCurrentRenderTarget = std::add_pointer_t<__int64 __fastcall(__int64* a1)>;
+static tSetCurrentRenderTarget oSetCurrentRenderTarget = nullptr;
+
+__int64 __fastcall hSetCurrentRenderTarget(__int64* a1) {
+    ALIM_CORE_DEBUG("hSetCurrentRenderTarget Called!");
+    return 0;
+}
+
 DWORD WINAPI Entry(LPVOID Parameter) {
     MH_Initialize();
 
-    ALIM::Arg::SetCommandLine(GetCommandLineA());
+    ALIM::Args::SetCommandLine(GetCommandLineA());
     ALIM::Console::Initialize();
     ALIM::Logger::Initialize();
 
     { // Check if we should dump offsets
-        bool ShouldDump = ALIM::Arg::GetCommandLineOption("dump");
+        bool ShouldDump = ALIM::Args::GetCommandLineOption("-dump");
         if (ShouldDump) {
-            ALIM::Dumper::Dump();
+            ALIM_CORE_INFO("Dumping Offsets");
 
+            ALIM::Dumper::Dump();
             MessageBoxW(nullptr, L"Successfully Dumped Offsets! Game will now close...", L"ALIM-Core Dumper", MB_OK | MB_ICONINFORMATION);
             ExitProcess(0);
         }
@@ -45,12 +70,16 @@ DWORD WINAPI Entry(LPVOID Parameter) {
     ALIM::Logger::Hook();
     ALIM::Cathode::Hook();
 
+    ALIM::Memory::InstallHook(ALIM::Offsets::RENDER::SetCurrentRenderTarget, &hSetCurrentRenderTarget, reinterpret_cast<LPVOID*>(&oSetCurrentRenderTarget));
+
     constexpr LPCWSTR WindowTitle = L"Alien: Isolation";
+    ALIM_CORE_DEBUG("Waiting for window");
     HWND hWnd = FindWindowW(nullptr, WindowTitle);
     while (!hWnd) {
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
         hWnd = FindWindowW(nullptr, WindowTitle);
     }
+    ALIM_CORE_DEBUG("Found window title!");
 
     ALIM::Present::Hook(hWnd);
     ALIM::Window::Hook(hWnd);

@@ -62,6 +62,8 @@ export namespace ALIM::Cathode {
         using tSTDLEVEL_OpenLevel = std::add_pointer_t<void __fastcall(Structs::LevelManager* LM)>;
         using tSTDLEVEL_GetOrMakeNew = std::add_pointer_t<int __fastcall(Structs::LevelManager* LM, const char* Name)>;
         using tSTDLEVEL_Restart = std::add_pointer_t<void __fastcall(Structs::LevelManager* LM)>;
+
+        using tLAYERMANAGER_Render = std::add_pointer_t<int __fastcall(void* self, bool a2)>;
     }
 
     namespace Functions {
@@ -69,6 +71,10 @@ export namespace ALIM::Cathode {
             Type::tSTDLEVEL_OpenLevel Open;
             Type::tSTDLEVEL_Restart Restart;
             Type::tSTDLEVEL_GetOrMakeNew GetOrMakeNew;
+        }
+
+        namespace LAYERMANAGER {
+            Type::tLAYERMANAGER_Render Render;
         }
     }
 

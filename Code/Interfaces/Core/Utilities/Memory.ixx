@@ -13,15 +13,13 @@ export namespace ALIM::Memory {
         explicit constexpr Signature(const char* cPattern, const char* cMask, bool bDirectReference = false) :
         Pattern(cPattern), Mask(cMask), DirectReference(bDirectReference) {}
 
-        explicit constexpr Signature(const std::string& cPattern, const std::string& cMask, bool bDirectReference = false) :
-        Pattern(cPattern.c_str()), Mask(cMask.c_str()), DirectReference(bDirectReference) {}
-
         const char* Pattern;
         const char* Mask;
         bool DirectReference;
     };
     
     struct HookResult {
+        HookResult() = default;
         explicit HookResult(MH_STATUS eError, uint32_t pAddress) : Error(eError), Address(pAddress) {}
 
         int Error;
@@ -32,6 +30,7 @@ export namespace ALIM::Memory {
     //------------------------------------------------------------------------
     [[nodiscard]] inline uint32_t ReadPointer(DWORD32 Address, UINT Offset);
     [[nodiscard]] inline uint32_t FindPattern(const Signature& Sig);
+    [[nodiscard]] inline uint32_t FindPattern(const std::string& IDAPattern);
 
     inline HookResult InstallHook(void* Address, LPVOID Detour, LPVOID* Original = nullptr, bool Enabled = true);
 

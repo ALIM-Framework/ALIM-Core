@@ -11,6 +11,10 @@
         {
             "name": "luajit",
             "platform": "(windows & x86 & static)"
+        },
+        {
+            "name": "sol2",
+            "platform": "(windows & x86 & static)"
         }
     ]
 }

@@ -1,4 +1,4 @@
-package.path = package.path .. "" .. "DATA/ALIM/LUA/?.lua"
+package.path = package.path .. ";./DATA/ALIM/LUA/?.lua"
 
 require("util")
 local overlay = require("overlay")

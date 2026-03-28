@@ -6,14 +6,30 @@ import <cstdint>;
 import Memory;
 
 export namespace ALIM::Offsets {
-    constexpr uintptr_t STD_LEVEL__OpenLevel = _SIG("\x55\x8B\xEC\x83\xE4\xF8\x6A\xFF\x68\xCC\xCC\xCC\xCC\x64\xA1\x00\x00\x00\x00\x50\x64\x89\x25\x00\x00\x00\x00\x81\xEC\x94", "xxxxxxxxx????xxxxxxxxxxxxxxxxx");
-    constexpr uintptr_t STD_LEVEL__Restart = _SIG("\x6A\xFF\x68\xCC\xCC\xCC\xCC\x64\xA1\x00\x00\x00\x00\x50\x64\x89\x25\x00\x00\x00\x00\x83\xEC\x0C\x53\x8B\x1D", "xxx????xxxxxxxxxxxxxxxxxxxx");
+    // constexpr uintptr_t STD_LEVEL__OpenLevel = _SIG("\x55\x8B\xEC\x83\xE4\xF8\x6A\xFF\x68\xCC\xCC\xCC\xCC\x64\xA1\x00\x00\x00\x00\x50\x64\x89\x25\x00\x00\x00\x00\x81\xEC\x94", "xxxxxxxxx????xxxxxxxxxxxxxxxxx");
+    // constexpr uintptr_t STD_LEVEL__Restart = _SIG("\x6A\xFF\x68\xCC\xCC\xCC\xCC\x64\xA1\x00\x00\x00\x00\x50\x64\x89\x25\x00\x00\x00\x00\x83\xEC\x0C\x53\x8B\x1D", "xxx????xxxxxxxxxxxxxxxxxxxx");
+    // 
+    // constexpr uintptr_t GameSave__LoadPreviousCheckpoint = _SIG("\xE8\x00\x00\x00\x00\xB0\x01\x5E\xC2\x08\x00\xE8\x00\x00\x00\x00", "x????xxxxxxx????");
+    // constexpr uintptr_t GameFlow__RestartCheckpoint = _SIG("\xE8\x00\x00\x00\x00\xEB\x1E\x80\xBE\x00\x00\x00\x00\x00", "x????xxxx?????");
+    // 
+    // constexpr uintptr_t UI__LAYERMANAGER__GetLayer = _SIG("\xE8\x00\x00\x00\x00\xF3\x0F\x10\x90\x00\x00\x00\x00", "x????xxxx????");
+    // constexpr uintptr_t UI__LAYERMANAGER__Render = _SIG("\xE8\x00\x00\x00\x00\xB9\x00\x00\x00\x00\xE8\x00\x00\x00\x00\xF3\x0F\x10\x05\x00\x00\x00\x00", "x????x????x????xxxx????");
+    // constexpr uintptr_t UI__display_ui_memory = _SIG("\x81\xEC\x00\x00\x00\x00\x8B\x0D\x00\x00\x00\x00\x8B\x01", "xx????xx????xx");
+    // 
+    // constexpr uintptr_t UI__AUDIO_CALLBACK__trigger_sound_event = _SIG("\x55\x8B\xEC\x83\xE4\xF0\x81\xEC\xDC\x00\x00\x00\x8B\x4D", "xxxxxxxxxxxxxx");
+    // 
+    // constexpr uintptr_t GAME_LEVEL_MANAGER__GetLevelOrMakeNew = _SIG("\x56\x57\x8B\x7C\x24\x0C\x57\x8B\xF1\xE8\xCC\xCC\xCC\xCC\x8B\xC8", "xxxxxxxxxx????xx");
+    // constexpr uintptr_t TASKSCHED_UNKNOWN = _SIG("\x74\x48\x8B\x5C\x24\x10", "xxxxxx");
 
-    constexpr uintptr_t GameSave__LoadPreviousCheckpoint = _SIG("\xE8\x00\x00\x00\x00\xB0\x01\x5E\xC2\x08\x00\xE8\x00\x00\x00\x00", "x????xxxxxxx????");
-    constexpr uintptr_t GameFlow__RestartCheckpoint = _SIG("\xE8\x00\x00\x00\x00\xEB\x1E\x80\xBE\x00\x00\x00\x00\x00", "x????xxxx?????");
+    constexpr uintptr_t STD_LEVEL__OpenLevel = _SIG2("55 8B EC 83 E4 F8 6A FF 68 ? ? ? ? 64 A1 00 00 00 00 50 64 89 25 00 00 00 00 81 EC 94");
+    constexpr uintptr_t STD_LEVEL__Restart = _SIG2("6A FF 68 ? ? ? ? 64 A1 ? ? ? ? 50 64 89 25 ? ? ? ? 83 EC 0C 53 8B 1D ? ? ? ?");
 
-    constexpr uintptr_t UI__LAYERMANAGER__GetLayer = _SIG("\xE8\x00\x00\x00\x00\xF3\x0F\x10\x90\x00\x00\x00\x00", "x????xxxx????");
-    constexpr uintptr_t UI__AUDIO_CALLBACK__trigger_sound_event = _SIG("\x55\x8B\xEC\x83\xE4\xF0\x81\xEC\xDC\x00\x00\x00\x8B\x4D", "xxxxxxxxxxxxxx");
+    constexpr uintptr_t GameSave__LoadPreviousCheckpoint = _SIG2("E8 ? ? ? ? B0 01 5E C2 08 00 E8 ? ? ? ?");
+    constexpr uintptr_t GameFlow__RestartCheckpoint = _SIG2("51 53 56 57 8B D9 E8 ? ? ? ? 8B C8");
 
-    constexpr uintptr_t GAME_LEVEL_MANAGER__GetLevelOrMakeNew = _SIG("\x56\x57\x8B\x7C\x24\x0C\x57\x8B\xF1\xE8\xCC\xCC\xCC\xCC\x8B\xC8", "xxxxxxxxxx????xx");
+    constexpr uintptr_t UI__LAYERMANAGER__GetLayer = _SIG2("E8 ? ? ? ? F3 0F 10 90 ? ? ? ?");
+    constexpr uintptr_t UI__LAYERMANAGER__Render = _SIG2("E8 ? ? ? ? B9 ? ? ? ? E8 ? ? ? ? F3 0F 10 05 ? ? ? ?");
+    constexpr uintptr_t UI__AUDIO_CALLBACK__trigger_sound_event = _SIG2("E8 ? ? ? ? 80 66 0C EF");
+
+    constexpr uintptr_t GAME_LEVEL_MANAGER__GetLevelOrMakeNew = _SIG2("E8 ? ? ? ? 50 A1 ? ? ? ? 8B 48 3C");
 }

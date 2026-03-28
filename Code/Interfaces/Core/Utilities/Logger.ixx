@@ -170,24 +170,23 @@ namespace ALIM::Logger {
         }
     }
 
+    constexpr std::string_view GetColorForType(ELoggerType Type) {
+        if (Type == ELoggerType::LT_CORE)
+            return "\033[1;33m"; // Orange
+        if (Type == ELoggerType::LT_AI)
+            return "\033[0;91m"; // Light Red
+        if (Type == ELoggerType::LT_LUA)
+            return "\033[0;94m"; // Light Blue
+        return "";
+    }
+
     export template<typename... Args>
     constexpr inline void Log(const ELogLevel Level,
                     const ELoggerType Type,
                     const std::string_view Format,
                     Args&&... Arguments)
     {
-        std::string_view TypeColour;
-        switch (Type) {
-            case ELoggerType::LT_CORE:
-                TypeColour = "\033[1;33m"; // Orange
-                break;
-            case ELoggerType::LT_AI:
-                TypeColour = "\033[0;91m"; // Light Red
-                break;
-            case ELoggerType::LT_LUA:
-                TypeColour = "\033[0;94m"; // Light Blue
-                break;
-        }
+        std::string_view TypeColour = GetColorForType(Type);
 
         const std::string Time = GetTimeFormatted();
         const std::string_view LogTypeString = LogTypeToString(Type);
@@ -214,8 +213,6 @@ namespace ALIM::Logger {
                 Type
             });
         }
-
-        //LuaEngine::GetInstance().AddLog(Time, LogTypeString, LogLevelString, FormattedString);
 
         WaitCondition.notify_one();
     }
@@ -255,10 +252,10 @@ namespace ALIM::Logger {
         //------------------------------------------------------------------------
         auto PrintfSig = Memory::Signature("\xE8\x00\x00\x00\x00\x8B\x93\x00\x00\x00\x00\x83\xC4\x0C", "x????xx????xxx", true);
 
-        auto Result = Memory::InstallHook(PrintfSig, &hPrintf);
-        if (Result.Error != MH_OK) {
-            Logger::Log(ELogLevel::Error, ELoggerType::LT_CORE, "Failed hooking \"printf\": {}", MH_StatusToString(static_cast<MH_STATUS>(Result.Error)));
-        }
+//         auto Result = Memory::InstallHook(PrintfSig, &hPrintf);
+//         if (Result.Error != MH_OK) {
+//             Logger::Log(ELogLevel::Error, ELoggerType::LT_CORE, "Failed hooking \"printf\": {}", MH_StatusToString(static_cast<MH_STATUS>(Result.Error)));
+//         }
     }
 }
 
