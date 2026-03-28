@@ -1,5 +1,5 @@
 export module Dumper;
 
-export namespace ALIM::Dumper {
-    void Dump();
+namespace ALIM::Dumper {
+    export void Dump();
 }

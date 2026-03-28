@@ -3,8 +3,6 @@ module;
 
 module Dumper;
 
-// Imports
-//------------------------------------------------------------------------
 import Console;
 import Logger;
 import Memory;
@@ -21,48 +19,6 @@ import <vector>;
 import <Windows.h>;
 
 using namespace ALIM;
-
-// Helper Functions
-//------------------------------------------------------------------------
-static std::string GetTimeFormatted() {
-    using namespace std::chrono;
-    const system_clock::time_point Now = system_clock::now();
-    const std::time_t Time = system_clock::to_time_t(Now);
-
-    std::tm TimeInfo = {};
-    localtime_s(&TimeInfo, &Time);
-
-    char TimeString[20];
-    std::strftime(TimeString, sizeof(TimeString), "%d/%m/%Y %H:%M:%S", &TimeInfo);
-
-    return std::string(TimeString);
-}
-
-std::string EscapeString(const std::string& Input) {
-    std::string Escaped;
-    for (size_t i = 0; i < Input.length(); i++) {
-        if (Input[i] == '\\' && i + 1 < Input.length() && Input[i + 1] == 'x') {
-            if (i + 3 < Input.length()) {
-                // Extract the hex value (2 characters) and convert it to an integer
-                std::string hexValue = Input.substr(i + 2, 2);
-                char escapedChar = static_cast<char>(std::stoi(hexValue, 0, 16));
-
-                // Append the escaped charactre to the result string
-                Escaped += escapedChar;
-
-                // Skip
-                i += 3;
-            } else {
-                // If there are not enough characters for a valid escape sequence, just add the '\\x' as-is
-                Escaped += "\\x";
-            }
-        } else {
-            Escaped += Input[i];
-        }
-    }
-
-    return Escaped;
-}
 
 struct SignatureValue {
     std::string Name;
@@ -157,6 +113,50 @@ static Node BuildSignatureTree() {
         }
     };
 }
+
+namespace {
+
+static std::string GetTimeFormatted() {
+    using namespace std::chrono;
+    const system_clock::time_point Now = system_clock::now();
+    const std::time_t Time = system_clock::to_time_t(Now);
+
+    std::tm TimeInfo = {};
+    localtime_s(&TimeInfo, &Time);
+
+    char TimeString[20];
+    std::strftime(TimeString, sizeof(TimeString), "%d/%m/%Y %H:%M:%S", &TimeInfo);
+
+    return std::string(TimeString);
+}
+
+std::string EscapeString(const std::string& Input) {
+    std::string Escaped;
+    for (size_t i = 0; i < Input.length(); i++) {
+        if (Input[i] == '\\' && i + 1 < Input.length() && Input[i + 1] == 'x') {
+            if (i + 3 < Input.length()) {
+                // Extract the hex value (2 characters) and convert it to an integer
+                std::string hexValue = Input.substr(i + 2, 2);
+                char escapedChar = static_cast<char>(std::stoi(hexValue, 0, 16));
+
+                // Append the escaped charactre to the result string
+                Escaped += escapedChar;
+
+                // Skip
+                i += 3;
+            } else {
+                // If there are not enough characters for a valid escape sequence, just add the '\\x' as-is
+                Escaped += "\\x";
+            }
+        } else {
+            Escaped += Input[i];
+        }
+    }
+
+    return Escaped;
+}
+
+} // namespace
 
 std::string NodeToNamespace(const Node& node, const std::string& indent = "") {
     std::stringstream Stream;
