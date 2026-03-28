@@ -1,4 +1,4 @@
-export module Cathode;
+export module AI;
 import Logger;
 import Memory;
 
@@ -8,7 +8,7 @@ import <type_traits>;
 import <print>;
 import <string>;
 
-export namespace ALIM::Cathode {
+export namespace ALIM::AI {
     // Structures
     //------------------------------------------------------------------------
     namespace Structs {

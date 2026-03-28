@@ -11,7 +11,7 @@ import Memory;
 import LuaEngine;
 import Offsets;
 import Arguments;
-import Cathode;
+import AI;
 import Dumper;
 import SignatureParse; // Temporary?
 
@@ -69,7 +69,7 @@ DWORD WINAPI Entry(LPVOID Parameter) {
     }
 
     ALIM::Logger::Hook();
-    ALIM::Cathode::Hook();
+    ALIM::AI::Hook();
 
     ALIM::Memory::InstallHook(ALIM::Offsets::RENDER::SetCurrentRenderTarget, &hSetCurrentRenderTarget, reinterpret_cast<LPVOID*>(&oSetCurrentRenderTarget));
     ALIM::Present::Hook(nullptr);

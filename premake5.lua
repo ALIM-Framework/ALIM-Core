@@ -36,7 +36,7 @@ project "ALIM-Core"
 
     -- TODO: Improve this for the Dumper
     files {
-		"Code/Source/**.cpp", "Code/Source/**.cxx", "Code/Interfaces/**.ixx",
+		"Code/Source/**.cpp", "Code/Source/**.cxx", "Code/Source/**.ixx", "Code/Interfaces/**.ixx",
         "Submodules/imgui/imgui.cpp",
         "Submodules/imgui/imgui_draw.cpp",
         "Submodules/imgui/imgui_demo.cpp",

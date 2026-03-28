@@ -9,7 +9,7 @@ module;
 module Menu;
 import Present;
 import Logger;
-import Cathode;
+import AI;
 import Offsets;
 import <Windows.h>;
 import <d3d11.h>;
@@ -29,7 +29,7 @@ void Menu::Render() {
     ALIM_CORE_DEBUG("Rendering Menu");
 
     if (ImGui::Begin("CATHODE Debug", &_Enabled)) {
-        auto* EM = reinterpret_cast<Cathode::Structs::EntityManager*>(Cathode::Globals::EntityManager);
+        auto* EM = reinterpret_cast<AI::Structs::EntityManager*>(AI::Globals::EntityManager);
         if (EM) {
             ImGui::Text("EntityManager: %p", EM);
 
@@ -39,12 +39,12 @@ void Menu::Render() {
                     ImGui::Text("Count: %d", Container->count);
                     for (int i = 0; i < Container->count; ++i) {
                         auto Entity = Container->entities[i];
-                        if (Entity && Entity->data && Cathode::Globals::StringTable) {
-                            int InstanceOffset = Cathode::Functions::StringTable::Offset_From_Hash(Cathode::Globals::StringTable, &Entity->data->instance_guid);
-                            int ClassOffset = Cathode::Functions::StringTable::Offset_From_Hash(Cathode::Globals::StringTable, &Entity->data->class_guid);
+                        if (Entity && Entity->data && AI::Globals::StringTable) {
+                            int InstanceOffset = AI::Functions::StringTable::Offset_From_Hash(AI::Globals::StringTable, &Entity->data->instance_guid);
+                            int ClassOffset = AI::Functions::StringTable::Offset_From_Hash(AI::Globals::StringTable, &Entity->data->class_guid);
 
-                            const char* InstanceName = (InstanceOffset != -1) ? Cathode::Functions::StringTable::ShortGuid_ToString(Cathode::Globals::StringTable, InstanceOffset) : nullptr;
-                            const char* ClassName = (ClassOffset != -1) ? Cathode::Functions::StringTable::ShortGuid_ToString(Cathode::Globals::StringTable, ClassOffset) : nullptr;
+                            const char* InstanceName = (InstanceOffset != -1) ? AI::Functions::StringTable::ShortGuid_ToString(AI::Globals::StringTable, InstanceOffset) : nullptr;
+                            const char* ClassName = (ClassOffset != -1) ? AI::Functions::StringTable::ShortGuid_ToString(AI::Globals::StringTable, ClassOffset) : nullptr;
 
                             auto SafeString = [](const char* str, const char* default_val) -> const char* {
                                 if ((uintptr_t)str < 0x10000 || (uintptr_t)str > 0x7FFFFFFF) return default_val;

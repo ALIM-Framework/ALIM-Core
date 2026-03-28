@@ -1,10 +1,10 @@
-module Cathode;
+module AI;
 import Memory;
 import Offsets;
 import <unordered_map>;
 
 using namespace ALIM;
-using namespace ALIM::Cathode;
+using namespace ALIM::AI;
 
 namespace Hooks {
     void __fastcall hSTDLEVEL_OpenLevel(Structs::LevelManager* LM) {
@@ -47,7 +47,7 @@ namespace Hooks {
     }
 }
 
-void Cathode::Hook() {
+void AI::Hook() {
     Functions::StringTable::ShortGuid_ToString = reinterpret_cast<Type::tShortGuid_ToString>(Offsets::StringTable::ShortGuid_ToString);
     Functions::StringTable::Offset_From_Hash = reinterpret_cast<Type::tOffset_From_Hash>(Offsets::StringTable::Offset_From_Hash);
     Functions::LAYERMANAGER::Render = reinterpret_cast<Type::tLAYERMANAGER_Render>(Offsets::UI::LEVELMANAGER::Render);
