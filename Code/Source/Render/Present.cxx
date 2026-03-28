@@ -3,6 +3,9 @@ module;
 #include <imgui_impl_dx11.h>
 #include <imgui_internal.h>
 #include <imstb_textedit.h>
+import <print>;
+import <Windows.h>;
+import <d3d11.h>;
 
 module Present;
 
@@ -13,10 +16,6 @@ import Window;
 import Memory;
 import Menu;
 import Offsets;
-
-import <print>;
-import <Windows.h>;
-import <d3d11.h>;
 
 using namespace ALIM;
 

@@ -1,7 +1,8 @@
 module;
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
 #include <imgui.h>
 #include <imgui_impl_win32.h>
-
 module Window;
 
 import Present;
@@ -9,7 +10,6 @@ import Memory;
 import Logger;
 import AI;
 import LuaEngine;
-import <Windows.h>;
 import <type_traits>;
 
 using namespace ALIM;
