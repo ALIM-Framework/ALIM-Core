@@ -39,7 +39,6 @@ DWORD WINAPI Entry(LPVOID Parameter) {
     MH_Initialize();
 
     ALIM::Args::SetCommandLine(GetCommandLineA());
-    ALIM::Console::Initialize();
     ALIM::Logger::Initialize();
 
     { // Check if we should dump offsets
@@ -100,6 +99,8 @@ BOOL WINAPI DllMain(
     LPVOID Reserved)
 {
     if (Reason == DLL_PROCESS_ATTACH) {
+        ALIM::Console::Initialize();
+
         DisableThreadLibraryCalls(Module);
         CreateThread(nullptr, 0, Entry, Module, 0, nullptr);
     } else if (Reason == DLL_PROCESS_DETACH) {
