@@ -51,6 +51,18 @@ void AI::Hook() {
     Functions::StringTable::ShortGuid_ToString = reinterpret_cast<Type::tShortGuid_ToString>(Offsets::StringTable::ShortGuid_ToString);
     Functions::StringTable::Offset_From_Hash = reinterpret_cast<Type::tOffset_From_Hash>(Offsets::StringTable::Offset_From_Hash);
     Functions::LAYERMANAGER::Render = reinterpret_cast<Type::tLAYERMANAGER_Render>(Offsets::UI::LEVELMANAGER::Render);
+    Functions::Entity_Variable::GetTransformMatrix = reinterpret_cast<Type::tEntityVariable_GetTransformMatrix>(Offsets::CATHODE::Entity_Variable::GetTransformMatrix);
+    Functions::Entity_Variable::GetPositionVariableMatrix = reinterpret_cast<Type::tEntityVariable_GetPositionVariableMatrix>(Offsets::CATHODE::Entity_Variable::GetPositionVariableMatrix);
+    Functions::Temporary_Entity::SyncRuntimeStates = reinterpret_cast<Type::tTemporaryEntity_SyncRuntimeStates>(Offsets::CATHODE::Temporary_Entity::SyncRuntimeStates);
+    Functions::Handle::GetTransformMatrixOrDefault = reinterpret_cast<Type::tHandle_GetTransformMatrixOrDefault>(Offsets::CATHODE::Handle::GetTransformMatrixOrDefault);
+    Functions::Runtime_Object::ResolveRef = reinterpret_cast<Type::tRuntimeObject_ResolveRef>(Offsets::CATHODE::Runtime_Object::ResolveRef);
+    Functions::Runtime_Object::GetCharacter = reinterpret_cast<Type::tRuntimeObject_GetCharacter>(Offsets::CATHODE::Runtime_Object::GetCharacter);
+    Functions::Runtime_Object::GetLogicCharacter = reinterpret_cast<Type::tRuntimeObject_GetLogicCharacter>(Offsets::CATHODE::Runtime_Object::GetLogicCharacter);
+    Functions::Composite_Interface::GetActorCharacter = reinterpret_cast<Type::tCompositeInterface_GetActorCharacter>(Offsets::CATHODE::Composite_Interface::GetActorCharacter);
+    Functions::Composite_Interface::GetTacticalPositionMatrix = reinterpret_cast<Type::tCompositeInterface_GetTacticalPositionMatrix>(Offsets::CATHODE::Composite_Interface::GetTacticalPositionMatrix);
+    Functions::Entity_Object::GetHandlePair = reinterpret_cast<Type::tEntityObject_GetHandlePair>(Offsets::CATHODE::Entity_Object::GetHandlePair);
+    Functions::Character_Manager::Get = reinterpret_cast<Type::tCharacterManager_Get>(Offsets::CATHODE::Character_Manager::Get);
+    Functions::Character_Manager::FindByHandle = reinterpret_cast<Type::tCharacterManager_FindByHandle>(Offsets::CATHODE::Character_Manager::FindByHandle);
 
     Memory::InstallHook(Offsets::STD_LEVEL::Open, &Hooks::hSTDLEVEL_OpenLevel, reinterpret_cast<LPVOID*>(&Functions::STDLEVEL::Open));
     Memory::InstallHook(Offsets::StringTable::New, &Hooks::hStringTable_Init, reinterpret_cast<LPVOID*>(&Functions::StringTable::Init));
